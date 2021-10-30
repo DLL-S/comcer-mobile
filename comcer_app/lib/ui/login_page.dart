@@ -1,6 +1,6 @@
 import 'package:comcer_app/core/app_cores.dart';
 import 'package:comcer_app/core/app_imagens.dart';
-import 'package:comcer_app/ui/home_page.dart';
+import 'package:comcer_app/ui/base_page.dart';
 import 'package:comcer_app/util/Constantes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       onPressed: (){
                         Navigator.pushNamed(
-                            context, '/home');
+                            context, '/base');
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
