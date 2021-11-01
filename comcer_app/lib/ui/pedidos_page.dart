@@ -1,3 +1,4 @@
+import 'package:comcer_app/core/app_cores.dart';
 import 'package:flutter/material.dart';
 
 class PedidosPage extends StatefulWidget {
@@ -10,6 +11,6 @@ class PedidosPage extends StatefulWidget {
 class _PedidosPageState extends State<PedidosPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.blue,);
+    return Container(color: AppCores.lightRed,);
   }
 }

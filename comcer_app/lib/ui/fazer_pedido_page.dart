@@ -1,3 +1,4 @@
+import 'package:comcer_app/core/app_cores.dart';
 import 'package:flutter/material.dart';
 
 class FazerPedido extends StatefulWidget {
@@ -10,6 +11,6 @@ class FazerPedido extends StatefulWidget {
 class _FazerPedidoState extends State<FazerPedido> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.yellow,);
+    return Container(color: AppCores.lightRed);
   }
 }

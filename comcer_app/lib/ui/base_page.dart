@@ -5,8 +5,26 @@ import 'package:comcer_app/ui/pedidos_page.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class BasePage extends StatelessWidget {
+class BasePage extends StatefulWidget {
   BasePage({Key? key}) : super(key: key);
+
+  @override
+  State<BasePage> createState() => _BasePageState();
+}
+
+class _BasePageState extends State<BasePage> {
+
+  static const String home = 'Mesas';
+  static const String fazerPedido = 'Fazer um Pedido';
+  static const String pedidosEmAndamento = 'Pedidos em Andamento';
+  String _title = "Mesas";
+
+
+  void atualizarTitulo(int index, String title){
+    setState(() {
+      _title = title;
+    });
+  }
 
 
   PersistentTabController _controller = PersistentTabController(initialIndex: 0);
@@ -45,7 +63,7 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Navigation Bar Demo'), centerTitle: true, backgroundColor: AppCores.darkRed, elevation: 0,),
+      appBar: AppBar(title: Text(_title), centerTitle: true, backgroundColor: AppCores.darkRed, actions: [IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))], ),
       drawer: Drawer(child: Container(color: Colors.white,),),
       body: PersistentTabView(
         context,
@@ -74,6 +92,19 @@ class BasePage extends StatelessWidget {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle: NavBarStyle.style15,
+        onItemSelected: (index){
+          switch(index){
+            case 0:
+              atualizarTitulo(index, home);
+              break;
+            case 1:
+              atualizarTitulo(index, fazerPedido);
+              break;
+            case 2:
+              atualizarTitulo(index, pedidosEmAndamento);
+              break;
+          }
+        },
       ),
     );
   }
