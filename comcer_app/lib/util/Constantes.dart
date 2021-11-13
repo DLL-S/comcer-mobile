@@ -1,7 +1,7 @@
 class Constantes{
 
   static final String titulo = "COMCER - Comanda Certa";
-  static final String login = "Login";
+  static final String email = "Email";
   static final String senha = "Senha";
 
 

@@ -19,6 +19,29 @@ class _BasePageState extends State<BasePage> {
   static const String pedidosEmAndamento = 'Pedidos em Andamento';
   String _title = "Mesas";
 
+  AlertDialog showAlertDialog(BuildContext context) {
+    AlertDialog alerta = AlertDialog(
+      title: const Text("Sair"),
+      content: const Text("Você deseja realmente sair?"),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Cancelar")),
+        TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: const Text(
+              "Sair",
+              style: TextStyle(color: Colors.red),
+            ))
+      ],
+    );
+    return alerta;
+  }
+
 
   void atualizarTitulo(int index, String title){
     setState(() {
@@ -63,7 +86,26 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_title), centerTitle: true, backgroundColor: AppCores.darkRed, actions: [IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))], ),
+      appBar: AppBar(title: Text(_title), centerTitle: true, backgroundColor: AppCores.darkRed, actions: [IconButton(onPressed: (){}, icon: PopupMenuButton<String>(
+        itemBuilder: (BuildContext context) {
+          return {'Sair'}.map((String choice) {
+            return PopupMenuItem<String>(
+              value: choice,
+              child: Text(choice),
+            );
+          }).toList();
+        },
+        onSelected: (value) {
+          if (value == 'Sair') {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return showAlertDialog(context);
+              },
+            );
+          }
+        },
+      ),)], ),
       drawer: Drawer(child: Container(color: Colors.white,),),
       body: PersistentTabView(
         context,

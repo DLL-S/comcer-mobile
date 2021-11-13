@@ -35,7 +35,7 @@ class TableCard extends StatelessWidget {
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 12
+                  fontSize: 14
               ),
             ),
             Text(
@@ -43,7 +43,7 @@ class TableCard extends StatelessWidget {
               style: TextStyle(
                   color: AppCores.darkRed,
                   fontWeight: FontWeight.bold,
-                  fontSize: 50
+                  fontSize: 40
               ),
             ),
           ],
