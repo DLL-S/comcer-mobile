@@ -55,8 +55,8 @@ class _BasePageState extends State<BasePage> {
   List<Widget> _buildScreens() {
     return [
       HomePage(),
-      PedidosPage(),
       FazerPedido(),
+      PedidosPage()
     ];
   }
 
@@ -65,19 +65,19 @@ class _BasePageState extends State<BasePage> {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
         title: ("Home"),
-        activeColorPrimary: Colors.white,
+        activeColorPrimary: AppCores.yellow,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.add, color: AppCores.darkRed, size: 45),
+        icon: Icon(Icons.add),
         title: ("Fazer Pedido"),
-        activeColorPrimary: Colors.white,
+        activeColorPrimary: AppCores.yellow,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.article),
         title: ("Pedidos"),
-        activeColorPrimary: Colors.white,
+        activeColorPrimary: AppCores.yellow,
         inactiveColorPrimary: Colors.white,
       ),
     ];
@@ -133,7 +133,7 @@ class _BasePageState extends State<BasePage> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style15,
+        navBarStyle: NavBarStyle.style6,
         onItemSelected: (index){
           switch(index){
             case 0:

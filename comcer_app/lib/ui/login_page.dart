@@ -29,9 +29,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: AppCores.lightRed,
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
