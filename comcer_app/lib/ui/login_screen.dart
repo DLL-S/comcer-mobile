@@ -1,35 +1,35 @@
-import 'package:comcer_app/core/app_cores.dart';
+import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_imagens.dart';
-import 'package:comcer_app/ui/base_page.dart';
-import 'package:comcer_app/util/Constantes.dart';
+import 'package:comcer_app/service/prefs_service.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/Validador.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController senhaController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
 
 
-  bool _verSenha = true;
+  bool _showPassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppCores.lightRed,
+      backgroundColor: AppColors.lightRed,
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 275,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(AppImagens.logoVermelhoEscuro)
+                          image: AssetImage(AppImages.darkRedLogo)
                       )
                   ),
                 ),
@@ -56,13 +56,13 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            labelText: Constantes.email,
+                            labelText: Constant.email,
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: AppCores.red)),
+                            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.red)),
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: Constantes.TAMANHO_FONTE_LABEL_TEXT,
+                                fontSize: Constant.FONT_LABEL_TEXT_SIZE,
                                 color: Theme.of(context).primaryColor
                             )
                         ),
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                           if(email!.isEmpty){
                             return "O E-mail deve ser informado";
                           }
-                          if(!emailValido(email)){
+                          if(!isEmailValid(email)){
                             return"Email inválido";
                           } else {
                             return null;
@@ -82,26 +82,26 @@ class _LoginPageState extends State<LoginPage> {
                         height: 24,
                       ),
                       TextFormField(
-                        controller: senhaController,
-                        obscureText: _verSenha,
+                        controller: passwordController,
+                        obscureText: _showPassword,
                         decoration: InputDecoration(
-                            labelText: Constantes.senha,
+                            labelText: Constant.senha,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _verSenha ? Icons.visibility : Icons.visibility_off,
+                                _showPassword ? Icons.visibility : Icons.visibility_off,
                                 color: Theme.of(context).primaryColor,
                               ), onPressed: () {
                               setState(() {
-                                _verSenha = !_verSenha;
+                                _showPassword = !_showPassword;
                               });
                             },
                             ),
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: AppCores.red)),
+                            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.red)),
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: Constantes.TAMANHO_FONTE_LABEL_TEXT,
+                                fontSize: Constant.FONT_LABEL_TEXT_SIZE,
                                 color: Theme.of(context).primaryColor
                             )
                         ),
@@ -116,28 +116,32 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 72,
                       ),
                       Container(
                         height: 56,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: AppCores.green,
-                            borderRadius: BorderRadius.all(Radius.circular(Constantes.VALOR_ARREDONDAMENTO_CONTAINER))
+                            color: AppColors.green,
+                            borderRadius: BorderRadius.all(Radius.circular(Constant.ROUNDING_EDGE_CONTAINER_VALUE))
                         ),
                         child: SizedBox.expand(
                           child: TextButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(AppCores.green),
-                              overlayColor: MaterialStateProperty.all(AppCores.darkGreen),
+                              backgroundColor: MaterialStateProperty.all(AppColors.green),
+                              overlayColor: MaterialStateProperty.all(AppColors.darkGreen),
                             ),
                             onPressed: (){
                               if(!formKey.currentState!.validate()) {
 
                               } else {
-                                Navigator.pushNamed(
-                                    context, '/base');
+                                if(emailController.text == 'teste@gmail.com' && passwordController.text == '12345678'){
+                                    PrefsService.save(emailController.text);
+                                    Navigator.pushNamed(
+                                        context, '/base');
+                                }
+
                               }
                             },
                             child: Row(

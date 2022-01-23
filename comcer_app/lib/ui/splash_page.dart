@@ -1,8 +1,7 @@
 import 'dart:ui';
 
-import 'package:comcer_app/core/app_gradientes.dart';
 import 'package:comcer_app/core/app_imagens.dart';
-import 'package:comcer_app/ui/login_page.dart';
+import 'package:comcer_app/service/prefs_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,8 +10,14 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3)).then((_) => Navigator.pushReplacementNamed(
-        context, '/login'));
+      Future.wait([PrefsService.isAuth(),
+      Future.delayed(const Duration(seconds: 3))
+    ]).then((value) => value[0]
+        ? Navigator.pushReplacementNamed(context, '/base')
+        :  Navigator.pushReplacementNamed(context, '/login'));
+
+    // Future.delayed(const Duration(seconds: 3)).then((_) => Navigator.pushReplacementNamed(
+    //     context, '/login'));
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -20,7 +25,7 @@ class SplashPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                  image: DecorationImage(
-                   image: AssetImage(AppImagens.background),
+                   image: AssetImage(AppImages.background),
                    fit: BoxFit.cover
                  )
                 ),
@@ -34,7 +39,7 @@ class SplashPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(AppImagens.logoBranco)
+                    image: AssetImage(AppImages.whiteLogo)
                 )
             ),
           ),

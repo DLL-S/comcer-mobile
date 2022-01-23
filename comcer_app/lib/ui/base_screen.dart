@@ -1,12 +1,14 @@
-import 'package:comcer_app/core/app_cores.dart';
-import 'package:comcer_app/ui/fazer_pedido_page.dart';
-import 'package:comcer_app/ui/home_page.dart';
-import 'package:comcer_app/ui/pedidos_page.dart';
+import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/service/prefs_service.dart';
+import 'package:comcer_app/ui/do_request_screen.dart';
+import 'package:comcer_app/ui/home_screen.dart';
+import 'package:comcer_app/ui/request_screen.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class BasePage extends StatefulWidget {
-  BasePage({Key? key}) : super(key: key);
+  const BasePage({Key? key}) : super(key: key);
 
   @override
   State<BasePage> createState() => _BasePageState();
@@ -14,10 +16,13 @@ class BasePage extends StatefulWidget {
 
 class _BasePageState extends State<BasePage> {
 
-  static const String home = 'Mesas';
-  static const String fazerPedido = 'Fazer um Pedido';
-  static const String pedidosEmAndamento = 'Pedidos em Andamento';
   String _title = "Mesas";
+  static const String doRequest = 'Fazer um Pedido';
+  static const String ordersInProgress = 'Pedidos em Andamento';
+
+
+  TextEditingController _searchQueryController = TextEditingController();
+
 
   AlertDialog showAlertDialog(BuildContext context) {
     AlertDialog alerta = AlertDialog(
@@ -31,7 +36,8 @@ class _BasePageState extends State<BasePage> {
             child: const Text("Cancelar")),
         TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
+              PrefsService.logout();
+              Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
             },
             child: const Text(
               "Sair",
@@ -46,7 +52,7 @@ class _BasePageState extends State<BasePage> {
   void atualizarTitulo(int index, String title){
     setState(() {
       _title = title;
-    });
+     });
   }
 
 
@@ -54,9 +60,9 @@ class _BasePageState extends State<BasePage> {
 
   List<Widget> _buildScreens() {
     return [
-      HomePage(),
-      FazerPedido(),
-      PedidosPage()
+      HomeScreen(),
+      DoRequestScreen(),
+      RequestScreen()
     ];
   }
 
@@ -64,20 +70,20 @@ class _BasePageState extends State<BasePage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
-        title: ("Home"),
-        activeColorPrimary: AppCores.yellow,
+        title: (Constant.home),
+        activeColorPrimary: AppColors.yellow,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.add),
-        title: ("Fazer Pedido"),
-        activeColorPrimary: AppCores.yellow,
+        title: (Constant.fazerPedido),
+        activeColorPrimary: AppColors.yellow,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.article),
-        title: ("Pedidos"),
-        activeColorPrimary: AppCores.yellow,
+        title: (Constant.pedidos),
+        activeColorPrimary: AppColors.yellow,
         inactiveColorPrimary: Colors.white,
       ),
     ];
@@ -86,9 +92,10 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_title), centerTitle: true, backgroundColor: AppCores.darkRed, actions: [IconButton(onPressed: (){}, icon: PopupMenuButton<String>(
+      appBar: AppBar(title: Text(_title), centerTitle: true, backgroundColor: AppColors.darkRed, actions: [
+        IconButton(onPressed: (){}, icon: PopupMenuButton<String>(
         itemBuilder: (BuildContext context) {
-          return {'Sair'}.map((String choice) {
+          return {Constant.sair}.map((String choice) {
             return PopupMenuItem<String>(
               value: choice,
               child: Text(choice),
@@ -96,7 +103,7 @@ class _BasePageState extends State<BasePage> {
           }).toList();
         },
         onSelected: (value) {
-          if (value == 'Sair') {
+          if (value == Constant.sair) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -137,13 +144,13 @@ class _BasePageState extends State<BasePage> {
         onItemSelected: (index){
           switch(index){
             case 0:
-              atualizarTitulo(index, home);
+              atualizarTitulo(index, _title);
               break;
             case 1:
-              atualizarTitulo(index, fazerPedido);
+              atualizarTitulo(index, doRequest);
               break;
             case 2:
-              atualizarTitulo(index, pedidosEmAndamento);
+              atualizarTitulo(index, ordersInProgress);
               break;
           }
         },

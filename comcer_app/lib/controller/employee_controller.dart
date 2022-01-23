@@ -1,15 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/Funcionario.dart';
-import 'package:comcer_app/util/Constantes.dart';
+import 'package:comcer_app/dominio/models/Employee.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
 class FuncionarioController {
 
-  static const String urlBaseFuncionarios = Constantes.urlBaseLocal + "funcionarios/";
+  static const String urlBaseFuncionarios = Constant.localBaseUrl + "funcionarios/";
 
   FuncionarioController();
 

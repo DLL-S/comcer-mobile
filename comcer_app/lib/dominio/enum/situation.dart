@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-enum Situacao{
+enum Situation{
   ATIVO,
   INATIVO
 }

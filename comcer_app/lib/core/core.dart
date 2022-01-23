@@ -1,3 +1,3 @@
-export './app_cores.dart';
-export './app_estilos.dart';
-export './app_fontes.dart';
+export './app_colors.dart';
+export './app_styles.dart';
+export './app_fonts.dart';

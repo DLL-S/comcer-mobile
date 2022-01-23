@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class Endereco{
+class Address{
   late String _cep;
   late String _estado;
   late String _cidade;
@@ -9,8 +9,8 @@ class Endereco{
   late String _numero;
   String? _complemento;
 
-  //Construtor
-  Endereco(this._cep, this._estado, this._cidade, this._bairro, this._rua,
+  //Constructor
+  Address(this._cep, this._estado, this._cidade, this._bairro, this._rua,
       this._numero, this._complemento);
 
 
@@ -51,7 +51,7 @@ class Endereco{
   }
 
   //Converter JSON para classe
-  Endereco.fromJson(Map<String, dynamic> json) {
+  Address.fromJson(Map<String, dynamic> json) {
     _cep = json['cep'];
     _estado = json['estado'];
     _cidade = json['cidade'];

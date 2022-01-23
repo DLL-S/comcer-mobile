@@ -1,10 +1,10 @@
-import 'package:comcer_app/core/app_cores.dart';
-import 'package:comcer_app/ui/base_page.dart';
-import 'package:comcer_app/ui/home_page.dart';
-import 'package:comcer_app/ui/login_page.dart';
-import 'package:comcer_app/ui/pedidos_page.dart';
+import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/ui/base_screen.dart';
+import 'package:comcer_app/ui/home_screen.dart';
+import 'package:comcer_app/ui/login_screen.dart';
+import 'package:comcer_app/ui/request_screen.dart';
 import 'package:comcer_app/ui/splash_page.dart';
-import 'package:comcer_app/util/Constantes.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -14,17 +14,17 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const SplashPage(),
-      title: Constantes.titulo,
+      title: Constant.title,
       theme: ThemeData(
           fontFamily: 'Roboto',
-        primaryColor: AppCores.darkRed,
+        primaryColor: AppColors.darkRed,
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/login': (context) => LoginPage(),
+        '/login': (context) => LoginScreen(),
         '/base': (context) => BasePage(),
-        '/home': (context) => HomePage(),
-        '/pedidos': (context) => PedidosPage(),
+        '/home': (context) => HomeScreen(),
+        '/pedidos': (context) => RequestScreen(),
       },
     );
   }

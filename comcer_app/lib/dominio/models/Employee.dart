@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
-import 'Endereco.dart';
+import 'Address.dart';
 
-class Funcionario {
+class Employee {
 
   late int _id;
   late String _nome;
@@ -10,14 +10,14 @@ class Funcionario {
   late String _dataNascimento;
   late String _celular;
   String? _email;
-  late Endereco _endereco;
+  late Address _endereco;
   late String _situacao;
 
   //Construtor default
-  Funcionario.vazio();
+  Employee.vazio();
 
   //Construtor
-  Funcionario(
+  Employee(
     this._id,
     this._nome,
     this._cpf,
@@ -39,8 +39,8 @@ class Funcionario {
     _situacao = value;
   }
 
-  Endereco get endereco => _endereco;
-  set endereco(Endereco value) {
+  Address get endereco => _endereco;
+  set endereco(Address value) {
     _endereco = value;
   }
 
@@ -70,14 +70,14 @@ class Funcionario {
   }
 
   //Converter JSON para classe
-  Funcionario.fromJson(Map<String, dynamic> json) {
+  Employee.fromJson(Map<String, dynamic> json) {
     _id = json["id"].toInt();
     _nome = json["nome"].toString();
     _cpf = json["cpf"].toString();
     _dataNascimento = json["dataNascimento"].toString();
     _celular = json["celular"].toString();
     _email = json["email"]?.toString();
-    _endereco = ((json["endereco"] != null) ? Endereco.fromJson(json["endereco"]) : null)!;
+    _endereco = ((json["endereco"] != null) ? Address.fromJson(json["endereco"]) : null)!;
     _situacao = json["situacao"].toString();
   }
 

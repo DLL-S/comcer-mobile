@@ -1,16 +1,16 @@
 // ignore_for_file: file_names
 
-import 'package:comcer_app/core/app_cores.dart';
+import 'package:comcer_app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TableCard extends StatelessWidget {
-  final String numero;
+  final String number;
   final VoidCallback onTap;
 
 
   const TableCard(
       {Key? key,
-        required this.numero,
+        required this.number,
         required this.onTap})
       : super(key: key);
 
@@ -22,7 +22,7 @@ class TableCard extends StatelessWidget {
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
             border: Border.fromBorderSide(
-              BorderSide(color: AppCores.darkRed),
+              BorderSide(color: AppColors.darkRed),
             ),
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)),
@@ -39,9 +39,9 @@ class TableCard extends StatelessWidget {
               ),
             ),
             Text(
-              numero,
+              number,
               style: TextStyle(
-                  color: AppCores.darkRed,
+                  color: AppColors.darkRed,
                   fontWeight: FontWeight.bold,
                   fontSize: 40
               ),
