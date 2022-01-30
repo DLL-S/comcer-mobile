@@ -1,17 +1,29 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PrefsService {
+class PrefsService extends ChangeNotifier {
 
-  static final String _key = 'key';
+  bool loading = false;
 
-  static save(String user) async {
+  static const String _key = 'key';
+
+
+  void setLoading(bool value){
+    loading = value;
+    notifyListeners();
+  }
+
+  Future<void> saveLogIn(String user) async {
+    setLoading(true);
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(_key, jsonEncode({
       "user": user,
       "isAuth": true
     }));
+    await Future.delayed(const Duration(seconds: 10));
+    setLoading(false);
   }
 
   static Future<bool> isAuth() async {
@@ -26,7 +38,7 @@ class PrefsService {
     return false;
   }
 
-  static logout() async {
+  static Future<void> logout() async {
     var prefs = await SharedPreferences.getInstance();
     await prefs.remove(_key);
   }

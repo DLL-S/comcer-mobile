@@ -10,10 +10,34 @@ class AppStyles{
     color: AppColors.darkRed,
   );
 
+  static final TextStyle size18DarkRedBold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: AppColors.darkRed,
+  );
+
+  static final TextStyle size12WhiteBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
   static final TextStyle size14WhiteBold = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.white,
+  );
+
+  static final TextStyle size22WhiteBold = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static final TextStyle size10BlackRegular = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
   );
 
 }

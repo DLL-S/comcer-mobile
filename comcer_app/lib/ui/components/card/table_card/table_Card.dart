@@ -19,7 +19,7 @@ class TableCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.only(bottom: 16, top: 8, right: 8, left: 8),
         decoration: BoxDecoration(
             border: Border.fromBorderSide(
               BorderSide(color: AppColors.darkRed),
@@ -27,25 +27,44 @@ class TableCard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'MESA',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14
+            Container(
+              width: 100,
+              alignment: Alignment.topRight,
+              child: Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                    color: AppColors.red,
+                    shape: BoxShape.circle
+                ),
               ),
             ),
-            Text(
-              number,
-              style: TextStyle(
-                  color: AppColors.darkRed,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40
-              ),
+            const SizedBox(
+              height: 8,
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'MESA',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14
+                  ),
+                ),
+                Text(
+                  number,
+                  style: TextStyle(
+                      color: AppColors.darkRed,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

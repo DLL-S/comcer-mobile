@@ -1,6 +1,8 @@
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/ui/components/card/table_card/table_Card.dart';
+import 'package:comcer_app/ui/do_request_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     children: [
-                      TableCard(number: '01', onTap: (){}),
-                      TableCard(number: '02', onTap: (){}),
+                      TableCard(number: '01', onTap: (){pushNewScreen(context, screen: DoRequestScreen( tableNumber: "01"), withNavBar: false);}),
+                      TableCard(number: '02', onTap: (){pushNewScreen(context, screen: DoRequestScreen( tableNumber: "02"), withNavBar: false);}),
                       TableCard(number: '03', onTap: (){}),
                       TableCard(number: '04', onTap: (){}),
                       TableCard(number: '05', onTap: (){}),

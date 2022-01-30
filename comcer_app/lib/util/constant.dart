@@ -6,8 +6,12 @@ class Constant{
   static const String title = "COMCER - Comanda Certa";
 
   //API
-  static const String localBaseUrl = "https://localhost:49153/api/";
+  static const String localBaseUrl = "https://localhost:5001/Api/";
   static const headers = {'Content-Type': 'application/json'};
+
+  //Messages
+
+  static String suporte = "Ocorreu um erro na conexão com o serviço, por favor entre em contato com o suporte";
 
   //Login Screen
   static const String email = "Email";
