@@ -4,13 +4,15 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TableCard extends StatelessWidget {
-  final String number;
+  final int number;
+  final bool status;
   final VoidCallback onTap;
 
 
   const TableCard(
       {Key? key,
         required this.number,
+        required this.status,
         required this.onTap})
       : super(key: key);
 
@@ -35,7 +37,7 @@ class TableCard extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                    color: AppColors.red,
+                    color: status ? AppColors.green : AppColors.red,
                     shape: BoxShape.circle
                 ),
               ),
@@ -56,7 +58,7 @@ class TableCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  number,
+                  number.toString(),
                   style: TextStyle(
                       color: AppColors.darkRed,
                       fontWeight: FontWeight.bold,

@@ -1,4 +1,7 @@
+import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/ui/components/card/table_card/table_Card.dart';
 import 'package:comcer_app/ui/do_request_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,42 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final tableController = TableController();
+  APIResponse<Mesa> _apiResponse = APIResponse<Mesa>();
+  List<Mesa> tables = <Mesa>[];
+  bool _isLoading = false;
+
+  void showLoading(){
+    setState(() {
+      _isLoading = true;
+    });
+  }
+  void hideLoading(){
+    setState(() {
+      _isLoading = false;
+    });
+  }
+  void listarMesas() async {
+    showLoading();
+    _apiResponse = await tableController.listarMesas();
+    if(_apiResponse.data != null){
+      tables = _apiResponse.data!.resultados as List<Mesa>;
+    } else if (_apiResponse.error!){
+      hideLoading();
+    }
+    hideLoading();
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    listarMesas();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           color: AppColors.lightRed,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
             child: Column(
               children: [
                 Expanded(
@@ -27,25 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisCount: 3,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    children: [
-                      TableCard(number: '01', onTap: (){pushNewScreen(context, screen: DoRequestScreen( tableNumber: "01"), withNavBar: false);}),
-                      TableCard(number: '02', onTap: (){pushNewScreen(context, screen: DoRequestScreen( tableNumber: "02"), withNavBar: false);}),
-                      TableCard(number: '03', onTap: (){}),
-                      TableCard(number: '04', onTap: (){}),
-                      TableCard(number: '05', onTap: (){}),
-                      TableCard(number: '06', onTap: (){}),
-                      TableCard(number: '07', onTap: (){}),
-                      TableCard(number: '08', onTap: (){}),
-                      TableCard(number: '09', onTap: (){}),
-                      TableCard(number: '10', onTap: (){}),
-                      TableCard(number: '11', onTap: (){}),
-                      TableCard(number: '12', onTap: (){}),
-                      TableCard(number: '13', onTap: (){}),
-                      TableCard(number: '14', onTap: (){}),
-                      TableCard(number: '15', onTap: (){}),
-                      TableCard(number: '16', onTap: (){}),
-                      TableCard(number: '17', onTap: (){}),
-                    ],
+                    children:tables.map((mesa) => TableCard(number: mesa.numero, status: mesa.disponivel, onTap: (){pushNewScreen(context, screen: DoRequestScreen(tableNumber: mesa.numero),withNavBar: false);})).toList(),
                   ),
                 ),
               ],
@@ -55,3 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+

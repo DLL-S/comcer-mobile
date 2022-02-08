@@ -1,22 +1,20 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/controller/product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/response_API/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/response_API/product_response_api.dart';
+import 'package:comcer_app/dominio/models/Product.dart';
+import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/ui/components/card/filter_card/fiter_card.dart';
-import 'package:comcer_app/ui/components/card/product_card/product_card.dart';
 import 'package:comcer_app/util/constant.dart';
-import 'package:comcer_app/util/util.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DoRequestScreen extends StatefulWidget {
 
-  final String tableNumber;
+  final int tableNumber;
 
   const DoRequestScreen({Key? key, required this.tableNumber}) : super(key: key);
 
@@ -26,17 +24,11 @@ class DoRequestScreen extends StatefulWidget {
 
 class _DoRequestScreenState extends State<DoRequestScreen> {
 
-  ProductController productController = ProductController();
-  APIResponse<ProductAPIResponse> _apiResponse = APIResponse<ProductAPIResponse>();
-  ProductAPIResponse _products = ProductAPIResponse();
+  late int quantity = 0;
 
-  Future<File> testeDecode (String image64, String nomeDoProduto) async {
-    final decodedBytes = base64Decode(image64);
-    final directory = await getApplicationDocumentsDirectory();
-    var fileImage = File(nomeDoProduto + "_imagem.png");
-    fileImage.writeAsBytesSync(List.from(decodedBytes));
-    return fileImage;
-  }
+  ProductController productController = ProductController();
+  APIResponse<Product> _apiResponse = APIResponse<Product>();
+  List<Product> _products = <Product>[];
 
   bool _isLoading = false;
 
@@ -54,11 +46,14 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
 
   void buscaLista() async {
     showLoading();
-    _apiResponse = await productController.listarProdutos();
-    _products = _apiResponse.data!;
+     _apiResponse = await productController.listarProdutos();
+     if(_apiResponse.data != null){
+       _products = _apiResponse.data!.resultados as List<Product>;
+     } else if (_apiResponse.error!){
+       hideLoading();
+     }
     hideLoading();
   }
-
 
   @override
   void initState() {
@@ -72,19 +67,23 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.darkRed, title: Text("Mesa " + widget.tableNumber), centerTitle: true,),
+      appBar: AppBar(backgroundColor: AppColors.darkRed, title: Text("Mesa " + widget.tableNumber.toString()), centerTitle: true,),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){Navigator.of(context).pushNamed('/resumo');},
+        child: const Icon(Icons.article_outlined,color: Colors.white,),
+        backgroundColor: Theme.of(context).primaryColor,),
       body: Container(
           color: AppColors.lightRed,
         child: Column(
           children: [
             Visibility(
-              visible: _isLoading ? false : true,
+              visible: false,
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: Constant.DEFAULT_DISTANCE_BETWEEN_WIDGETS, horizontal: 4),
                 height: 25,
                 child: Builder(
                   builder: (_) {
-                    return _isLoading ? CircularProgressIndicator(color: AppColors.darkRed) : Row(
+                    return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
@@ -112,90 +111,79 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                   if(_isLoading){
                     return Center(child: CircularProgressIndicator(color: AppColors.darkRed,),);
                   } else {
+                    if(_apiResponse.error!){
+                    return Center(child: Text("Houve um problema ao carregar os dados do serviço.\n " + _apiResponse.errorMessage.toString(), style: AppStyles.size14BlackBold, textAlign: TextAlign.center,));
+                    } else if(!_apiResponse.error! && _products.isEmpty){
+                      return Center(child: Text(_apiResponse.errorMessage.toString(), style: AppStyles.size14BlackBold, textAlign: TextAlign.center,));
+                    } else {
                     return ListView.builder(
-                        itemCount: _products.quantidade ?? 0,
+                        itemCount: _products.length,
+                        shrinkWrap: true,
                         itemBuilder: (BuildContext _, int index){
-                          return Card(
-                           child: GestureDetector(
-                             onTap: (){},
-                             child: Container(
-                               height: 100,
-                               width: 110,
-                               padding: EdgeInsets.all(8),
-                               decoration: BoxDecoration(
-                                   border: Border.fromBorderSide(
-                                     BorderSide(color: AppColors.darkRed),
-                                   ),
-                                   color: Colors.white,
-                                   borderRadius: BorderRadius.circular(10)),
-                               child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                 children: [
-                                   Container(
-                                     width: 110,
-                                     height: 80,
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       border: Border.fromBorderSide(BorderSide(color: AppColors.darkRed)),
-                                       color: Colors.grey,
-                                     ),
-                                     child: Image.memory(base64Decode(_products.produtos![index].foto), fit: BoxFit.cover, ),
-                                   ),
-                                   const SizedBox(
-                                     width: 16,
-                                   ),
-                                   Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       Text(_products.produtos![index].nome, style: AppStyles.size18DarkRedBold,),
-                                       SizedBox(
-                                           width: 180,
-                                           child: Text(_products.produtos![index].descricao + "texto para ultrapassar o tamanho limite e verificar o funcionamento da ellipsis",
-                                             style: AppStyles.size10BlackRegular,
-                                             maxLines: 2, overflow: TextOverflow.ellipsis,)
-                                       ),
-                                       const SizedBox(
-                                         height: 8,
-                                       ),
-                                       Container(
-                                         padding: EdgeInsets.all(5),
-                                         decoration: BoxDecoration(
-                                             borderRadius: BorderRadius.circular(10),
-                                             color: AppColors.darkRed
-                                         ),
-                                         child: Text("R\$" + Util.formataValorProdutoParaBR(_products.produtos![index].preco), style: AppStyles.size12WhiteBold,),
-                                       ),
-                                     ],
-                                   )
-                                 ],
-                               ),
-                             ),
-                           )
-                          );
+                            return Card(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    context.read<OrderResumeController>().addToOrder(_products[index]);
+                                    Navigator.of(context).pushNamed('/resumo');
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 110,
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        border: Border.fromBorderSide(
+                                          BorderSide(color: AppColors.darkRed),
+                                        ),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 110,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Image.memory(base64Decode(_products[index].foto), fit: BoxFit.fill, ),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(_products[index].nome, style: AppStyles.size18DarkRedBold,),
+                                            SizedBox(
+                                                width: 230,
+                                                child: Text(_products[index].descricao,
+                                                  style: AppStyles.size10BlackRegular,
+                                                  maxLines: 2, overflow: TextOverflow.ellipsis,)
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: AppColors.darkRed
+                                              ),
+                                              child: Text("R\$" + _products[index].preco.toStringAsFixed(2).replaceAll(".", ","), style: AppStyles.size12WhiteBold,),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                            );
                         }
                     );
                   }
-                })
+                }})
             ),
-            Visibility(
-              visible: _isLoading ? false : true,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16, left: 8, right: 8),
-                child: GestureDetector(
-                  onTap: (){},
-                  child: Container(
-                    height: 40,
-                    width: 400,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.darkRed,
-                    ),
-                    child: Text("Confirmar Pedido", style: AppStyles.size22WhiteBold,),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

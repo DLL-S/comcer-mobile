@@ -2,7 +2,11 @@
 
 import 'dart:ffi';
 
-class Product {
+import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+
+import 'inconsistencia_validacao.dart';
+
+class Product extends BaseAPIResponse {
 
   late int _id;
   late String _nome;
@@ -11,7 +15,7 @@ class Product {
   late String _foto;
 
   //Construtor default
-  Product.vazio();
+  Product.empty();
 
   //Construtor
   Product(
@@ -68,5 +72,23 @@ class Product {
     return data;
   }
 
+  Product.fromJsonResponse(Map<String, dynamic> json) {
+    if (json['resultados'] != null) {
+      resultados = <Product>[];
+      json['resultados'].forEach((produto) {
+        resultados!.add(Product.fromJson(produto));
+      });
+    }
+    if (json['validacoes'] != null) {
+      validacoes = <InconsistenciaDeValidacao>[];
+      json['validacoes'].forEach((inconsistencia) {
+        validacoes!.add(InconsistenciaDeValidacao.fromJson(inconsistencia));
+      });
+    }
+    sucesso = json['sucesso'];
+    pagina = json['pagina'];
+    quantidade = json['quantidade'];
+    total = json['total'];
+  }
 
 }

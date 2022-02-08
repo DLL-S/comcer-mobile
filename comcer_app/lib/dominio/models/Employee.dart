@@ -14,7 +14,7 @@ class Employee {
   late String _situacao;
 
   //Construtor default
-  Employee.vazio();
+  Employee.empty();
 
   //Construtor
   Employee(
@@ -91,7 +91,7 @@ class Employee {
     data["celular"] = _celular;
     data["email"] = _email;
     if (_endereco != null) {
-      data["endereco"] = _endereco!.toJson();
+      data["endereco"] = _endereco.toJson();
     }
     data["situacao"] = _situacao;
     return data;

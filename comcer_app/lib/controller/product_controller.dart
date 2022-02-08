@@ -1,32 +1,38 @@
 import 'dart:convert';
 
-import 'package:comcer_app/dominio/models/response_API/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/response_API/product_response_api.dart';
+import 'package:comcer_app/dominio/models/Product.dart';
+import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:http/http.dart' as http;
 
 class ProductController {
 
-  static const String urlBase = Constant.localBaseUrl + "Produtos";
+  // static const String urlBase = Constant.localBaseUrl + "Produtos";
 
   //Listar Produtos
-  Future<APIResponse<ProductAPIResponse>> listarProdutos() {
-    return http.get(Uri.http("189.123.152.249:5000", "api/produtos"), headers: Constant.headers).then((data) {
+  Future<APIResponse<Product>> listarProdutos() {
+    return http.get(Uri.http(Constant.localBaseUrl, "api/produtos"), headers: Constant.headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
-        var productsResponse = ProductAPIResponse();
+        var apiResponse = Product.empty();
 
-        productsResponse = ProductAPIResponse.fromJson(jsonData);
+        apiResponse = Product.fromJsonResponse(jsonData);
 
-        return APIResponse<ProductAPIResponse>(data: productsResponse);
+        return APIResponse<Product>(data: apiResponse);
+      } else if (data.statusCode == 204){
+        return APIResponse<Product>(
+            error: false,
+            errorMessage: 'Não há nenhum produto a ser exibido.');
       } else {
-        return APIResponse<ProductAPIResponse>(
+        return APIResponse<Product>(
             error: true,
-            errorMessage: 'Erro: Não foi possível carregar os produtos.' +
+            errorMessage: 'Erro: ' +
                 data.statusCode.toString());
       }
-    }).catchError((_) => APIResponse<ProductAPIResponse>(
-        error: true, errorMessage: Constant.suporte));
+    }).catchError((_) => APIResponse<Product>(
+        error: true, errorMessage: Constant.suporte))
+        .timeout(const Duration(seconds: 25), onTimeout: () => APIResponse<Product>(error: true, errorMessage: Constant.suporte + 'Erro: Timed Out.'));
   }
 
 

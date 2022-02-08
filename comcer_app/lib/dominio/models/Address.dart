@@ -9,6 +9,8 @@ class Address{
   late String _numero;
   String? _complemento;
 
+  Address.empty();
+
   //Constructor
   Address(this._cep, this._estado, this._cidade, this._bairro, this._rua,
       this._numero, this._complemento);
