@@ -1,5 +1,10 @@
 // ignore_for_file: file_names
 
+import 'dart:io';
+
+import 'package:comcer_app/service/prefs_service.dart';
+import 'package:comcer_app/util/util.dart';
+
 class Constant{
 
   //Título do App
@@ -8,7 +13,7 @@ class Constant{
   //API
   static const String localBaseUrl = "189.63.74.198:5000";
   static const String localBaseUrlTest = "https://189.123.152.249:5000/Api/";
-  static const headers = {'Content-Type': 'application/json'};
+  static final headers = {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"};
 
   //Messages
 

@@ -7,7 +7,7 @@ class OrderPad extends BaseAPIResponse {
   int? _id;
   late final String _nome;
   late final List<Order> _listaPedidos;
-  int? _valor;
+  double? _valor;
   int? _status;
 
   OrderPad.empty();
@@ -16,22 +16,22 @@ class OrderPad extends BaseAPIResponse {
       {int? id,
         required String nome,
         required List<Order> listaPedidos,
-        int? valor,
+        double? valor,
         int? status}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (nome != null) {
-      this._nome = nome;
+      _nome = nome;
     }
     if (listaPedidos != null) {
-      this._listaPedidos = listaPedidos;
+      _listaPedidos = listaPedidos;
     }
     if (valor != null) {
-      this._valor = valor;
+      _valor = valor;
     }
     if (status != null) {
-      this._status = status;
+      _status = status;
     }
   }
 
@@ -42,8 +42,8 @@ class OrderPad extends BaseAPIResponse {
   List<Order> get listaPedidos => _listaPedidos;
   set listaPedidos(List<Order> listaPedidos) =>
       _listaPedidos = listaPedidos;
-  int? get valor => _valor;
-  set valor(int? valor) => _valor = valor;
+  double? get valor => _valor;
+  set valor(double? valor) => _valor = valor;
   int? get status => _status;
   set status(int? status) => _status = status;
 
@@ -62,14 +62,14 @@ class OrderPad extends BaseAPIResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['nome'] = this._nome;
-    if (this._listaPedidos != null) {
+    data['id'] = _id;
+    data['nome'] = _nome;
+    if (_listaPedidos != null) {
       data['listaPedidos'] =
-          this._listaPedidos.map((v) => v.toJson()).toList();
+          _listaPedidos.map((v) => v.toJson()).toList();
     }
-    data['valor'] = this._valor;
-    data['status'] = this._status;
+    data['valor'] = _valor;
+    data['status'] = _status;
     return data;
   }
 

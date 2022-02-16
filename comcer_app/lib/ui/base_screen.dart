@@ -112,11 +112,11 @@ class _BasePageState extends State<BasePage> {
           )
         ],
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: Container(
+      //     color: Colors.white,
+      //   ),
+      // ),
       body: PersistentTabView(
         context,
         controller: _controller,

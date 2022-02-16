@@ -76,6 +76,12 @@ class AppStyles{
     color: Colors.black,
   );
 
+  static final TextStyle size18BlackRegular = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  );
+
   static final TextStyle size14BlackBold = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,

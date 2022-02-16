@@ -31,9 +31,9 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
-    if (json['pedidosDoProduto'] != null) {
+    if (json['produtosDoPedido'] != null) {
       _produtosDoPedido = <OrderProduct>[];
-      json['pedidosDoProduto'].forEach((orderProduct) {
+      json['produtosDoPedido'].forEach((orderProduct) {
         _produtosDoPedido.add(OrderProduct.fromJson(orderProduct));
       });
     }
@@ -43,7 +43,7 @@ class Order {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = _id;
-    data['pedidosDoProduto'] =
+    data['produtosDoPedido'] =
         _produtosDoPedido.map((v) => v.toJson()).toList();
     data['dataHoraPedido'] = _dataHoraPedido;
     return data;

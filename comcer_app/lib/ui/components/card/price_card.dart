@@ -1,20 +1,25 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/controller/order_resume_controller.dart';
+import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/ui/request_screen.dart';
 import 'package:comcer_app/util/util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class PriceCard extends StatelessWidget {
 
-  const PriceCard({Key? key}) : super(key: key);
+  final int tableNumber;
+
+  const PriceCard({Key? key, required this.tableNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,7 @@ class PriceCard extends StatelessWidget {
     final orderResumeController = context.watch<OrderResumeController>();
     final productsPrice = orderResumeController.productsPrice;
     final OrderPadController orderPadController = OrderPadController();
+    APIResponse<OrderPad> hasOrderPad = APIResponse<OrderPad>();
     APIResponse<bool> isRegisteredOrder = APIResponse<bool>();
 
     return Card(
@@ -67,17 +73,26 @@ class PriceCard extends StatelessWidget {
                   Order order = Order(pedidosDoProduto: orderProduct);
                   order.id = 0;
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
-                  // OrderPad orderPad = OrderPad(nome: 'Mesa 01', listaPedidos: []);
-                  // orderPad.listaPedidos.add(order);
-                  // orderPad.id = 0;
-                  // orderPad.valor = 0;
-                  // orderPad.status = 0;
-                  // await orderPadController.addNewOrderPad(orderPad);
-                  isRegisteredOrder = await orderPadController.addOrderInOrderPad(1, order);
+
+                  hasOrderPad = await orderPadController.buscaComadaPorMesa(tableNumber);
+
+
+
+                  if(hasOrderPad.data!.resultados!.isEmpty){
+                    OrderPad orderPad = OrderPad(nome: 'Mesa $tableNumber', listaPedidos: []);
+                    orderPad.listaPedidos.add(order);
+                    orderPad.id = 0;
+                    orderPad.valor = 0;
+                    orderPad.status = 0;
+                    isRegisteredOrder = await orderPadController.addNewOrderPad(orderPad, tableNumber);
+                  } else {
+                    OrderPad comanda = hasOrderPad.data!.resultados!.first as OrderPad;
+                    isRegisteredOrder = await orderPadController.addOrderInOrderPad(order, comanda.id!);
+                  }
                   if(isRegisteredOrder.data!){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Pedido realizado com sucesso!'), backgroundColor: AppColors.green,));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text('Pedido realizado com sucesso!'), backgroundColor: AppColors.green,));
                     orderResumeController.items.clear();
-                    Future.delayed(Duration(seconds: 4)).then((value) => Navigator.restorablePushNamedAndRemoveUntil(context, '/base', (route) => false));
+                    Future.delayed(const Duration(seconds: 2)).then((value) => Navigator.restorablePushNamedAndRemoveUntil(context, '/base', (route) => false));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isRegisteredOrder.errorMessage.toString()), backgroundColor: AppColors.red,));
                   }

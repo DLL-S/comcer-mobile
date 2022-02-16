@@ -1,8 +1,16 @@
+import 'dart:convert';
+
+import 'package:comcer_app/controller/user_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_imagens.dart';
+import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/User.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/Validador.dart';
+import 'package:comcer_app/util/util.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,36 +24,41 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final UserController userController = UserController();
+  APIResponse<User> apiResponse = APIResponse<User>();
+  User user = User.empty();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final snackBar = SnackBar(
-    content: Container(
-      decoration: BoxDecoration(
-        color: AppColors.darkRed,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+  SnackBar showSnackBar(String message) {
+    return SnackBar(
+      backgroundColor: AppColors.darkRed,
+      content: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        padding: const EdgeInsets.only(right: 5, top: 5, bottom: 5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(
+              Icons.close,
+              color: Colors.white,
+              size: 10,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Text(message,
+              maxLines: 2,
+              style: AppStyles.size12WhiteBold,
+            )
+          ],
+        ),
       ),
-      padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
-      child: Row(
-        children: const [
-          Icon(
-            Icons.close,
-            color: Colors.white,
-            size: 15,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            "Uusário ou senha estão incorretos.",
-            maxLines: 2,
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          )
-        ],
-      ),
-    ),
-  );
+    );
+  }
 
   bool _showPassword = true;
 
@@ -143,8 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (senha) {
                               if (senha!.isEmpty) {
                                 return "A senha deve ser informada";
-                              } else if (senha.length < 8) {
-                                return "A senha deve possuir no mínimo 8 caracteres.";
+                                 } else if (senha.length < 8) {
+                                     return "A senha deve possuir no mínimo 8 caracteres.";
                               } else {
                                 return null;
                               }
@@ -170,11 +183,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                   foregroundColor: MaterialStateProperty.all(AppColors.green.withAlpha(100))
                                 ),
                                 onPressed: prefsService.loading ? null : () async {
-                                  if (!formKey.currentState!.validate()) {
-                                  } else {
-                                      await prefsService
-                                          .saveLogIn(emailController.text);
-                                      Navigator.pushNamed(context, '/base');
+                                  if (formKey.currentState!.validate()) {
+                                    user = User.auth(emailController.text, passwordController.text);
+                                    // print(user.senha);
+                                    // String cryptoTest = md5.convert(utf8.encode(user.senha)).toString();
+                                    // print(cryptoTest);
+                                    apiResponse = await userController.autenticar(user);
+
+                                    if(!apiResponse.error!){
+                                      user.token = apiResponse.data!.token;
+                                      user.role = apiResponse.data!.role;
+                                      Util.saveToken(user.token);
+                                      prefsService.saveLogIn(user);
+                                      Navigator.pushReplacementNamed(context, '/base');
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(showSnackBar(apiResponse.errorMessage!));
+                                    }
                                   }
                                 },
                                 child: prefsService.loading ? CircularProgressIndicator() : const Text(

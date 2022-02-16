@@ -8,6 +8,7 @@ import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/ui/components/card/filter_card/fiter_card.dart';
+import 'package:comcer_app/ui/order_resume_screen.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.darkRed, title: Text("Mesa " + widget.tableNumber.toString()), centerTitle: true,),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){Navigator.of(context).pushNamed('/resumo');},
+        onPressed: (){Navigator.of(context).pushNamed('/resumo',arguments: widget.tableNumber);},
         child: const Icon(Icons.article_outlined,color: Colors.white,),
         backgroundColor: Theme.of(context).primaryColor,),
       body: Container(
@@ -124,7 +125,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 child: GestureDetector(
                                   onTap: (){
                                     context.read<OrderResumeController>().addToOrder(_products[index]);
-                                    Navigator.of(context).pushNamed('/resumo');
+                                    Navigator.of(context).pushNamed('/resumo', arguments: widget.tableNumber);
                                   },
                                   child: Container(
                                     height: 100,
