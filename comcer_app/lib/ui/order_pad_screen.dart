@@ -176,7 +176,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Valor Total:', style: AppStyles.size22WhiteBold,),
-                       Text('R\$ ' + totalValue.toStringAsFixed(2), style: AppStyles.size22WhiteBold,),
+                       Text('R\$ ' + totalValue.toStringAsFixed(2).replaceAll('.', ','), style: AppStyles.size22WhiteBold,),
                     ],
                   ),
                 ),

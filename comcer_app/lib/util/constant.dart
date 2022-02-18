@@ -12,8 +12,8 @@ class Constant{
 
   //API
   static const String localBaseUrl = "189.63.74.198:5000";
-  static const String localBaseUrlTest = "https://189.123.152.249:5000/Api/";
-  static final headers = {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"};
+  static const String localBaseUrlTest = "comanda-certa.azurewebsites.ne/";
+  static final headers = {HttpHeaders.contentTypeHeader: "application/json"};
 
   //Messages
 

@@ -15,12 +15,17 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
-class PriceCard extends StatelessWidget {
+class PriceCard extends StatefulWidget {
 
   final int tableNumber;
 
   const PriceCard({Key? key, required this.tableNumber}) : super(key: key);
 
+  @override
+  State<PriceCard> createState() => _PriceCardState();
+}
+
+class _PriceCardState extends State<PriceCard> {
   @override
   Widget build(BuildContext context) {
 
@@ -29,6 +34,20 @@ class PriceCard extends StatelessWidget {
     final OrderPadController orderPadController = OrderPadController();
     APIResponse<OrderPad> hasOrderPad = APIResponse<OrderPad>();
     APIResponse<bool> isRegisteredOrder = APIResponse<bool>();
+    bool _isLoading = false;
+
+
+    void showLoading() {
+        setState(() {
+          _isLoading = true;
+        });
+    }
+
+    void hideLoading() {
+        setState(() {
+          _isLoading = false;
+        });
+    }
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -64,6 +83,7 @@ class PriceCard extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: GestureDetector(
                 onTap: () async {
+                  showLoading();
                   List<OrderProduct> orderProduct = [];
                   for(OrderProduct product in orderResumeController.items){
                     product.id = 0;
@@ -74,21 +94,22 @@ class PriceCard extends StatelessWidget {
                   order.id = 0;
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
 
-                  hasOrderPad = await orderPadController.buscaComadaPorMesa(tableNumber);
+                  hasOrderPad = await orderPadController.buscaComadaPorMesa(widget.tableNumber);
 
 
 
                   if(hasOrderPad.data!.resultados!.isEmpty){
-                    OrderPad orderPad = OrderPad(nome: 'Mesa $tableNumber', listaPedidos: []);
+                    OrderPad orderPad = OrderPad(nome: 'Mesa ${widget.tableNumber}', listaPedidos: []);
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
                     orderPad.status = 0;
-                    isRegisteredOrder = await orderPadController.addNewOrderPad(orderPad, tableNumber);
+                    isRegisteredOrder = await orderPadController.addNewOrderPad(orderPad, widget.tableNumber);
                   } else {
                     OrderPad comanda = hasOrderPad.data!.resultados!.first as OrderPad;
                     isRegisteredOrder = await orderPadController.addOrderInOrderPad(order, comanda.id!);
                   }
+                  hideLoading();
                   if(isRegisteredOrder.data!){
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text('Pedido realizado com sucesso!'), backgroundColor: AppColors.green,));
                     orderResumeController.items.clear();
@@ -105,7 +126,7 @@ class PriceCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.darkRed,
                   ),
-                  child: Text(
+                  child: _isLoading ? CircularProgressIndicator() : Text(
                     "Finalizar Pedido",
                     style: AppStyles.size22WhiteBold,
                   ),

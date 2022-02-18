@@ -112,9 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (email!.isEmpty) {
                                 return "O E-mail deve ser informado";
                               }
-                              if (!isEmailValid(email)) {
-                                return "Email inválido";
-                              } else {
+                              else {
                                 return null;
                               }
                             },
@@ -184,12 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 onPressed: prefsService.loading ? null : () async {
                                   if (formKey.currentState!.validate()) {
-                                    user = User.auth(emailController.text, passwordController.text);
-                                    // print(user.senha);
-                                    // String cryptoTest = md5.convert(utf8.encode(user.senha)).toString();
-                                    // print(cryptoTest);
+                                    user = User.auth(emailController.text, sha256.convert(utf8.encode(passwordController.text)).toString());
+                                    // String encryptPassword = sha256.convert(utf8.encode(user.senha)).toString();
+                                    // user.senha = encryptPassword;
                                     apiResponse = await userController.autenticar(user);
-
                                     if(!apiResponse.error!){
                                       user.token = apiResponse.data!.token;
                                       user.role = apiResponse.data!.role;

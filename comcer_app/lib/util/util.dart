@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class Util {
 
-  static late final token;
+  static String token = '';
 
   static String formataValorProdutoParaBR(double preco) {
     String valor;
@@ -20,6 +20,10 @@ class Util {
   static String saveToken(value){
     token = value;
     return token;
+  }
+
+  static void removeToken(){
+    token = '';
   }
 
 

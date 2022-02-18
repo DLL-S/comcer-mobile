@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
@@ -6,6 +8,7 @@ import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/ui/components/card/table_card/table_Card.dart';
 import 'package:comcer_app/ui/do_request_screen.dart';
 import 'package:comcer_app/ui/order_pad_screen.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:comcer_app/service/prefs_service.dart';

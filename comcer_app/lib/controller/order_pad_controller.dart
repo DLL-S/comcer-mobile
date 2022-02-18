@@ -57,15 +57,9 @@ class OrderPadController {
 
   //Registrar um pedido em uma comanda aberta
   Future<APIResponse<bool>> addOrderInOrderPad(Order order, int numeroComanda) async {
-    if (kDebugMode) {
-      print('entrou no metodo');
-    }
     return await http
         .put(Uri.http(Constant.localBaseUrl, comanda + "/" + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}, body: jsonEncode(order.toJson()))
         .then((data) {
-          if (kDebugMode) {
-            print('salvou os dados');
-          }
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
