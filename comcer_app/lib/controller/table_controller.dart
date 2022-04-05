@@ -15,8 +15,8 @@ class TableController {
 
 
   //Listar Mesas
-  Future<APIResponse<Mesa>> listarMesas() {
-    return http.get(Uri.http(Constant.localBaseUrl, "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+  Future<APIResponse<Mesa>> listarMesas() async {
+    return http.get(Uri.http(Constant.localBaseUrl, "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var tablesResponse = Mesa.empty();

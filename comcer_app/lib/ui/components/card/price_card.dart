@@ -3,16 +3,13 @@ import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/ui/request_screen.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class PriceCard extends StatefulWidget {
@@ -95,8 +92,6 @@ class _PriceCardState extends State<PriceCard> {
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
 
                   hasOrderPad = await orderPadController.buscaComadaPorMesa(widget.tableNumber);
-
-
 
                   if(hasOrderPad.data!.resultados!.isEmpty){
                     OrderPad orderPad = OrderPad(nome: 'Mesa ${widget.tableNumber}', listaPedidos: []);

@@ -1,6 +1,9 @@
+import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 
-class Order {
+import 'inconsistencia_validacao.dart';
+
+class Order extends BaseAPIResponse {
   int? _id;
   late final List<OrderProduct> _produtosDoPedido;
   String? _dataHoraPedido;
@@ -47,5 +50,24 @@ class Order {
         _produtosDoPedido.map((v) => v.toJson()).toList();
     data['dataHoraPedido'] = _dataHoraPedido;
     return data;
+  }
+
+  Order.fromJsonResponse(Map<String, dynamic> json) {
+    if (json['resultados'] != null) {
+      resultados = <Order>[];
+      json['resultados'].forEach((mesa) {
+        resultados!.add(Order.fromJson(mesa));
+      });
+    }
+    if (json['validacoes'] != null) {
+      validacoes = <InconsistenciaDeValidacao>[];
+      json['validacoes'].forEach((inconsistencia) {
+        validacoes!.add(InconsistenciaDeValidacao.fromJson(inconsistencia));
+      });
+    }
+    sucesso = json['sucesso'];
+    pagina = json['pagina'];
+    quantidade = json['quantidade'];
+    total = json['total'];
   }
 }

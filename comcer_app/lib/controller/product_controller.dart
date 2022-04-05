@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +13,7 @@ class ProductController {
 
   //Listar Produtos
   Future<APIResponse<Product>> listarProdutos() {
-    return http.get(Uri.http(Constant.localBaseUrl, "api/produtos"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+    return http.get(Uri.http(Constant.localBaseUrl, "api/produtos"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var apiResponse = Product.empty();

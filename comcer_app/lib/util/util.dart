@@ -1,9 +1,10 @@
 
+import 'package:comcer_app/service/prefs_service.dart';
 import 'package:intl/intl.dart';
 
 class Util {
 
-  static String token = '';
+  static late String token = '';
 
   static String formataValorProdutoParaBR(double preco) {
     String valor;
@@ -19,6 +20,11 @@ class Util {
 
   static String saveToken(value){
     token = value;
+    return token;
+  }
+
+  static String getToken(){
+    PrefsService.getToken().then((value) => token = value);
     return token;
   }
 

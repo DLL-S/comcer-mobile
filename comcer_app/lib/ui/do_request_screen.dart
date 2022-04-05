@@ -155,7 +155,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(_products[index].nome, style: AppStyles.size18DarkRedBold,),
+                                            Text(_products[index].nome, style: AppStyles.size14DarkRedBold,),
                                             SizedBox(
                                                 width: 230,
                                                 child: Text(_products[index].descricao,

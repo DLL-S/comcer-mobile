@@ -1,3 +1,4 @@
+import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:flutter/material.dart';
 

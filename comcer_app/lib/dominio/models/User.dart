@@ -5,10 +5,10 @@ import 'package:comcer_app/dominio/enum/situation.dart';
 import 'package:comcer_app/dominio/models/Employee.dart';
 
 class User{
-  late final String _usuario;
-  late final String _senha;
-  late String _token = '';
-  late String _role = '';
+  String _usuario = '';
+  String _senha = '';
+  String _token = '';
+  String _role = '';
 
   //Construtor
   User.auth(this._usuario, this._senha,);
@@ -17,9 +17,9 @@ class User{
   User.empty();
 
   //Getters and Setters
-  String get email => _usuario;
-  set email(String value) {
-    _usuario = email;
+  String get usuario => _usuario;
+  set usuario(String value) {
+    _usuario = value;
   }
 
   String get senha => _senha;
@@ -45,7 +45,7 @@ class User{
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['usuario'] = _usuario;
     data['senha'] = _senha;
     data['token'] = _token;

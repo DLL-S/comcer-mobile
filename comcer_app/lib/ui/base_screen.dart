@@ -2,7 +2,7 @@ import 'package:comcer_app/controller/product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/ui/home_screen.dart';
-import 'package:comcer_app/ui/request_screen.dart';
+import 'package:comcer_app/ui/orders_screen.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -59,7 +59,7 @@ class _BasePageState extends State<BasePage> {
       PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreens() {
-    return [HomeScreen(), RequestScreen()];
+    return [HomeScreen(), OrdersScreen()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {

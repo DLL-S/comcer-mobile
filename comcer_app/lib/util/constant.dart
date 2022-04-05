@@ -17,7 +17,7 @@ class Constant{
 
   //Messages
 
-  static String suporte = "Ocorreu um erro na conexão com o serviço, por favor entre em contato com o suporte";
+  static String suporte = "Ocorreu um erro na conexão com o serviço,\n por favor entre em contato com o suporte";
 
   //Login Screen
   static const String email = "Email";

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class UserController {
 
-  static String login = '/login';
+  static String login = 'Api/login';
 
 
   //Autenticar usuário
@@ -21,7 +21,7 @@ class UserController {
         apiResponse = User.fromJson(jsonData);
 
         return APIResponse<User>(data: apiResponse);
-      } else if (data.statusCode == 404){
+      } else if (data.statusCode == 400){
         return APIResponse<User>(
             error: true,
             errorMessage: 'E-mail ou senha incorretos, por favor verifique os dados.');

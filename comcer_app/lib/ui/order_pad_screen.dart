@@ -50,7 +50,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     } else if (_apiResponse.error!) {
       hideLoading();
     }
-    if(mounted){
+    if (mounted) {
       setState(() {
         totalValue = comandas[0].valor!;
       });
@@ -62,6 +62,56 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return numeroPedido++;
   }
 
+  AlertDialog showCloseConfirmationDialog(
+      BuildContext context, int orderPadNumber) {
+    AlertDialog alerta = AlertDialog(
+      title: const Text("Confirmação"),
+      content: const Text("Deseja realmente fechar a comanda?"),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Cancelar")),
+        TextButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/base', (Route<dynamic> route) => false);
+            },
+            child: const Text(
+              "Sim",
+              style: TextStyle(color: Colors.red),
+            ))
+      ],
+    );
+    return alerta;
+  }
+
+  bool orderPadCanBeClose(OrderPad orderPad) {
+    bool validation = false;
+    int lengthProduct = 0;
+    int lengthOrder = 0;
+    orderPad.listaPedidos.forEach((pedido) {
+      pedido.pedidosDoProduto.forEach((produto) {
+        if (produto.status == 3) {
+          lengthProduct = lengthProduct;
+        } else {
+          lengthProduct++;
+        }
+      });
+      if (lengthProduct == 0) {
+        lengthOrder = lengthOrder;
+      } else {
+        lengthOrder++;
+      }
+    });
+    if (lengthOrder == 0) {
+      validation = true;
+    } else {
+      validation = false;
+    }
+    return validation;
+  }
 
   @override
   void initState() {
@@ -75,6 +125,58 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
         backgroundColor: AppColors.darkRed,
         title: Text("Comanda da Mesa " + widget.tableNumber.toString()),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              orderPadCanBeClose(comandas[0])
+                  ? showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Confirmação"),
+                          content: const Text("Deseja realmente fechar a comanda?"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancelar")),
+                            TextButton(
+                                onPressed: () {
+                                  orderPadController.closeOrderPad(comandas[0].id!);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/base', (Route<dynamic> route) => false);
+                                },
+                                child: const Text(
+                                  "Sim",
+                                  style: TextStyle(color: Colors.red),
+                                ))
+                          ],
+                        );
+                      })
+                  : showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Atenção"),
+                          content: const Text(
+                              "A comanda não pode ser encerrada pois ainda existem pedidos que não foram finalizados."),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Fechar"))
+                          ],
+                        );
+                      });
+            },
+            icon: const Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+          )
+        ],
       ),
       body: Container(
         color: AppColors.lightRed,
@@ -175,8 +277,15 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Valor Total:', style: AppStyles.size22WhiteBold,),
-                       Text('R\$ ' + totalValue.toStringAsFixed(2).replaceAll('.', ','), style: AppStyles.size22WhiteBold,),
+                      Text(
+                        'Valor Total:',
+                        style: AppStyles.size22WhiteBold,
+                      ),
+                      Text(
+                        'R\$ ' +
+                            totalValue.toStringAsFixed(2).replaceAll('.', ','),
+                        style: AppStyles.size22WhiteBold,
+                      ),
                     ],
                   ),
                 ),

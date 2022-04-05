@@ -5,7 +5,8 @@ import 'package:comcer_app/ui/base_screen.dart';
 import 'package:comcer_app/ui/home_screen.dart';
 import 'package:comcer_app/ui/login_screen.dart';
 import 'package:comcer_app/ui/order_resume_screen.dart';
-import 'package:comcer_app/ui/request_screen.dart';
+import 'package:comcer_app/ui/orders_screen.dart';
+import 'package:comcer_app/ui/products_of_order_screen.dart';
 import 'package:comcer_app/ui/splash_page.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class AppWidget extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/base': (context) => BasePage(),
           '/home': (context) => HomeScreen(),
-          '/pedidos': (context) => RequestScreen(),
+          '/pedidos': (context) => OrdersScreen(),
           '/resumo': (context) => OrderResumeScreen(),
         },
       ),

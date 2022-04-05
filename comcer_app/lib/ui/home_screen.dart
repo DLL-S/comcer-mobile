@@ -8,10 +8,8 @@ import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/ui/components/card/table_card/table_Card.dart';
 import 'package:comcer_app/ui/do_request_screen.dart';
 import 'package:comcer_app/ui/order_pad_screen.dart';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:comcer_app/service/prefs_service.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +19,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   final tableController = TableController();
   APIResponse<Mesa> _apiResponse = APIResponse<Mesa>();
   List<Mesa> tables = <Mesa>[];
@@ -133,7 +131,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     listarMesas();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if( state == AppLifecycleState.resumed) {
+      setState(() {
+        listarMesas();
+      });
+    }
   }
 
   @override

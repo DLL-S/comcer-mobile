@@ -14,11 +14,12 @@ class OrderPadController {
 
   static const String comanda = 'api/comanda';
   static const String adicionarComandaNaMesa = 'api/mesa/';
+  static const String fecharComanda = 'api/mesa/encerrarComanda/';
 
 
   //Buscar comanda referente a mesa selecionada
   Future<APIResponse<OrderPad>> buscaComadaPorMesa(int tableNumber) {
-    return http.get(Uri.http(Constant.localBaseUrl, "api/mesa/$tableNumber/comandas"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+    return http.get(Uri.http(Constant.localBaseUrl, "api/mesa/$tableNumber/comandas"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var apiResponse = OrderPad.empty();
@@ -44,7 +45,7 @@ class OrderPadController {
   //Registrar Nova Comanda
   Future<APIResponse<bool>> addNewOrderPad(OrderPad orderPad, int mesa) async {
     return await http
-        .put(Uri.http(Constant.localBaseUrl, adicionarComandaNaMesa + "$mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}, body: jsonEncode(orderPad.toJson()))
+        .put(Uri.http(Constant.localBaseUrl, adicionarComandaNaMesa + "$mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(orderPad.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
@@ -58,12 +59,25 @@ class OrderPadController {
   //Registrar um pedido em uma comanda aberta
   Future<APIResponse<bool>> addOrderInOrderPad(Order order, int numeroComanda) async {
     return await http
-        .put(Uri.http(Constant.localBaseUrl, comanda + "/" + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}, body: jsonEncode(order.toJson()))
+        .put(Uri.http(Constant.localBaseUrl, comanda + "/" + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(order.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'Não foi possível registrar o pedido na comanda! Erro: ' + data.statusCode.toString());
+    }).catchError((_) =>
+        APIResponse<bool>(error: true, errorMessage: Constant.suporte));
+  }
+
+  //Fechar Comanda
+  Future<APIResponse<bool>> closeOrderPad(int numeroComanda) async {
+    return await http
+        .put(Uri.http(Constant.localBaseUrl, fecharComanda + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"})
+        .then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'Não foi possível fechar a comanda! Erro: ' + data.statusCode.toString());
     }).catchError((_) =>
         APIResponse<bool>(error: true, errorMessage: Constant.suporte));
   }

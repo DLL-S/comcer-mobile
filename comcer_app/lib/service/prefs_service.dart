@@ -21,7 +21,7 @@ class PrefsService extends ChangeNotifier {
     setLoading(true);
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(_key, jsonEncode({
-      "user": user.email,
+      "user": user.usuario,
       "token": user.token,
       "role": user.role,
       "isAuth": true
@@ -39,6 +39,19 @@ class PrefsService extends ChangeNotifier {
       return mapUser['isAuth'];
     }
     return false;
+  }
+
+  static Future<String> getToken() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    var jsonResult = prefs.get(_key);
+
+    if(jsonResult != null) {
+      var mapUser = jsonDecode(jsonResult as String);
+      return mapUser['token'];
+    } else {
+      return 'AAAAAAA';
+    }
   }
 
 

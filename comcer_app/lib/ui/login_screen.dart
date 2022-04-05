@@ -182,9 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 onPressed: prefsService.loading ? null : () async {
                                   if (formKey.currentState!.validate()) {
-                                    user = User.auth(emailController.text, sha256.convert(utf8.encode(passwordController.text)).toString());
-                                    // String encryptPassword = sha256.convert(utf8.encode(user.senha)).toString();
-                                    // user.senha = encryptPassword;
+                                    user.usuario = emailController.text;
+                                    user.senha = sha256.convert(utf8.encode(passwordController.text)).toString();
                                     apiResponse = await userController.autenticar(user);
                                     if(!apiResponse.error!){
                                       user.token = apiResponse.data!.token;
