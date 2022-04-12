@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:comcer_app/dominio/models/mesa.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
-import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +14,7 @@ class TableController {
 
   //Listar Mesas
   Future<APIResponse<Mesa>> listarMesas() async {
-    return http.get(Uri.http(Constant.localBaseUrl, "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
+    return http.get(Uri.https(Constant.localBaseUrlDev, "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var tablesResponse = Mesa.empty();

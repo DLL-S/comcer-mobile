@@ -12,7 +12,7 @@ class UserController {
 
   //Autenticar usuário
   Future<APIResponse<User>> autenticar(User user) {
-    return http.post(Uri.http(Constant.localBaseUrl, login), headers: Constant.headers, body: jsonEncode(user.toJson()))
+    return http.post(Uri.https(Constant.localBaseUrlDev, login), headers: Constant.headers, body: jsonEncode(user.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(const Utf8Decoder().convert(data.bodyBytes));
