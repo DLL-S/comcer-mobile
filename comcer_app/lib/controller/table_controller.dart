@@ -7,6 +7,8 @@ import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
+import '../Environment_config.dart';
+
 class TableController {
 
   static const String defaultUrl = "api/mesa";
@@ -14,7 +16,7 @@ class TableController {
 
   //Listar Mesas
   Future<APIResponse<Mesa>> listarMesas() async {
-    return http.get(Uri.https(Constant.localBaseUrlDev, "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
+    return http.get(Uri.https(EnvironmentConfig.urlsConfig(), "api/mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var tablesResponse = Mesa.empty();

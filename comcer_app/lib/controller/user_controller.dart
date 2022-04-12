@@ -5,6 +5,8 @@ import 'package:comcer_app/dominio/models/User.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:http/http.dart' as http;
 
+import '../Environment_config.dart';
+
 class UserController {
 
   static String login = 'Api/login';
@@ -12,7 +14,7 @@ class UserController {
 
   //Autenticar usuário
   Future<APIResponse<User>> autenticar(User user) {
-    return http.post(Uri.https(Constant.localBaseUrlDev, login), headers: Constant.headers, body: jsonEncode(user.toJson()))
+    return http.post(Uri.https(EnvironmentConfig.urlsConfig(), login), headers: Constant.headers, body: jsonEncode(user.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(const Utf8Decoder().convert(data.bodyBytes));

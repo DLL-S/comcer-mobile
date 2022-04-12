@@ -7,11 +7,13 @@ import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
+import '../Environment_config.dart';
+
 class OrderProductController {
 
   //Listar produtos do pedido
   Future<APIResponse<OrderProductResponse>> listarProdutosDoPedido(int idPedido) {
-    return http.get(Uri.https(Constant.localBaseUrlDev, "api/produtosDoPedido/view/$idPedido"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+    return http.get(Uri.https(EnvironmentConfig.urlsConfig(), "api/produtosDoPedido/view/$idPedido"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var apiResponse = OrderProductResponse.empty();
@@ -36,7 +38,7 @@ class OrderProductController {
 
   //Alterar status do produto
   Future<APIResponse<bool>> alterarStatusDoProduto(int idProdutoPedido) {
-    return http.put(Uri.https(Constant.localBaseUrlDev, "api/produtosDoPedido/$idProdutoPedido", {'status': '3'}),  headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+    return http.put(Uri.https(EnvironmentConfig.urlsConfig(), "api/produtosDoPedido/$idProdutoPedido", {'status': '3'}),  headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(
             data: true,

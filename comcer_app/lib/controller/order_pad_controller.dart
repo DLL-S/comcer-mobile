@@ -8,6 +8,8 @@ import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
+import '../Environment_config.dart';
+
 class OrderPadController {
 
   static const String comanda = 'api/comanda';
@@ -17,7 +19,7 @@ class OrderPadController {
 
   //Buscar comanda referente a mesa selecionada
   Future<APIResponse<OrderPad>> buscaComadaPorMesa(int tableNumber) {
-    return http.get(Uri.https(Constant.localBaseUrlDev, "api/mesa/$tableNumber/comandas"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
+    return http.get(Uri.https(EnvironmentConfig.urlsConfig(), "api/mesa/$tableNumber/comandas"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var apiResponse = OrderPad.empty();
@@ -43,7 +45,7 @@ class OrderPadController {
   //Registrar Nova Comanda
   Future<APIResponse<bool>> addNewOrderPad(OrderPad orderPad, int mesa) async {
     return await http
-        .put(Uri.https(Constant.localBaseUrlDev, adicionarComandaNaMesa + "$mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(orderPad.toJson()))
+        .put(Uri.https(EnvironmentConfig.urlsConfig(), adicionarComandaNaMesa + "$mesa"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(orderPad.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
@@ -57,7 +59,7 @@ class OrderPadController {
   //Registrar um pedido em uma comanda aberta
   Future<APIResponse<bool>> addOrderInOrderPad(Order order, int numeroComanda) async {
     return await http
-        .put(Uri.https(Constant.localBaseUrlDev, comanda + "/" + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(order.toJson()))
+        .put(Uri.https(EnvironmentConfig.urlsConfig(), comanda + "/" + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"}, body: jsonEncode(order.toJson()))
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
@@ -70,7 +72,7 @@ class OrderPadController {
   //Fechar Comanda
   Future<APIResponse<bool>> closeOrderPad(int numeroComanda) async {
     return await http
-        .put(Uri.https(Constant.localBaseUrlDev, fecharComanda + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"})
+        .put(Uri.https(EnvironmentConfig.urlsConfig(), fecharComanda + "$numeroComanda"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"})
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);

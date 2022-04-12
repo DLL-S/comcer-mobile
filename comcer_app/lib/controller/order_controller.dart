@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:comcer_app/Environment_config.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
 import 'package:comcer_app/util/constant.dart';
@@ -11,7 +12,7 @@ class OrderController {
 
   //Listar Pedidos
   Future<APIResponse<OrderView>> listarPedidos() {
-    return http.get(Uri.https(Constant.localBaseUrlDev, "api/pedidos/view"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
+    return http.get(Uri.https(EnvironmentConfig.urlsConfig(), "api/pedidos/view"), headers: {HttpHeaders.contentTypeHeader: "application/json", HttpHeaders.authorizationHeader: "Bearer ${Util.token}"}).then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
         var apiResponse = OrderView.empty();
