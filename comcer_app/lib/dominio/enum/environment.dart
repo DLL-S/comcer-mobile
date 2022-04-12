@@ -1,0 +1,4 @@
+enum Environments {
+  PRODUCAO,
+  DESENVOLVIMENTO
+}

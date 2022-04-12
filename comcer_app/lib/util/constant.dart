@@ -2,9 +2,6 @@
 
 import 'dart:io';
 
-import 'package:comcer_app/service/prefs_service.dart';
-import 'package:comcer_app/util/util.dart';
-
 class Constant{
 
   //Título do App
@@ -12,7 +9,8 @@ class Constant{
 
   //API
   static const String localBaseUrl = "189.63.74.198:5000";
-  static const String localBaseUrlTest = "comanda-certa.azurewebsites.ne/";
+  static const String localBaseUrlProd = "comcer-api.herokuapp.com";
+  static const String localBaseUrlDev = "comcer-api-dev.herokuapp.com";
   static final headers = {HttpHeaders.contentTypeHeader: "application/json"};
 
   //Messages
