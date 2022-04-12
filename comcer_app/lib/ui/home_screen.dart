@@ -39,15 +39,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     });
   }
 
-  void listarMesas() async {
-    showLoading();
+  Future<List<Mesa>> listarMesas() async {
     _apiResponse = await tableController.listarMesas();
     if (_apiResponse.data != null) {
       tables = _apiResponse.data!.resultados as List<Mesa>;
     } else if (_apiResponse.error!) {
       hideLoading();
     }
-    hideLoading();
+    return tables;
   }
 
   void showOptionsDialog(int mesa, bool disponivel) {
@@ -135,6 +134,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     listarMesas();
   }
 
+
+  @override
+  void deactivate() {
+    listarMesas();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -149,41 +161,51 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return SafeArea(
         top: true,
-        child: Container(
-          color: AppColors.lightRed,
-          child: RefreshIndicator(
-            onRefresh: () async {
-              listarMesas();
-            },
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: _isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.darkRed,
-                            ),
-                          )
-                        : GridView.count(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            children: tables
-                                .map((mesa) => TableCard(
-                                    number: mesa.numero,
-                                    status: mesa.disponivel,
-                                    onTap: () {
-                                      showOptionsDialog(mesa.numero, mesa.disponivel);
-                                    }))
-                                .toList(),
-                          ),
+        child: FutureBuilder(
+          future: listarMesas(), builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              color: AppColors.lightRed,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  listarMesas();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          children: tables
+                              .map((mesa) => TableCard(
+                              number: mesa.numero,
+                              status: mesa.disponivel,
+                              onTap: () {
+                                showOptionsDialog(mesa.numero, mesa.disponivel);
+                              }))
+                              .toList(),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ));
+            );
+          } else {
+            return Container(
+              color: AppColors.lightRed,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.darkRed,
+                ),
+              ),
+            );
+          }
+        },
+        )
+    );
   }
 }
