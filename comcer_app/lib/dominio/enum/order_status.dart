@@ -1,5 +1,1 @@
-enum OrderStatus {
- PENDENTE,
- COZINHANDO,
- PRONTO
-}
+enum OrderStatus { PENDENTE, COZINHANDO, PRONTO }

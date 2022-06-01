@@ -2,8 +2,7 @@
 
 import 'dart:io';
 
-class Constant{
-
+class Constant {
   //Título do App
   static const String title = "COMCER - Comanda Certa";
 
@@ -15,7 +14,8 @@ class Constant{
 
   //Messages
 
-  static String suporte = "Ocorreu um erro na conexão com o serviço,\n por favor entre em contato com o suporte";
+  static String suporte =
+      "Ocorreu um erro na conexão com o serviço,\n por favor entre em contato com o suporte";
 
   //Login Screen
   static const String email = "Email";
@@ -39,5 +39,4 @@ class Constant{
   static const double FONT_LABEL_TEXT_SIZE = 18;
   static const double ROUNDING_EDGE_CONTAINER_VALUE = 8;
   static const double DEFAULT_DISTANCE_BETWEEN_WIDGETS = 8;
-
 }

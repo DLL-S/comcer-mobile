@@ -10,11 +10,11 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      Future.wait([PrefsService.isAuth(),
-      Future.delayed(const Duration(seconds: 3))
-    ]).then((value) => value[0]
-        ? Navigator.pushReplacementNamed(context, '/base')
-        :  Navigator.pushReplacementNamed(context, '/login'));
+    Future.wait(
+            [PrefsService.isAuth(), Future.delayed(const Duration(seconds: 3))])
+        .then((value) => value[0]
+            ? Navigator.pushReplacementNamed(context, '/base')
+            : Navigator.pushReplacementNamed(context, '/login'));
 
     // Future.delayed(const Duration(seconds: 3)).then((_) => Navigator.pushReplacementNamed(
     //     context, '/login'));
@@ -24,28 +24,22 @@ class SplashPage extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                 image: DecorationImage(
-                   image: AssetImage(AppImages.background),
-                   fit: BoxFit.cover
-                 )
-                ),
+                image: DecorationImage(
+                    image: AssetImage(AppImages.background),
+                    fit: BoxFit.cover)),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0 ),
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
               child: Container(
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
               ),
             ),
-            ),
+          ),
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(AppImages.whiteLogo)
-                )
-            ),
+                image: DecorationImage(image: AssetImage(AppImages.whiteLogo))),
           ),
-
         ],
-        ),
+      ),
     );
   }
 }

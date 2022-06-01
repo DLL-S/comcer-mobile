@@ -3,7 +3,6 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
-import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/ui/components/card/order_in_progress_card/OrderCard.dart';
 import 'package:comcer_app/ui/products_of_order_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +17,11 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-
   final orderController = OrderController();
   APIResponse<OrderView> _apiResponse = APIResponse<OrderView>();
   List<OrderView> orders = <OrderView>[];
   bool _isLoading = false;
   DateTime dataHora = DateTime.now();
-
-
 
   void showLoading() {
     setState(() {
@@ -57,8 +53,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
     listarPedidos();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,38 +65,67 @@ class _OrdersScreenState extends State<OrdersScreen> {
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
           child: Column(
             children: [
-              Text('Última atualização em ' + DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) + 'hrs', style: TextStyle(color: AppColors.darkRed),),
+              Text(
+                'Última atualização em ' +
+                    DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) +
+                    'hrs',
+                style: TextStyle(color: AppColors.darkRed),
+              ),
               const SizedBox(
                 height: 8,
               ),
-              Expanded(
-                  child: Builder(builder: (_) {
-                    if(_isLoading){
-                      return Center(child: CircularProgressIndicator(color: AppColors.darkRed,),);
-                    } else {
-                      if(_apiResponse.error!){
-                        return Center(child: Text("Houve um problema ao carregar os dados do serviço.\n " + _apiResponse.errorMessage.toString(), style: AppStyles.size18BlackBold, textAlign: TextAlign.center,));
-                      } else if(!_apiResponse.error! && _apiResponse.error == true){
-                        return Center(child: Text(_apiResponse.errorMessage.toString(), style: AppStyles.size14BlackBold, textAlign: TextAlign.center,));
-                      } else if (orders.isEmpty){
-                        return ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Text("Nenhum pedido a ser finalizado!", style: AppStyles.size18DarkRedBold, textAlign: TextAlign.center,)],);
-                      } else {
-                        return ListView.builder(
-                            itemCount: orders.length,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext _, int index){
-                              return OrderCard(order: orders[index], onTap: (){
+              Expanded(child: Builder(builder: (_) {
+                if (_isLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.darkRed,
+                    ),
+                  );
+                } else {
+                  if (_apiResponse.error!) {
+                    return Center(
+                        child: Text(
+                      "Houve um problema ao carregar os dados do serviço.\n " +
+                          _apiResponse.errorMessage.toString(),
+                      style: AppStyles.size18BlackBold,
+                      textAlign: TextAlign.center,
+                    ));
+                  } else if (!_apiResponse.error! &&
+                      _apiResponse.error == true) {
+                    return Center(
+                        child: Text(
+                      _apiResponse.errorMessage.toString(),
+                      style: AppStyles.size14BlackBold,
+                      textAlign: TextAlign.center,
+                    ));
+                  } else if (orders.isEmpty) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: [
+                        Text(
+                          "Nenhum pedido a ser finalizado!",
+                          style: AppStyles.size18DarkRedBold,
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    );
+                  } else {
+                    return ListView.builder(
+                        itemCount: orders.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext _, int index) {
+                          return OrderCard(
+                              order: orders[index],
+                              onTap: () {
                                 pushNewScreen(context,
-                                    screen: ProducstOfOrderScreen(idPedido: orders[index].numeroDoPedido),withNavBar: false);
+                                    screen: ProducstOfOrderScreen(
+                                        idPedido: orders[index].numeroDoPedido),
+                                    withNavBar: false);
                               });
-                            }
-                        );
-                      }
-                    }})
-              ),
+                        });
+                  }
+                }
+              })),
             ],
           ),
         ),
@@ -110,6 +133,3 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 }
-
-
-

@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
-import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +49,6 @@ class OrderCard extends StatelessWidget {
           style: TextStyle(
               color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 18),
         );
-        ;
       }
     }
 
@@ -135,7 +132,11 @@ class OrderCard extends StatelessWidget {
                 onTap: onTap,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: Text('Ver produtos', style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.bold),),
+                  child: Text(
+                    'Ver produtos',
+                    style: TextStyle(
+                        color: AppColors.blue, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),

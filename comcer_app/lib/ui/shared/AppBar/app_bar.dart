@@ -19,7 +19,8 @@ class AppBarCustom extends PreferredSize {
         TextButton(
             onPressed: () {
               PrefsService.logout();
-              Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/login', (Route<dynamic> route) => false);
             },
             child: const Text(
               "Sair",
@@ -31,12 +32,12 @@ class AppBarCustom extends PreferredSize {
   }
 
   AppBarCustom({required this.titulo})
-    : super (
-    preferredSize: Size.fromHeight(200),
-      child:  AppBar(title: Text(titulo), centerTitle: true, backgroundColor: AppColors.darkRed, ),
-
-  );
-
-
-
+      : super(
+          preferredSize: Size.fromHeight(200),
+          child: AppBar(
+            title: Text(titulo),
+            centerTitle: true,
+            backgroundColor: AppColors.darkRed,
+          ),
+        );
 }

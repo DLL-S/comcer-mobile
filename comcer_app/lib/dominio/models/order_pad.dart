@@ -14,10 +14,10 @@ class OrderPad extends BaseAPIResponse {
 
   OrderPad(
       {int? id,
-        required String nome,
-        required List<Order> listaPedidos,
-        double? valor,
-        int? status}) {
+      required String nome,
+      required List<Order> listaPedidos,
+      double? valor,
+      int? status}) {
     if (id != null) {
       _id = id;
     }
@@ -36,15 +36,23 @@ class OrderPad extends BaseAPIResponse {
   }
 
   int? get id => _id;
+
   set id(int? id) => _id = id;
+
   String get nome => _nome;
+
   set nome(String nome) => _nome = nome;
+
   List<Order> get listaPedidos => _listaPedidos;
-  set listaPedidos(List<Order> listaPedidos) =>
-      _listaPedidos = listaPedidos;
+
+  set listaPedidos(List<Order> listaPedidos) => _listaPedidos = listaPedidos;
+
   double? get valor => _valor;
+
   set valor(double? valor) => _valor = valor;
+
   int? get status => _status;
+
   set status(int? status) => _status = status;
 
   OrderPad.fromJson(Map<String, dynamic> json) {
@@ -65,8 +73,7 @@ class OrderPad extends BaseAPIResponse {
     data['id'] = _id;
     data['nome'] = _nome;
     if (_listaPedidos != null) {
-      data['listaPedidos'] =
-          _listaPedidos.map((v) => v.toJson()).toList();
+      data['listaPedidos'] = _listaPedidos.map((v) => v.toJson()).toList();
     }
     data['valor'] = _valor;
     data['status'] = _status;

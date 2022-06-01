@@ -2,9 +2,7 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppStyles{
-
-
+class AppStyles {
   //DarkRed
   static final TextStyle size14DarkRedBold = TextStyle(
     fontSize: 14,
@@ -23,7 +21,6 @@ class AppStyles{
     fontWeight: FontWeight.bold,
     color: AppColors.darkRed,
   );
-
 
   //White
   static final TextStyle size12WhiteBold = TextStyle(
@@ -49,7 +46,6 @@ class AppStyles{
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
-
 
   //Black
   static final TextStyle size10BlackRegular = TextStyle(
@@ -93,6 +89,4 @@ class AppStyles{
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
-
-
 }

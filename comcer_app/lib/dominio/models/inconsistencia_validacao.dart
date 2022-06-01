@@ -1,41 +1,37 @@
 // ignore_for_file: file_names
 
-import 'dart:ffi';
+
 
 class InconsistenciaDeValidacao {
-
   late String _propriedade;
   late String _mensagem;
   late bool _impedidtivo;
-
 
   //Construtor default
   InconsistenciaDeValidacao.vazio();
 
   //Construtor
   InconsistenciaDeValidacao(
-      this._propriedade,
-      this._mensagem,
-      this._impedidtivo
-      );
+      this._propriedade, this._mensagem, this._impedidtivo);
 
   //Getters and Setters
   String get propriedade => _propriedade;
+
   set propriedade(String value) {
     _propriedade = value;
   }
 
   String get mensagem => _mensagem;
+
   set mensagem(String value) {
     _mensagem = value;
   }
 
   bool get impedidtivo => _impedidtivo;
+
   set impeditivo(bool value) {
     _impedidtivo = value;
   }
-
-
 
   //Converter JSON para classe
   InconsistenciaDeValidacao.fromJson(Map<String, dynamic> json) {
@@ -52,6 +48,4 @@ class InconsistenciaDeValidacao {
     data["impeditivo"] = _impedidtivo ? 1 : 0;
     return data;
   }
-
-
 }
