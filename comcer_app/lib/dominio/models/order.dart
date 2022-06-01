@@ -12,8 +12,8 @@ class Order extends BaseAPIResponse {
 
   Order(
       {int? id,
-        required List<OrderProduct> pedidosDoProduto,
-        String? dataHoraPedido}) {
+      required List<OrderProduct> pedidosDoProduto,
+      String? dataHoraPedido}) {
     if (id != null) {
       _id = id;
     }
@@ -24,11 +24,16 @@ class Order extends BaseAPIResponse {
   }
 
   int? get id => _id;
+
   set id(int? id) => _id = id;
+
   List<OrderProduct> get pedidosDoProduto => _produtosDoPedido;
+
   set pedidosDoProduto(List<OrderProduct> pedidosDoProduto) =>
       _produtosDoPedido = pedidosDoProduto;
+
   String? get dataHoraPedido => _dataHoraPedido;
+
   set dataHoraPedido(String? dataHoraPedido) =>
       _dataHoraPedido = dataHoraPedido;
 

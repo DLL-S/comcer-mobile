@@ -1,6 +1,6 @@
+import 'BaseAPIResponse.dart';
 import 'inconsistencia_validacao.dart';
 import 'order_pad.dart';
-import 'BaseAPIResponse.dart';
 
 class Mesa extends BaseAPIResponse {
   late final int _id;
@@ -26,12 +26,19 @@ class Mesa extends BaseAPIResponse {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   int get numero => _numero;
+
   set numero(int numero) => _numero = numero;
+
   List<OrderPad>? get comandas => _comandas;
+
   set comandas(List<OrderPad>? comandas) => _comandas = comandas;
+
   bool get disponivel => _disponivel;
+
   set disponivel(bool disponivel) => _disponivel = disponivel;
 
   Mesa.fromJson(Map<String, dynamic> json) {
@@ -57,23 +64,22 @@ class Mesa extends BaseAPIResponse {
     return data;
   }
 
-Mesa.fromJsonResponse(Map<String, dynamic> json) {
-  if (json['resultados'] != null) {
-    resultados = <Mesa>[];
-    json['resultados'].forEach((mesa) {
-      resultados!.add(Mesa.fromJson(mesa));
-    });
+  Mesa.fromJsonResponse(Map<String, dynamic> json) {
+    if (json['resultados'] != null) {
+      resultados = <Mesa>[];
+      json['resultados'].forEach((mesa) {
+        resultados!.add(Mesa.fromJson(mesa));
+      });
+    }
+    if (json['validacoes'] != null) {
+      validacoes = <InconsistenciaDeValidacao>[];
+      json['validacoes'].forEach((inconsistencia) {
+        validacoes!.add(InconsistenciaDeValidacao.fromJson(inconsistencia));
+      });
+    }
+    sucesso = json['sucesso'];
+    pagina = json['pagina'];
+    quantidade = json['quantidade'];
+    total = json['total'];
   }
-  if (json['validacoes'] != null) {
-    validacoes = <InconsistenciaDeValidacao>[];
-    json['validacoes'].forEach((inconsistencia) {
-      validacoes!.add(InconsistenciaDeValidacao.fromJson(inconsistencia));
-    });
-  }
-  sucesso = json['sucesso'];
-  pagina = json['pagina'];
-  quantidade = json['quantidade'];
-  total = json['total'];
-}
-
 }

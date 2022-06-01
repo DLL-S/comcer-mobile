@@ -2,10 +2,7 @@ import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
-import 'package:comcer_app/dominio/models/order_product.dart';
-import 'package:comcer_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -134,7 +131,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text("Confirmação"),
-                          content: const Text("Deseja realmente fechar a comanda?"),
+                          content:
+                              const Text("Deseja realmente fechar a comanda?"),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -143,9 +141,10 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                 child: const Text("Cancelar")),
                             TextButton(
                                 onPressed: () {
-                                  orderPadController.closeOrderPad(comandas[0].id!);
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, '/base', (Route<dynamic> route) => false);
+                                  orderPadController
+                                      .closeOrderPad(comandas[0].id!);
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      '/base', (Route<dynamic> route) => false);
                                 },
                                 child: const Text(
                                   "Sim",

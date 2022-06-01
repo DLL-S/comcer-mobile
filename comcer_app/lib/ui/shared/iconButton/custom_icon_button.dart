@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatelessWidget {
-
   final IconData iconData;
   final Color color;
   final VoidCallback onTap;
 
-  const CustomIconButton({Key? key, required this.iconData, required this.color, required this.onTap}) : super(key: key);
+  const CustomIconButton(
+      {Key? key,
+      required this.iconData,
+      required this.color,
+      required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
