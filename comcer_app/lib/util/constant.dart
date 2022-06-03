@@ -28,12 +28,11 @@ class Constant{
   static const String pedidos = "Pedidos";
 
   //Order in Progress Screen
-  static const String pedidoFeito = "Pedido feito";
-  static const String emPreparo = "Em prepraro";
-  static const String pedidoPronto = "Pedido pronto";
-  static const String status1 = "1";
-  static const String status2 = "2";
-  static const String status3 = "3";
+  static const String statusPendente = 'Pendente';
+  static const String statusCozinhando = 'Em preparo';
+  static const String statusPronto = 'Pronto';
+  static const String statusEntregue = 'Entregue';
+  static const String statusDesconhecido = 'Status Desconhecido';
 
   //Others
   static const double FONT_LABEL_TEXT_SIZE = 18;

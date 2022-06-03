@@ -4,11 +4,9 @@ import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/controller/product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:comcer_app/ui/components/card/filter_card/fiter_card.dart';
-import 'package:comcer_app/ui/order_resume_screen.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -166,7 +164,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                               height: 8,
                                             ),
                                             Container(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(10),
                                                   color: AppColors.darkRed

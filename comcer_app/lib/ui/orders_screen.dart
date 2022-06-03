@@ -1,9 +1,9 @@
 import 'package:comcer_app/controller/order_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
-import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/ui/components/card/order_in_progress_card/OrderCard.dart';
 import 'package:comcer_app/ui/products_of_order_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     _apiResponse = await orderController.listarPedidos();
     if (_apiResponse.data != null) {
       orders = _apiResponse.data!.resultados as List<OrderView>;
-      orders = orders.where((element) => element.statusDoPedido != 3).toList();
+      orders = orders.where((element) => element.statusDoPedido != OrderStatus.ENTREGUE.value).toList();
     } else if (_apiResponse.error!) {
       hideLoading();
     }

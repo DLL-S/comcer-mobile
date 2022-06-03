@@ -24,6 +24,7 @@ class PrefsService extends ChangeNotifier {
       "user": user.usuario,
       "token": user.token,
       "role": user.role,
+      "dateAndHour": DateTime.now().toString(),
       "isAuth": true
     }));
     setLoading(false);
@@ -36,7 +37,14 @@ class PrefsService extends ChangeNotifier {
 
     if(jsonResult != null) {
       var mapUser = jsonDecode(jsonResult as String);
-      return mapUser['isAuth'];
+      var dateTimeRegistred = DateTime.parse(mapUser['dateAndHour']).toLocal();
+      var tokenTimeActived = DateTime.now().difference(dateTimeRegistred);
+
+      if (tokenTimeActived.inHours < 6){
+        return mapUser['isAuth'];
+      } else {
+        return false;
+      }
     }
     return false;
   }
