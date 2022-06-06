@@ -26,18 +26,23 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   static const String verComanda = "Ver Comanda";
 
   void showLoading() {
-    setState(() {
-      _isLoading = true;
-    });
+    if (mounted){
+      setState(() {
+        _isLoading = true;
+      });
+    }
   }
 
   void hideLoading() {
-    setState(() {
-      _isLoading = false;
-    });
+    if(mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<List<Mesa>> listarMesas() async {
+    showLoading();
     _apiResponse = await tableController.listarMesas();
     if (_apiResponse.data != null) {
       tables = _apiResponse.data!.resultados as List<Mesa>;
@@ -126,12 +131,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    listarMesas();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      listarMesas();
+    });
   }
 
   @override
   void deactivate() {
-    listarMesas();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      listarMesas();
+    });
     super.deactivate();
   }
 
@@ -146,7 +155,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       setState(() {
-        listarMesas();
+        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          listarMesas();
+        });
       });
     }
   }
@@ -193,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             } else {
               return Container(
                 color: AppColors.lightRed,
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),

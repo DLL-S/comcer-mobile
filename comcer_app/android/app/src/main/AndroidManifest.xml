@@ -3,7 +3,7 @@
 	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<application
-        android:label="comcer_app"
+        android:label="Comanda Certa"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
