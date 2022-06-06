@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final UserController userController = UserController();
   APIResponse<User> apiResponse = APIResponse<User>();
   User user = User.empty();
+  bool loading = false;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -62,6 +63,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _showPassword = true;
 
+  void isLoading() {
+    setState(() {
+      loading = !loading;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             controller: emailController,
                             keyboardType: TextInputType.emailAddress,
-                            enabled: !prefsService.loading,
+                            enabled: !loading,
                             decoration: InputDecoration(
                                 labelText: Constant.email,
                                 border: const OutlineInputBorder(),
@@ -122,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             controller: passwordController,
                             obscureText: _showPassword,
-                            enabled: !prefsService.loading,
+                            enabled: !loading,
                             decoration: InputDecoration(
                                 labelText: Constant.senha,
                                 suffixIcon: IconButton(
@@ -180,9 +187,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         AppColors.darkGreen),
                                     foregroundColor: MaterialStateProperty.all(
                                         AppColors.green.withAlpha(100))),
-                                onPressed: prefsService.loading
+                                onPressed: loading
                                     ? null
                                     : () async {
+                                        isLoading();
                                         if (formKey.currentState!.validate()) {
                                           user.usuario = emailController.text;
                                           user.senha = sha256
@@ -197,17 +205,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                             user.role = apiResponse.data!.role;
                                             Util.saveToken(user.token);
                                             prefsService.saveLogIn(user);
+                                            isLoading();
                                             Navigator.pushReplacementNamed(
                                                 context, '/base');
                                           } else {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(showSnackBar(
                                                     apiResponse.errorMessage!));
+                                            isLoading();
                                           }
                                         }
                                       },
-                                child: prefsService.loading
-                                    ? const CircularProgressIndicator()
+                                child: loading
+                                    ? const CircularProgressIndicator(
+                                        color: AppColors.white,
+                                      )
                                     : const Text(
                                         "Entrar",
                                         style: TextStyle(

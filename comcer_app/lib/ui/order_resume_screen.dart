@@ -3,11 +3,12 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/ui/components/card/order_product_card.dart';
 import 'package:comcer_app/ui/components/card/price_card.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OrderResumeScreen extends StatelessWidget {
-  OrderResumeScreen({Key? key}) : super(key: key);
+  const OrderResumeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class OrderResumeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Itens do Pedido"),
+        title: const Text(Constant.itensDoPedido),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -28,7 +29,7 @@ class OrderResumeScreen extends StatelessWidget {
                       color: AppColors.lightRed,
                       alignment: Alignment.center,
                       child: Text(
-                        "Nenhum item adicionado ao pedido.",
+                        Constant.nenhumItemAdicionado,
                         style: AppStyles.size22DarkRedBold,
                       ))
                   : ListView(

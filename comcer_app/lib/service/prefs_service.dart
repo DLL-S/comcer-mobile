@@ -6,17 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsService extends ChangeNotifier {
-  bool loading = false;
-
   static const String _key = 'user_credential';
 
-  void setLoading(bool value) {
-    loading = value;
-    notifyListeners();
-  }
-
   Future<void> saveLogIn(User user) async {
-    setLoading(true);
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(
         _key,
@@ -26,7 +18,6 @@ class PrefsService extends ChangeNotifier {
           "role": user.role,
           "isAuth": true
         }));
-    setLoading(false);
   }
 
   static Future<bool> isAuth() async {
