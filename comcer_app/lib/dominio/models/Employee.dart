@@ -3,7 +3,6 @@
 import 'Address.dart';
 
 class Employee {
-
   late int _id;
   late String _nome;
   late String _cpf;
@@ -30,41 +29,49 @@ class Employee {
 
   //Getters and Setters
   int get id => _id;
+
   set id(int value) {
     _id = value;
   }
 
   String get situacao => _situacao;
+
   set situacao(String value) {
     _situacao = value;
   }
 
   Address get endereco => _endereco;
+
   set endereco(Address value) {
     _endereco = value;
   }
 
   String? get email => _email;
+
   set email(String? value) {
     _email = value;
   }
 
   String get celular => _celular;
+
   set celular(String value) {
     _celular = value;
   }
 
   String get dataNascimento => _dataNascimento;
+
   set dataNascimento(String value) {
     _dataNascimento = value;
   }
 
   String get cpf => _cpf;
+
   set cpf(String value) {
     _cpf = value;
   }
 
   String get nome => _nome;
+
   set nome(String value) {
     _nome = value;
   }
@@ -77,7 +84,9 @@ class Employee {
     _dataNascimento = json["dataNascimento"].toString();
     _celular = json["celular"].toString();
     _email = json["email"]?.toString();
-    _endereco = ((json["endereco"] != null) ? Address.fromJson(json["endereco"]) : null)!;
+    _endereco = ((json["endereco"] != null)
+        ? Address.fromJson(json["endereco"])
+        : null)!;
     _situacao = json["situacao"].toString();
   }
 
@@ -96,6 +105,4 @@ class Employee {
     data["situacao"] = _situacao;
     return data;
   }
-
-
 }

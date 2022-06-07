@@ -8,12 +8,11 @@ class TableCard extends StatelessWidget {
   final bool status;
   final VoidCallback onTap;
 
-
   const TableCard(
       {Key? key,
-        required this.number,
-        required this.status,
-        required this.onTap})
+      required this.number,
+      required this.status,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -38,8 +37,7 @@ class TableCard extends StatelessWidget {
                 height: 10,
                 decoration: BoxDecoration(
                     color: status ? AppColors.green : AppColors.red,
-                    shape: BoxShape.circle
-                ),
+                    shape: BoxShape.circle),
               ),
             ),
             const SizedBox(
@@ -54,16 +52,14 @@ class TableCard extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14
-                  ),
+                      fontSize: 14),
                 ),
                 Text(
                   number.toString(),
                   style: TextStyle(
                       color: AppColors.darkRed,
                       fontWeight: FontWeight.bold,
-                      fontSize: 35
-                  ),
+                      fontSize: 35),
                 ),
               ],
             )
@@ -71,6 +67,5 @@ class TableCard extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

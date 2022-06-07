@@ -1,4 +1,1 @@
-enum CommandStatus {
-  ABERTA,
-  FECHADA
-}
+enum CommandStatus { ABERTA, FECHADA }

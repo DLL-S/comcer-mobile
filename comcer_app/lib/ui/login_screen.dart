@@ -8,7 +8,6 @@ import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/User.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constant.dart';
-import 'package:comcer_app/util/Validador.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               width: 8,
             ),
-            Text(message,
+            Text(
+              message,
               maxLines: 2,
               style: AppStyles.size12WhiteBold,
             )
@@ -111,8 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (email) {
                               if (email!.isEmpty) {
                                 return "O E-mail deve ser informado";
-                              }
-                              else {
+                              } else {
                                 return null;
                               }
                             },
@@ -154,8 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (senha) {
                               if (senha!.isEmpty) {
                                 return "A senha deve ser informada";
-                                 } else if (senha.length < 8) {
-                                     return "A senha deve possuir no mínimo 8 caracteres.";
+                              } else if (senha.length < 8) {
+                                return "A senha deve possuir no mínimo 8 caracteres.";
                               } else {
                                 return null;
                               }
@@ -169,41 +168,54 @@ class _LoginScreenState extends State<LoginScreen> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: AppColors.green,
-                                borderRadius: const BorderRadius.all(Radius.circular(
-                                    Constant.ROUNDING_EDGE_CONTAINER_VALUE))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(Constant
+                                        .ROUNDING_EDGE_CONTAINER_VALUE))),
                             child: SizedBox.expand(
                               child: TextButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      AppColors.green),
-                                  overlayColor: MaterialStateProperty.all(
-                                      AppColors.darkGreen),
-                                  foregroundColor: MaterialStateProperty.all(AppColors.green.withAlpha(100))
-                                ),
-                                onPressed: prefsService.loading ? null : () async {
-                                  if (formKey.currentState!.validate()) {
-                                    user.usuario = emailController.text;
-                                    user.senha = sha256.convert(utf8.encode(passwordController.text)).toString();
-                                    apiResponse = await userController.autenticar(user);
-                                    if(!apiResponse.error!){
-                                      user.token = apiResponse.data!.token;
-                                      user.role = apiResponse.data!.role;
-                                      Util.saveToken(user.token);
-                                      prefsService.saveLogIn(user);
-                                      Navigator.pushReplacementNamed(context, '/base');
-                                    } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(showSnackBar(apiResponse.errorMessage!));
-                                    }
-                                  }
-                                },
-                                child: prefsService.loading ? CircularProgressIndicator() : const Text(
-                                  "Entrar",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        AppColors.green),
+                                    overlayColor: MaterialStateProperty.all(
+                                        AppColors.darkGreen),
+                                    foregroundColor: MaterialStateProperty.all(
+                                        AppColors.green.withAlpha(100))),
+                                onPressed: prefsService.loading
+                                    ? null
+                                    : () async {
+                                        if (formKey.currentState!.validate()) {
+                                          user.usuario = emailController.text;
+                                          user.senha = sha256
+                                              .convert(utf8.encode(
+                                                  passwordController.text))
+                                              .toString();
+                                          apiResponse = await userController
+                                              .autenticar(user);
+                                          if (!apiResponse.error!) {
+                                            user.token =
+                                                apiResponse.data!.token;
+                                            user.role = apiResponse.data!.role;
+                                            Util.saveToken(user.token);
+                                            prefsService.saveLogIn(user);
+                                            Navigator.pushReplacementNamed(
+                                                context, '/base');
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(showSnackBar(
+                                                    apiResponse.errorMessage!));
+                                          }
+                                        }
+                                      },
+                                child: prefsService.loading
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        "Entrar",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 22,
+                                        ),
+                                      ),
                               ),
                             ),
                           )
