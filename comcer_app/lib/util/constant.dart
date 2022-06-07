@@ -13,7 +13,7 @@ class Constant {
   static final headers = {HttpHeaders.contentTypeHeader: "application/json"};
 
   //Messages
-
+  static String tokenExpirado = "Token expirado, por favor faça o login novamente.";
   static String suporte =
       "Ocorreu um erro na conexão com o serviço,\n por favor entre em contato com o suporte";
 
@@ -42,6 +42,16 @@ class Constant {
   static const String valorTotal = "Valor Total";
   static const String itensDoPedido = "Itens do Pedido";
   static const String nenhumItemAdicionado = "Nenhum item adicionado ao pedido.";
+
+  //Table Controller
+  static const String mesaVazia = "Não há nenhuma mesa a ser exibida.";
+
+  //Product Controller
+  static const String produtosVazio = "Não há nenhum produto a ser exibido.";
+
+  //Order Product Controller
+
+  static const String statusAlterado = "Alteração executada com sucesso!";
 
   //Others
   static const double FONT_LABEL_TEXT_SIZE = 18;

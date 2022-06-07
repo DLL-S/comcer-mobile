@@ -30,7 +30,11 @@ class TableController {
           } else if (data.statusCode == 204) {
             return APIResponse<Mesa>(
                 error: false,
-                errorMessage: 'Não há nenhuma mesa a ser exibida.');
+                errorMessage: Constant.mesaVazia);
+          } else if (data.statusCode == 401) {
+            return APIResponse<Mesa>(
+                error: true,
+                errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<Mesa>(
                 error: true,

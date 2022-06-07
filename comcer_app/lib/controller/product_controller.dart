@@ -31,7 +31,11 @@ class ProductController {
           } else if (data.statusCode == 204) {
             return APIResponse<Product>(
                 error: false,
-                errorMessage: 'Não há nenhum produto a ser exibido.');
+                errorMessage: Constant.produtosVazio);
+          } else if (data.statusCode == 401){
+            return APIResponse<Product>(
+                error: true,
+                errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<Product>(
                 error: true,

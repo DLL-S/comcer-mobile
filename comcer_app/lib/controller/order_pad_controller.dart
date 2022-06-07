@@ -37,6 +37,9 @@ class OrderPadController {
             return APIResponse<OrderPad>(
                 error: false,
                 errorMessage: 'Não há nenhum comanda vinculada a essa mesa.');
+          } else if (data.statusCode == 401) {
+            return APIResponse<OrderPad>(
+                error: true, errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<OrderPad>(
                 error: true,
@@ -65,13 +68,17 @@ class OrderPadController {
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
+      } else if (data.statusCode == 401) {
+        return APIResponse<bool>(
+            error: true, errorMessage: Constant.tokenExpirado, data: false);
+      } else {
+        return APIResponse<bool>(
+            error: true,
+            errorMessage:
+                'Não foi possível abrir a comanda para a mesa e registrar o pedido!\nErro: ' +
+                    data.statusCode.toString(),
+            data: false);
       }
-      return APIResponse<bool>(
-          error: true,
-          errorMessage:
-              'Não foi possível abrir a comanda para a mesa e registrar o pedido!\nErro: ' +
-                  data.statusCode.toString(),
-          data: false);
     }).catchError((_) => APIResponse<bool>(
             error: true, errorMessage: Constant.suporte, data: false));
   }
@@ -91,12 +98,16 @@ class OrderPadController {
         .then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
+      } else if (data.statusCode == 401) {
+        return APIResponse<bool>(
+            error: true, errorMessage: Constant.tokenExpirado);
+      } else {
+        return APIResponse<bool>(
+            error: true,
+            errorMessage:
+                'Não foi possível registrar o pedido na comanda! Erro: ' +
+                    data.statusCode.toString());
       }
-      return APIResponse<bool>(
-          error: true,
-          errorMessage:
-              'Não foi possível registrar o pedido na comanda! Erro: ' +
-                  data.statusCode.toString());
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: Constant.suporte));
   }
@@ -112,11 +123,15 @@ class OrderPadController {
         }).then((data) {
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
+      } else if (data.statusCode == 401) {
+        return APIResponse<bool>(
+            error: true, errorMessage: Constant.tokenExpirado);
+      } else {
+        return APIResponse<bool>(
+            error: true,
+            errorMessage: 'Não foi possível fechar a comanda! Erro: ' +
+                data.statusCode.toString());
       }
-      return APIResponse<bool>(
-          error: true,
-          errorMessage: 'Não foi possível fechar a comanda! Erro: ' +
-              data.statusCode.toString());
     }).catchError(
         (_) => APIResponse<bool>(error: true, errorMessage: Constant.suporte));
   }
