@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,30 +16,26 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String statusPendente = 'Pendente';
-    const String statusPronto = 'Pronto';
-    const String statusEntregue = 'Finalizado';
-
     Widget statusPedido(int status) {
-      if (status == 0) {
-        return Text(
-          statusPendente,
+      if (status == OrderStatus.PENDENTE.value) {
+        return const Text(
+          Constant.statusPendente,
           style: TextStyle(
               color: AppColors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
-      } else if (status == 2) {
-        return Text(
-          statusPronto,
+      } else if (status == OrderStatus.PRONTO.value) {
+        return const Text(
+          Constant.statusPronto,
           style: TextStyle(
               color: AppColors.green,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
-      } else if (status == 3) {
-        return Text(
-          statusEntregue,
+      } else if (status == OrderStatus.ENTREGUE.value) {
+        return const Text(
+          Constant.statusEntregue,
           style: TextStyle(
               color: AppColors.darkGreen,
               fontWeight: FontWeight.bold,
@@ -45,7 +43,7 @@ class OrderCard extends StatelessWidget {
         );
       } else {
         return const Text(
-          'Status desconhecido',
+          Constant.statusDesconhecido,
           style: TextStyle(
               color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 18),
         );
@@ -56,7 +54,7 @@ class OrderCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          border: Border.fromBorderSide(
+          border: const Border.fromBorderSide(
             BorderSide(color: AppColors.darkRed),
           ),
           color: Colors.white,
@@ -67,7 +65,7 @@ class OrderCard extends StatelessWidget {
           Column(
             children: [
               const Text(
-                'MESA',
+                Constant.mesaUpperCase,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -75,7 +73,7 @@ class OrderCard extends StatelessWidget {
               ),
               Text(
                 order.numeroDaMesa.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                     color: AppColors.darkRed,
                     fontWeight: FontWeight.bold,
                     fontSize: 45),
@@ -92,15 +90,15 @@ class OrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Pedido ',
+                    Constant.pedidoComEspaco,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
                   Text(
-                    '000' + order.numeroDoPedido.toString(),
-                    style: TextStyle(
+                    Constant.tresZeros + order.numeroDoPedido.toString(),
+                    style: const TextStyle(
                         color: AppColors.darkRed,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
@@ -110,7 +108,7 @@ class OrderCard extends StatelessWidget {
               Row(
                 children: [
                   const Text(
-                    'Status: ',
+                    Constant.status,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -130,10 +128,10 @@ class OrderCard extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
+                child: const Padding(
+                  padding: EdgeInsets.all(5),
                   child: Text(
-                    'Ver produtos',
+                    Constant.verProdutos,
                     style: TextStyle(
                         color: AppColors.blue, fontWeight: FontWeight.bold),
                   ),

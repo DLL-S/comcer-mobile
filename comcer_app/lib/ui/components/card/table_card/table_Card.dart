@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 
 class TableCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class TableCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(bottom: 16, top: 8, right: 8, left: 8),
         decoration: BoxDecoration(
-            border: Border.fromBorderSide(
+            border: const Border.fromBorderSide(
               BorderSide(color: AppColors.darkRed),
             ),
             color: Colors.white,
@@ -48,7 +49,7 @@ class TableCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'MESA',
+                  Constant.mesaUpperCase,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -56,7 +57,7 @@ class TableCard extends StatelessWidget {
                 ),
                 Text(
                   number.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: AppColors.darkRed,
                       fontWeight: FontWeight.bold,
                       fontSize: 35),

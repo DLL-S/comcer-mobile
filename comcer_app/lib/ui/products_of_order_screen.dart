@@ -1,8 +1,10 @@
 import 'package:comcer_app/controller/order_product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/order_product_response.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -50,44 +52,40 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
   @override
   void initState() {
+    super.initState();
     listarProdutosDoPedido();
   }
 
   @override
   Widget build(BuildContext context) {
-    const String statusPendente = 'Pendente';
-    const String statusCozinhando = 'Em preparo';
-    const String statusPronto = 'Pronto';
-    const String statusEntregue = 'Entregue';
-
     Widget statusPedido(int status) {
-      if (status == 0) {
-        return Text(
-          statusPendente,
+      if (status == OrderStatus.PENDENTE.value) {
+        return const Text(
+          Constant.statusPendente,
           style: TextStyle(
               color: AppColors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 1) {
-        return Text(
-          statusCozinhando,
+      } else if (status == OrderStatus.COZINHANDO.value) {
+        return const Text(
+          Constant.statusCozinhando,
           style: TextStyle(
               color: AppColors.orange,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 2) {
-        return Text(
-          statusPronto,
+      } else if (status == OrderStatus.PRONTO.value) {
+        return const Text(
+          Constant.statusPronto,
           style: TextStyle(
               color: AppColors.green,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 3) {
-        return Text(
-          statusEntregue,
+      } else if (status == OrderStatus.ENTREGUE.value) {
+        return const Text(
+          Constant.statusEntregue,
           style: TextStyle(
               color: AppColors.darkGreen,
               fontWeight: FontWeight.bold,
@@ -95,7 +93,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         );
       } else {
         return const Text(
-          'Status desconhecido',
+          Constant.statusDesconhecido,
           style: TextStyle(
               color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14),
         );
@@ -105,7 +103,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: const Text('Produtos do Pedido'),
+        title: const Text(Constant.produtosDoPedido),
         centerTitle: true,
       ),
       body: Container(
@@ -114,7 +112,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
           children: [
             Expanded(child: Builder(builder: (_) {
               if (_isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),
@@ -123,7 +121,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                 if (_apiResponse.error!) {
                   return Center(
                       child: Text(
-                    "Houve um problema ao carregar os dados do serviço.\n " +
+                    Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
                     style: AppStyles.size14BlackBold,
                     textAlign: TextAlign.center,
@@ -148,7 +146,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                             width: 110,
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
+                                border: const Border.fromBorderSide(
                                   BorderSide(color: AppColors.darkRed),
                                 ),
                                 color: Colors.white,
@@ -167,7 +165,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Status: ',
+                                      Constant.status,
                                       style: AppStyles.size14BlackBold,
                                     ),
                                     statusPedido(productsOfOrder[index].status),

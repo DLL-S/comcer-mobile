@@ -5,6 +5,7 @@ import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/OrderView.dart';
 import 'package:comcer_app/ui/components/card/order_in_progress_card/OrderCard.dart';
 import 'package:comcer_app/ui/products_of_order_screen.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -66,17 +67,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: Column(
             children: [
               Text(
-                'Última atualização em ' +
+                Constant.ultimaAtualizacao +
                     DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) +
-                    'hrs',
-                style: TextStyle(color: AppColors.darkRed),
+                    Constant.horas,
+                style: const TextStyle(color: AppColors.darkRed),
               ),
               const SizedBox(
                 height: 8,
               ),
               Expanded(child: Builder(builder: (_) {
                 if (_isLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: AppColors.darkRed,
                     ),
@@ -85,7 +86,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   if (_apiResponse.error!) {
                     return Center(
                         child: Text(
-                      "Houve um problema ao carregar os dados do serviço.\n " +
+                      Constant.houveUmProblema +
                           _apiResponse.errorMessage.toString(),
                       style: AppStyles.size18BlackBold,
                       textAlign: TextAlign.center,
@@ -103,7 +104,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       shrinkWrap: true,
                       children: [
                         Text(
-                          "Nenhum pedido a ser finalizado!",
+                          Constant.nenhumPedidoASerFinalizado,
                           style: AppStyles.size18DarkRedBold,
                           textAlign: TextAlign.center,
                         )
