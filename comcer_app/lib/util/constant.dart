@@ -34,6 +34,15 @@ class Constant {
   static const String statusEntregue = 'Entregue';
   static const String statusDesconhecido = 'Status Desconhecido';
 
+  //Order Resume Screen
+  static const String mesa = "Mesa ";
+  static const String pedidoRealizadoComSucesso = "Pedido realizado com sucesso!";
+  static const String finalizarPedido = "Finalizar Pedido";
+  static const String resumoDoPedido = "Resumo do Pedido";
+  static const String valorTotal = "Valor Total";
+  static const String itensDoPedido = "Itens do Pedido";
+  static const String nenhumItemAdicionado = "Nenhum item adicionado ao pedido.";
+
   //Others
   static const double FONT_LABEL_TEXT_SIZE = 18;
   static const double ROUNDING_EDGE_CONTAINER_VALUE = 8;

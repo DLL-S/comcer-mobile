@@ -6,6 +6,7 @@ import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class PriceCard extends StatefulWidget {
 }
 
 class _PriceCardState extends State<PriceCard> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final orderResumeController = context.watch<OrderResumeController>();
@@ -28,18 +31,21 @@ class _PriceCardState extends State<PriceCard> {
     final OrderPadController orderPadController = OrderPadController();
     APIResponse<OrderPad> hasOrderPad = APIResponse<OrderPad>();
     APIResponse<bool> isRegisteredOrder = APIResponse<bool>();
-    bool _isLoading = false;
 
     void showLoading() {
-      setState(() {
-        _isLoading = true;
-      });
+      if(mounted){
+        setState(() {
+          _isLoading = true;
+        });
+      }
     }
 
     void hideLoading() {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted){
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
 
     return Card(
@@ -50,7 +56,7 @@ class _PriceCardState extends State<PriceCard> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Resumo do Pedido',
+              Constant.resumoDoPedido,
               style: AppStyles.size14BlackBold,
             ),
             const SizedBox(
@@ -60,7 +66,7 @@ class _PriceCardState extends State<PriceCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Valor Total',
+                  Constant.valorTotal,
                   style: AppStyles.size14BlackRegular,
                 ),
                 Text(
@@ -93,7 +99,7 @@ class _PriceCardState extends State<PriceCard> {
 
                   if (hasOrderPad.data!.resultados!.isEmpty) {
                     OrderPad orderPad = OrderPad(
-                        nome: 'Mesa ${widget.tableNumber}', listaPedidos: []);
+                        nome: '${Constant.mesa} + ${widget.tableNumber}', listaPedidos: []);
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
@@ -108,9 +114,9 @@ class _PriceCardState extends State<PriceCard> {
                   }
                   hideLoading();
                   if (isRegisteredOrder.data!) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: const Text('Pedido realizado com sucesso!'),
-                      backgroundColor: AppColors.green,
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(Constant.pedidoRealizadoComSucesso),
+                      backgroundColor: AppColors.darkGreen,
                     ));
                     orderResumeController.items.clear();
                     Future.delayed(const Duration(seconds: 2)).then((value) =>
@@ -126,16 +132,19 @@ class _PriceCardState extends State<PriceCard> {
                 child: Container(
                   height: 40,
                   width: 400,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.darkRed,
                   ),
                   child: _isLoading
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator(
+                    color: AppColors.lightRed,
+                  )
                       : Text(
-                          "Finalizar Pedido",
-                          style: AppStyles.size22WhiteBold,
+                          Constant.finalizarPedido,
+                          style: AppStyles.size18WhiteBold,
                         ),
                 ),
               ),

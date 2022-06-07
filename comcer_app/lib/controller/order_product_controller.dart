@@ -7,7 +7,7 @@ import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
-import '../Environment_config.dart';
+import '../environment_config.dart';
 
 class OrderProductController {
   //Listar produtos do pedido

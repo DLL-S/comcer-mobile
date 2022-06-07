@@ -55,6 +55,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
   @override
   void initState() {
     buscaLista();
+    super.initState();
   }
 
   @override
@@ -138,7 +139,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
             ),
             Expanded(child: Builder(builder: (_) {
               if (_isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),
@@ -160,6 +161,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                     textAlign: TextAlign.center,
                   ));
                 } else {
+                  context.watch<OrderResumeController>();
                   return ListView.builder(
                       itemCount: _products.length,
                       shrinkWrap: true,
@@ -176,9 +178,9 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                           child: Container(
                             height: 100,
                             width: 110,
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
+                                border: const Border.fromBorderSide(
                                   BorderSide(color: AppColors.darkRed),
                                 ),
                                 color: Colors.white,
@@ -220,7 +222,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                       height: 8,
                                     ),
                                     Container(
-                                      padding: EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(5),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),

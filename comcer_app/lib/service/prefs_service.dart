@@ -18,6 +18,7 @@ class PrefsService extends ChangeNotifier {
   Future<void> saveLogIn(User user) async {
     setLoading(true);
     var prefs = await SharedPreferences.getInstance();
+<<<<<<<<< Temporary merge branch 1
     prefs.setString(
         _key,
         jsonEncode({
@@ -26,7 +27,6 @@ class PrefsService extends ChangeNotifier {
           "role": user.role,
           "isAuth": true
         }));
-    setLoading(false);
   }
 
   static Future<bool> isAuth() async {
@@ -38,7 +38,6 @@ class PrefsService extends ChangeNotifier {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['isAuth'];
     }
-    return false;
   }
 
   static Future<String> getToken() async {
