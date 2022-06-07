@@ -18,7 +18,6 @@ class PrefsService extends ChangeNotifier {
   Future<void> saveLogIn(User user) async {
     setLoading(true);
     var prefs = await SharedPreferences.getInstance();
-<<<<<<<<< Temporary merge branch 1
     prefs.setString(
         _key,
         jsonEncode({
@@ -37,6 +36,8 @@ class PrefsService extends ChangeNotifier {
     if (jsonResult != null) {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['isAuth'];
+    } else {
+      return false;
     }
   }
 
@@ -49,7 +50,7 @@ class PrefsService extends ChangeNotifier {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['token'];
     } else {
-      return 'AAAAAAA';
+      return 'Token inexistente.';
     }
   }
 

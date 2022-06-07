@@ -1,6 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-enum OrderStatus { PENDENTE, COZINHANDO, PRONTO }
-=========
 enum OrderStatus {
  PENDENTE,
  COZINHANDO,
