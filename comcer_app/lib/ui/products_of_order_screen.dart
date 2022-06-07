@@ -10,16 +10,17 @@ import 'package:flutter/material.dart';
 class ProducstOfOrderScreen extends StatefulWidget {
   final int? idPedido;
 
-  const ProducstOfOrderScreen({Key? key, required this.idPedido}) : super(key: key);
+  const ProducstOfOrderScreen({Key? key, required this.idPedido})
+      : super(key: key);
 
   @override
   _ProducstOfOrderScreenState createState() => _ProducstOfOrderScreenState();
 }
 
 class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
-
   final orderProductController = OrderProductController();
-  APIResponse<OrderProductResponse> _apiResponse = APIResponse<OrderProductResponse>();
+  APIResponse<OrderProductResponse> _apiResponse =
+      APIResponse<OrderProductResponse>();
   List<OrderProductResponse> productsOfOrder = <OrderProductResponse>[];
   bool _isLoading = false;
 
@@ -37,9 +38,11 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
   void listarProdutosDoPedido() async {
     showLoading();
-    _apiResponse = await orderProductController.listarProdutosDoPedido(widget.idPedido!);
+    _apiResponse =
+        await orderProductController.listarProdutosDoPedido(widget.idPedido!);
     if (_apiResponse.data != null) {
-      productsOfOrder = _apiResponse.data!.resultados as List<OrderProductResponse>;
+      productsOfOrder =
+          _apiResponse.data!.resultados as List<OrderProductResponse>;
     } else if (_apiResponse.error!) {
       hideLoading();
     }
@@ -53,9 +56,6 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     Widget statusPedido(int status) {
       if (status == OrderStatus.PENDENTE.value) {
         return Text(
@@ -99,92 +99,126 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.darkRed, title: const Text('Produtos do Pedido'), centerTitle: true,),
+      appBar: AppBar(
+        backgroundColor: AppColors.darkRed,
+        title: const Text('Produtos do Pedido'),
+        centerTitle: true,
+      ),
       body: Container(
         color: AppColors.lightRed,
         child: Column(
           children: [
-            Expanded(
-                child: Builder(builder: (_) {
-                  if(_isLoading){
-                    return Center(child: CircularProgressIndicator(color: AppColors.darkRed,),);
-                  } else {
-                    if(_apiResponse.error!){
-                      return Center(child: Text("Houve um problema ao carregar os dados do serviço.\n " + _apiResponse.errorMessage.toString(), style: AppStyles.size14BlackBold, textAlign: TextAlign.center,));
-                    } else if(!_apiResponse.error! && productsOfOrder.isEmpty){
-                      return Center(child: Text(_apiResponse.errorMessage.toString(), style: AppStyles.size14BlackBold, textAlign: TextAlign.center,));
-                    } else {
-                      return ListView.builder(
-                          itemCount: productsOfOrder.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext _, int index){
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Card(
-                                  child: Container(
-                                    width: 110,
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        border: Border.fromBorderSide(
-                                          BorderSide(color: AppColors.darkRed),
-                                        ),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(productsOfOrder[index].produtoPedido, style: AppStyles.size14DarkRedBold,),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text('Status: ', style: AppStyles.size14BlackBold,),
-                                            statusPedido(productsOfOrder[index].status),
-                                          ],
-                                        ),
-                                        Visibility(
-                                          visible: productsOfOrder[index].status == 2 ? true : false,
-                                          child: const SizedBox(
-                                            height: 16,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: productsOfOrder[index].status == 2 ? true : false,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(bottom: 12),
-                                            child: GestureDetector(
-                                              onTap: () async {
-                                                await orderProductController.alterarStatusDoProduto(productsOfOrder[index].idProdutoPedido);
-                                                listarProdutosDoPedido();
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                width: 400,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: AppColors.darkRed,
-                                                ),
-                                                child: _isLoading ? CircularProgressIndicator() : Text(
-                                                  "Marcar como entregue",
-                                                  style: AppStyles.size14WhiteBold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+            Expanded(child: Builder(builder: (_) {
+              if (_isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.darkRed,
+                  ),
+                );
+              } else {
+                if (_apiResponse.error!) {
+                  return Center(
+                      child: Text(
+                    "Houve um problema ao carregar os dados do serviço.\n " +
+                        _apiResponse.errorMessage.toString(),
+                    style: AppStyles.size14BlackBold,
+                    textAlign: TextAlign.center,
+                  ));
+                } else if (!_apiResponse.error! && productsOfOrder.isEmpty) {
+                  return Center(
+                      child: Text(
+                    _apiResponse.errorMessage.toString(),
+                    style: AppStyles.size14BlackBold,
+                    textAlign: TextAlign.center,
+                  ));
+                } else {
+                  return ListView.builder(
+                      itemCount: productsOfOrder.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext _, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          child: Card(
+                              child: Container(
+                            width: 110,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                border: Border.fromBorderSide(
+                                  BorderSide(color: AppColors.darkRed),
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      productsOfOrder[index].produtoPedido,
+                                      style: AppStyles.size14DarkRedBold,
                                     ),
-                                  )
-                              ),
-                            );
-                          }
-                      );
-                    }
-                  }})
-            ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Status: ',
+                                      style: AppStyles.size14BlackBold,
+                                    ),
+                                    statusPedido(productsOfOrder[index].status),
+                                  ],
+                                ),
+                                Visibility(
+                                  visible: productsOfOrder[index].status == 2
+                                      ? true
+                                      : false,
+                                  child: const SizedBox(
+                                    height: 16,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: productsOfOrder[index].status == 2
+                                      ? true
+                                      : false,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        await orderProductController
+                                            .alterarStatusDoProduto(
+                                                productsOfOrder[index]
+                                                    .idProdutoPedido);
+                                        listarProdutosDoPedido();
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 400,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: AppColors.darkRed,
+                                        ),
+                                        child: _isLoading
+                                            ? CircularProgressIndicator()
+                                            : Text(
+                                                "Marcar como entregue",
+                                                style:
+                                                    AppStyles.size14WhiteBold,
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                        );
+                      });
+                }
+              }
+            })),
           ],
         ),
       ),

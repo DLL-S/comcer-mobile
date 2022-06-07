@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
@@ -10,7 +8,6 @@ import 'package:comcer_app/ui/do_request_screen.dart';
 import 'package:comcer_app/ui/order_pad_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,21 +22,27 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   List<Mesa> tables = <Mesa>[];
   bool _isLoading = false;
 
-
+  static const String fazerPedido = "Fazer Pedido";
+  static const String verComanda = "Ver Comanda";
 
   void showLoading() {
-    setState(() {
-      _isLoading = true;
-    });
+    if (mounted){
+      setState(() {
+        _isLoading = true;
+      });
+    }
   }
 
   void hideLoading() {
-    setState(() {
-      _isLoading = false;
-    });
+    if(mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<List<Mesa>> listarMesas() async {
+    showLoading();
     _apiResponse = await tableController.listarMesas();
     if (_apiResponse.data != null) {
       tables = _apiResponse.data!.resultados as List<Mesa>;
@@ -49,80 +52,77 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return tables;
   }
 
-  void showOptionsDialog(int mesa, bool disponivel) {
-    showDialog(
+  Widget bottomSheetItem(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: AppColors.darkRed,
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        Text(
+          text,
+          style: AppStyles.size22DarkRedBold,
+        ),
+      ],
+    );
+  }
+
+  void showModalBottomSheetOptions(int mesa, bool disponivel) {
+    showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            actionsAlignment: MainAxisAlignment.spaceBetween,
-            insetPadding: disponivel ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 0),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Mesa " + mesa.toString(),
-                      style: AppStyles.size18DarkRedBold,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          return Container(
+            height: disponivel ? 80 : 140,
+            color: AppColors.lightRed,
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Container(
+                  height: 3,
+                  width: 80,
+                  color: AppColors.darkRed,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                GestureDetector(
+                  child: bottomSheetItem(Icons.edit, fazerPedido),
+                  onTap: () {
+                    pushNewScreen(context,
+                        screen: DoRequestScreen(tableNumber: mesa),
+                        withNavBar: false);
+                  },
+                ),
+                Visibility(
+                    visible: disponivel ? false : true,
+                    child: Column(
                       children: [
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Divider(
+                          color: AppColors.darkRed,
+                          height: 1,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
                         GestureDetector(
-                          child: Container(
-                            height: 35,
-                            width: 115,
-                            decoration: BoxDecoration(
-                                color: AppColors.darkRed,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              "Fazer Pedido",
-                              style: AppStyles.size14WhiteBold,
-                            ),
-                            alignment: Alignment.center,
-                          ),
+                          child: bottomSheetItem(
+                              Icons.article_outlined, verComanda),
                           onTap: () {
                             pushNewScreen(context,
-                                screen: DoRequestScreen(tableNumber: mesa));
+                                screen: OrderPadScreen(tableNumber: mesa),
+                                withNavBar: false);
                           },
                         ),
-                        Visibility(
-                          visible: disponivel ? false : true,
-                          child: const SizedBox(
-                            width: 24,
-                          ),
-                        ),
-                        Visibility(
-                          visible: disponivel ? false : true,
-                          child: GestureDetector(
-                            child: Container(
-                              height: 35,
-                              width: 115,
-                              decoration: BoxDecoration(
-                                  color: AppColors.darkRed,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Text(
-                                "Ver Comanda",
-                                style: AppStyles.size14WhiteBold,
-                              ),
-                              alignment: Alignment.center,
-                            ),
-                            onTap: () {
-                              pushNewScreen(context,
-                                  screen: OrderPadScreen(tableNumber: mesa));
-                            },
-                          ),
-                        ),
                       ],
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ))
+              ],
+            ),
           );
         });
   }
@@ -131,13 +131,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    listarMesas();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      listarMesas();
+    });
   }
-
 
   @override
   void deactivate() {
-    listarMesas();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      listarMesas();
+    });
     super.deactivate();
   }
 
@@ -150,9 +153,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if( state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed) {
       setState(() {
-        listarMesas();
+        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          listarMesas();
+        });
       });
     }
   }
@@ -162,50 +167,51 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return SafeArea(
         top: true,
         child: FutureBuilder(
-          future: listarMesas(), builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              color: AppColors.lightRed,
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  listarMesas();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          children: tables
-                              .map((mesa) => TableCard(
-                              number: mesa.numero,
-                              status: mesa.disponivel,
-                              onTap: () {
-                                showOptionsDialog(mesa.numero, mesa.disponivel);
-                              }))
-                              .toList(),
+          future: listarMesas(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                color: AppColors.lightRed,
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    listarMesas();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: GridView.count(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            children: tables
+                                .map((mesa) => TableCard(
+                                    number: mesa.numero,
+                                    status: mesa.disponivel,
+                                    onTap: () {
+                                      showModalBottomSheetOptions(
+                                          mesa.numero, mesa.disponivel);
+                                    }))
+                                .toList(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          } else {
-            return Container(
-              color: AppColors.lightRed,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.darkRed,
+              );
+            } else {
+              return Container(
+                color: AppColors.lightRed,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.darkRed,
+                  ),
                 ),
-              ),
-            );
-          }
-        },
-        )
-    );
+              );
+            }
+          },
+        ));
   }
 }

@@ -6,28 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsService extends ChangeNotifier {
-
-  bool loading = false;
-
   static const String _key = 'user_credential';
 
-
-  void setLoading(bool value){
-    loading = value;
-    notifyListeners();
-  }
-
   Future<void> saveLogIn(User user) async {
-    setLoading(true);
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString(_key, jsonEncode({
-      "user": user.usuario,
-      "token": user.token,
-      "role": user.role,
-      "dateAndHour": DateTime.now().toString(),
-      "isAuth": true
-    }));
-    setLoading(false);
+    prefs.setString(
+        _key,
+        jsonEncode({
+          "user": user.usuario,
+          "token": user.token,
+          "role": user.role,
+          "isAuth": true
+        }));
   }
 
   static Future<bool> isAuth() async {
@@ -35,18 +25,10 @@ class PrefsService extends ChangeNotifier {
 
     var jsonResult = prefs.get(_key);
 
-    if(jsonResult != null) {
+    if (jsonResult != null) {
       var mapUser = jsonDecode(jsonResult as String);
-      var dateTimeRegistred = DateTime.parse(mapUser['dateAndHour']).toLocal();
-      var tokenTimeActived = DateTime.now().difference(dateTimeRegistred);
-
-      if (tokenTimeActived.inHours < 6){
-        return mapUser['isAuth'];
-      } else {
-        return false;
-      }
+      return mapUser['isAuth'];
     }
-    return false;
   }
 
   static Future<String> getToken() async {
@@ -54,7 +36,7 @@ class PrefsService extends ChangeNotifier {
 
     var jsonResult = prefs.get(_key);
 
-    if(jsonResult != null) {
+    if (jsonResult != null) {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['token'];
     } else {
@@ -62,12 +44,9 @@ class PrefsService extends ChangeNotifier {
     }
   }
 
-
-
   static Future<void> logout() async {
     var prefs = await SharedPreferences.getInstance();
     Util.removeToken();
     await prefs.remove(_key);
   }
-
 }

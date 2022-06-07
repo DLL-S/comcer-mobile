@@ -1,11 +1,8 @@
 import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
-import 'package:comcer_app/dominio/models/Product.dart';
-import 'package:flutter/material.dart';
 
 import 'inconsistencia_validacao.dart';
 
-class OrderProductResponse extends BaseAPIResponse{
-
+class OrderProductResponse extends BaseAPIResponse {
   //Atributos do OrderProduct
   late final int _numeroMesa;
   late final int _numeroDoPedido;
@@ -14,46 +11,50 @@ class OrderProductResponse extends BaseAPIResponse{
   late final String _dataHoraPedido;
   late final int _status;
 
-
   OrderProductResponse.empty();
 
   OrderProductResponse(
-      this._numeroMesa,
-      this._numeroDoPedido,
-      this._idProdutoPedido,
-      this._produtoPedido,
-      this._dataHoraPedido,
-      this._status,
-      );
-
+    this._numeroMesa,
+    this._numeroDoPedido,
+    this._idProdutoPedido,
+    this._produtoPedido,
+    this._dataHoraPedido,
+    this._status,
+  );
 
   //Getters and Setters
   int get numeroMesa => _numeroMesa;
+
   set numeroMesa(int value) {
     _numeroMesa = value;
   }
 
   int get numeroDoPedido => _numeroDoPedido;
+
   set numeroDoPedido(int value) {
     _numeroDoPedido = value;
   }
 
   int get idProdutoPedido => _idProdutoPedido;
+
   set idProdutoPedido(int value) {
     _idProdutoPedido = value;
   }
 
   String get produtoPedido => _produtoPedido;
+
   set produtoPedido(String value) {
     _produtoPedido = value;
   }
 
   String get dataHoraPedido => _dataHoraPedido;
+
   set dataHoraPedido(String value) {
     _dataHoraPedido = value;
   }
 
   int get status => _status;
+
   set status(int value) {
     _status = value;
   }

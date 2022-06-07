@@ -1,9 +1,7 @@
-
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:intl/intl.dart';
 
 class Util {
-
   static late String token = '';
 
   static String formataValorProdutoParaBR(double preco) {
@@ -13,24 +11,23 @@ class Util {
     return valor;
   }
 
-  static String formatarDataHora(DateTime data){
-    String dataFormatada = DateFormat('yyyy-MM-ddThh:mm:ss').format(data).toString();
+  static String formatarDataHora(DateTime data) {
+    String dataFormatada =
+        DateFormat('yyyy-MM-ddThh:mm:ss').format(data).toString();
     return dataFormatada;
   }
 
-  static String saveToken(value){
+  static String saveToken(value) {
     token = value;
     return token;
   }
 
-  static String getToken(){
+  static String getToken() {
     PrefsService.getToken().then((value) => token = value);
     return token;
   }
 
-  static void removeToken(){
+  static void removeToken() {
     token = '';
   }
-
-
 }

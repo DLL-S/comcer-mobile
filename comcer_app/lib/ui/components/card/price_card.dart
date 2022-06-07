@@ -1,19 +1,18 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/controller/order_resume_controller.dart';
-import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PriceCard extends StatefulWidget {
-
   final int tableNumber;
 
   const PriceCard({Key? key, required this.tableNumber}) : super(key: key);
@@ -23,27 +22,30 @@ class PriceCard extends StatefulWidget {
 }
 
 class _PriceCardState extends State<PriceCard> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-
     final orderResumeController = context.watch<OrderResumeController>();
     final productsPrice = orderResumeController.productsPrice;
     final OrderPadController orderPadController = OrderPadController();
     APIResponse<OrderPad> hasOrderPad = APIResponse<OrderPad>();
     APIResponse<bool> isRegisteredOrder = APIResponse<bool>();
-    bool _isLoading = false;
-
 
     void showLoading() {
+      if(mounted){
         setState(() {
           _isLoading = true;
         });
+      }
     }
 
     void hideLoading() {
+      if (mounted){
         setState(() {
           _isLoading = false;
         });
+      }
     }
 
     return Card(
@@ -54,7 +56,7 @@ class _PriceCardState extends State<PriceCard> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Resumo do Pedido',
+              Constant.resumoDoPedido,
               style: AppStyles.size14BlackBold,
             ),
             const SizedBox(
@@ -64,7 +66,7 @@ class _PriceCardState extends State<PriceCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Valor Total',
+                  Constant.valorTotal,
                   style: AppStyles.size14BlackRegular,
                 ),
                 Text(
@@ -82,49 +84,68 @@ class _PriceCardState extends State<PriceCard> {
                 onTap: () async {
                   showLoading();
                   List<OrderProduct> orderProduct = [];
-                  for(OrderProduct product in orderResumeController.items){
+                  for (OrderProduct product in orderResumeController.items) {
                     product.id = 0;
-                    product.dataHoraPedido = Util.formatarDataHora(DateTime.now());
+                    product.dataHoraPedido =
+                        Util.formatarDataHora(DateTime.now());
                     orderProduct.add(product);
                   }
                   Order order = Order(pedidosDoProduto: orderProduct);
                   order.id = 0;
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
 
-                  hasOrderPad = await orderPadController.buscaComadaPorMesa(widget.tableNumber);
+                  hasOrderPad = await orderPadController
+                      .buscaComadaPorMesa(widget.tableNumber);
 
-                  if(hasOrderPad.data!.resultados!.isEmpty){
-                    OrderPad orderPad = OrderPad(nome: 'Mesa ${widget.tableNumber}', listaPedidos: []);
+                  if (hasOrderPad.data!.resultados!.isEmpty) {
+                    OrderPad orderPad = OrderPad(
+                        nome: '${Constant.mesa} + ${widget.tableNumber}', listaPedidos: []);
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
                     orderPad.status = 0;
-                    isRegisteredOrder = await orderPadController.addNewOrderPad(orderPad, widget.tableNumber);
+                    isRegisteredOrder = await orderPadController.addNewOrderPad(
+                        orderPad, widget.tableNumber);
                   } else {
-                    OrderPad comanda = hasOrderPad.data!.resultados!.first as OrderPad;
-                    isRegisteredOrder = await orderPadController.addOrderInOrderPad(order, comanda.id!);
+                    OrderPad comanda =
+                        hasOrderPad.data!.resultados!.first as OrderPad;
+                    isRegisteredOrder = await orderPadController
+                        .addOrderInOrderPad(order, comanda.id!);
                   }
                   hideLoading();
-                  if(isRegisteredOrder.data!){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text('Pedido realizado com sucesso!'), backgroundColor: AppColors.green,));
+                  if (isRegisteredOrder.data!) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(Constant.pedidoRealizadoComSucesso),
+                      backgroundColor: AppColors.darkGreen,
+                    ));
                     orderResumeController.items.clear();
-                    Future.delayed(const Duration(seconds: 2)).then((value) => Navigator.restorablePushNamedAndRemoveUntil(context, '/base', (route) => false));
+                    Future.delayed(const Duration(seconds: 2)).then((value) =>
+                        Navigator.restorablePushNamedAndRemoveUntil(
+                            context, '/base', (route) => false));
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isRegisteredOrder.errorMessage.toString()), backgroundColor: AppColors.red,));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(isRegisteredOrder.errorMessage.toString()),
+                      backgroundColor: AppColors.red,
+                    ));
                   }
                 },
                 child: Container(
                   height: 40,
                   width: 400,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.darkRed,
                   ),
-                  child: _isLoading ? CircularProgressIndicator() : Text(
-                    "Finalizar Pedido",
-                    style: AppStyles.size22WhiteBold,
-                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(
+                    color: AppColors.lightRed,
+                  )
+                      : Text(
+                          Constant.finalizarPedido,
+                          style: AppStyles.size18WhiteBold,
+                        ),
                 ),
               ),
             ),

@@ -1,11 +1,7 @@
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
 import 'package:comcer_app/dominio/models/Product.dart';
 import 'package:flutter/material.dart';
 
-import 'inconsistencia_validacao.dart';
-
-class OrderProduct extends ChangeNotifier{
-
+class OrderProduct extends ChangeNotifier {
   //Atributos do OrderProduct
   int? _id;
   late Product _product;
@@ -17,14 +13,14 @@ class OrderProduct extends ChangeNotifier{
   OrderProduct.empty();
 
   OrderProduct(
-      this._product,
-      this._quantidade,
-      this._valorUnitario,
-      this._status,
-      this._dataHoraPedido,
-      );
+    this._product,
+    this._quantidade,
+    this._valorUnitario,
+    this._status,
+    this._dataHoraPedido,
+  );
 
-  OrderProduct.fromProduto(this._product){
+  OrderProduct.fromProduto(this._product) {
     quantidade = 1;
     valorUnitario = produto.preco;
     status = 0;
@@ -32,31 +28,37 @@ class OrderProduct extends ChangeNotifier{
 
   //Getters and Setters
   int? get id => _id;
+
   set id(int? value) {
     _id = value;
   }
 
   Product get produto => _product;
+
   set produto(Product value) {
     _product = value;
   }
 
   int get quantidade => _quantidade;
+
   set quantidade(int value) {
     _quantidade = value;
   }
 
   double get valorUnitario => _valorUnitario;
+
   set valorUnitario(double value) {
     _valorUnitario = value;
   }
 
   int get status => _status;
+
   set status(int value) {
     _status = value;
   }
 
   String? get dataHoraPedido => _dataHoraPedido;
+
   set dataHoraPedido(String? value) {
     _dataHoraPedido = value;
   }
@@ -66,7 +68,8 @@ class OrderProduct extends ChangeNotifier{
   //Converter JSON para classe
   OrderProduct.fromJson(Map<String, dynamic> json) {
     _id = json["id"].toInt();
-    _product = ((json["produto"] != null) ? Product.fromJson(json["produto"]) : null)!;
+    _product =
+        ((json["produto"] != null) ? Product.fromJson(json["produto"]) : null)!;
     _quantidade = json["quantidade"].toInt();
     _valorUnitario = json["valorUnitario"].toDouble();
     _status = json["status"].toInt();
@@ -87,20 +90,17 @@ class OrderProduct extends ChangeNotifier{
     return data;
   }
 
-  bool isEqual(Product product){
+  bool isEqual(Product product) {
     return product == produto;
   }
 
-  void increment(){
+  void increment() {
     quantidade++;
     notifyListeners();
   }
 
-  void decrement(){
+  void decrement() {
     quantidade--;
     notifyListeners();
   }
-
-
-
 }

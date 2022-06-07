@@ -5,7 +5,7 @@ class EnvironmentConfig {
   static Environments? environmentBuild;
 
   static String urlsConfig() {
-    switch(environmentBuild) {
+    switch (environmentBuild) {
       case Environments.DESENVOLVIMENTO:
         return Constant.localBaseUrlDev;
       case Environments.PRODUCAO:

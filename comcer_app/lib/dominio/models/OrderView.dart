@@ -1,30 +1,27 @@
 import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
-import 'package:comcer_app/dominio/models/order_product.dart';
 
 import 'inconsistencia_validacao.dart';
-
 
 class OrderView extends BaseAPIResponse {
   int? _numeroDaMesa;
   int? _numeroDoPedido;
   int? _statusDoPedido;
 
-
   OrderView.empty();
 
-  OrderView(
-      {int? numeroDaMesa,
-        int? numeroDoPedido,
-        int? statusDoPedido});
+  OrderView({int? numeroDaMesa, int? numeroDoPedido, int? statusDoPedido});
 
   int? get numeroDaMesa => _numeroDaMesa;
+
   set numeroDaMesa(int? numeroDaMesa) => _numeroDaMesa = numeroDaMesa;
+
   int? get numeroDoPedido => _numeroDoPedido;
+
   set numeroDoPedido(int? numeroDoPedido) => _numeroDoPedido = numeroDoPedido;
+
   int? get statusDoPedido => _statusDoPedido;
+
   set statusDoPedido(int? statusDoPedido) => _statusDoPedido = statusDoPedido;
-
-
 
   OrderView.fromJson(Map<String, dynamic> json) {
     numeroDaMesa = json['numeroMesa'];
