@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   ),
                 ),
               );
-            } else if(snapshot.hasError){
+            } else if(_apiResponse.error == true){
               return Container(
                 color: AppColors.lightRed,
                 child: Center(
