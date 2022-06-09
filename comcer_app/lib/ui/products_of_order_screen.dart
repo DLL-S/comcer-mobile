@@ -58,7 +58,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
   Widget build(BuildContext context) {
     Widget statusPedido(int status) {
       if (status == OrderStatus.PENDENTE.value) {
-        return Text(
+        return const Text(
           Constant.statusPendente,
           style: TextStyle(
               color: AppColors.yellow,
@@ -66,7 +66,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontSize: 14),
         );
       } else if (status == OrderStatus.COZINHANDO.value) {
-        return Text(
+        return const Text(
           Constant.statusCozinhando,
           style: TextStyle(
               color: AppColors.orange,
@@ -74,7 +74,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontSize: 14),
         );
       } else if (status == OrderStatus.PRONTO.value) {
-        return Text(
+        return const Text(
           Constant.statusPronto,
           style: TextStyle(
               color: AppColors.green,
@@ -82,7 +82,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontSize: 14),
         );
       } else if (status == OrderStatus.ENTREGUE.value) {
-        return Text(
+        return const Text(
           Constant.statusEntregue,
           style: TextStyle(
               color: AppColors.darkGreen,
@@ -110,7 +110,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
           children: [
             Expanded(child: Builder(builder: (_) {
               if (_isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),

@@ -1,10 +1,8 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class OrderPadScreen extends StatefulWidget {
   final int tableNumber;
@@ -88,20 +86,20 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     bool validation = false;
     int lengthProduct = 0;
     int lengthOrder = 0;
-    orderPad.listaPedidos.forEach((pedido) {
-      pedido.pedidosDoProduto.forEach((produto) {
+    for (var pedido in orderPad.listaPedidos) {
+      for (var produto in pedido.pedidosDoProduto) {
         if (produto.status == 3) {
           lengthProduct = lengthProduct;
         } else {
           lengthProduct++;
         }
-      });
+      }
       if (lengthProduct == 0) {
         lengthOrder = lengthOrder;
       } else {
         lengthOrder++;
       }
-    });
+    }
     if (lengthOrder == 0) {
       validation = true;
     } else {
@@ -112,6 +110,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
   @override
   void initState() {
+    super.initState();
     listarComanda();
   }
 
@@ -202,7 +201,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             Expanded(child: Builder(builder: (_) {
               numeroPedido = 1;
               if (_isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),
@@ -217,7 +216,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     textAlign: TextAlign.center,
                   ));
                 } else if (!_apiResponse.error! &&
-                    comandas[0].listaPedidos.length == 0) {
+                    comandas[0].listaPedidos.isEmpty) {
                   return Center(
                       child: Text(
                     _apiResponse.errorMessage.toString(),

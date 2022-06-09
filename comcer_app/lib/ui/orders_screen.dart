@@ -51,6 +51,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   void initState() {
+    super.initState();
     listarPedidos();
   }
 
@@ -70,14 +71,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 'Última atualização em ' +
                     DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) +
                     'hrs',
-                style: TextStyle(color: AppColors.darkRed),
+                style: const TextStyle(color: AppColors.darkRed),
               ),
               const SizedBox(
                 height: 8,
               ),
               Expanded(child: Builder(builder: (_) {
                 if (_isLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: AppColors.darkRed,
                     ),
@@ -88,7 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         child: Text(
                       "Houve um problema ao carregar os dados do serviço.\n " +
                           _apiResponse.errorMessage.toString(),
-                      style: AppStyles.size18BlackBold,
+                      style: AppStyles.size14BlackBold,
                       textAlign: TextAlign.center,
                     ));
                   } else if (!_apiResponse.error! &&
