@@ -64,7 +64,7 @@ class OrderPad extends BaseAPIResponse {
         _listaPedidos.add(Order.fromJson(order));
       });
     }
-    _valor = json['valor'];
+    _valor = json['valor'].toDouble();
     _status = json['status'];
   }
 
