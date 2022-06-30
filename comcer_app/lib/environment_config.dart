@@ -1,5 +1,5 @@
 import 'package:comcer_app/dominio/enum/environment.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 
 class EnvironmentConfig {
   static Environments? environmentBuild;

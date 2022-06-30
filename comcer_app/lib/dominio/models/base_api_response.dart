@@ -1,5 +1,5 @@
-import 'package:comcer_app/dominio/models/Product.dart';
-import 'package:comcer_app/dominio/models/inconsistencia_validacao.dart';
+import 'package:comcer_app/dominio/models/product.dart';
+import 'package:comcer_app/dominio/models/inconsistencies.dart';
 
 class BaseAPIResponse {
   List<Object>? resultados;

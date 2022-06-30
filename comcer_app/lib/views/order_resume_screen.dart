@@ -1,9 +1,9 @@
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/ui/components/card/order_product_card.dart';
-import 'package:comcer_app/ui/components/card/price_card.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/views/components/card/order_product_card.dart';
+import 'package:comcer_app/views/components/card/price_card.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

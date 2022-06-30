@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 
 class FuncionarioController {
   static const String urlBaseFuncionarios =

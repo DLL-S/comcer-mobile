@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_product_response.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,7 +16,7 @@ class OrderProductController {
     return http
         .get(
             Uri.https(EnvironmentConfig.urlsConfig(),
-                "api/produtosDoPedido/view/$idPedido"),
+                "api/produtosDoPedido/views/$idPedido"),
             headers: {
               HttpHeaders.contentTypeHeader: "application/json",
               HttpHeaders.authorizationHeader: "Bearer ${Util.token}"

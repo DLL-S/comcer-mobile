@@ -1,6 +1,6 @@
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+import 'package:comcer_app/dominio/models/base_api_response.dart';
 
-import 'inconsistencia_validacao.dart';
+import 'inconsistencies.dart';
 import 'order.dart';
 
 class OrderPad extends BaseAPIResponse {

@@ -3,10 +3,10 @@ import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/controller/product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/Product.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/product.dart';
 import 'package:comcer_app/ui/components/card/filter_card/fiter_card.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

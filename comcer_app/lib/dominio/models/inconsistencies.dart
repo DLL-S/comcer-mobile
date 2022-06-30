@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
 
-
-
 class InconsistenciaDeValidacao {
   late String _propriedade;
   late String _mensagem;
