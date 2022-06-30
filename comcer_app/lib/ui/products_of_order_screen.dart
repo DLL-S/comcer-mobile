@@ -1,9 +1,10 @@
 import 'package:comcer_app/controller/order_product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/ApiResponse.dart';
 import 'package:comcer_app/dominio/models/order_product_response.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 
 class ProducstOfOrderScreen extends StatefulWidget {
@@ -55,39 +56,34 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const String statusPendente = 'Pendente';
-    const String statusCozinhando = 'Em preparo';
-    const String statusPronto = 'Pronto';
-    const String statusEntregue = 'Entregue';
-
     Widget statusPedido(int status) {
-      if (status == 0) {
-        return Text(
-          statusPendente,
+      if (status == OrderStatus.PENDENTE.value) {
+        return const Text(
+          Constant.statusPendente,
           style: TextStyle(
               color: AppColors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 1) {
-        return Text(
-          statusCozinhando,
+      } else if (status == OrderStatus.COZINHANDO.value) {
+        return const Text(
+          Constant.statusCozinhando,
           style: TextStyle(
               color: AppColors.orange,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 2) {
-        return Text(
-          statusPronto,
+      } else if (status == OrderStatus.PRONTO.value) {
+        return const Text(
+          Constant.statusPronto,
           style: TextStyle(
               color: AppColors.green,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == 3) {
-        return Text(
-          statusEntregue,
+      } else if (status == OrderStatus.ENTREGUE.value) {
+        return const Text(
+          Constant.statusEntregue,
           style: TextStyle(
               color: AppColors.darkGreen,
               fontWeight: FontWeight.bold,
@@ -95,7 +91,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         );
       } else {
         return const Text(
-          'Status desconhecido',
+          Constant.statusDesconhecido,
           style: TextStyle(
               color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14),
         );
@@ -114,7 +110,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
           children: [
             Expanded(child: Builder(builder: (_) {
               if (_isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.darkRed,
                   ),

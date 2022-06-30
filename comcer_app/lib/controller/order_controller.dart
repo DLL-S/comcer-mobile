@@ -29,6 +29,10 @@ class OrderController {
             return APIResponse<OrderView>(
                 error: false,
                 errorMessage: 'Não há nenhum pedido a ser exibido.');
+          } else if (data.statusCode == 401) {
+            return APIResponse<OrderView>(
+                error: true,
+                errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<OrderView>(
                 error: true,

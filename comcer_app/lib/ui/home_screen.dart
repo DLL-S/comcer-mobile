@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         const SizedBox(
                           height: 16,
                         ),
-                        Divider(
+                        const Divider(
                           color: AppColors.darkRed,
                           height: 1,
                         ),
@@ -200,6 +200,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     ),
                   ),
                 ),
+              );
+            } else if(_apiResponse.error == true){
+              return Container(
+                color: AppColors.lightRed,
+                child: Center(
+                    child: Text(
+                      "Houve um problema ao carregar os dados do serviço.\n " +
+                          _apiResponse.errorMessage.toString(),
+                      style: AppStyles.size14BlackBold,
+                      textAlign: TextAlign.center,
+                    )),
               );
             } else {
               return Container(
