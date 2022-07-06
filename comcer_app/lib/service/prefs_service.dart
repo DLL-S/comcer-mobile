@@ -23,7 +23,6 @@ class PrefsService extends ChangeNotifier {
         jsonEncode({
           "user": user.usuario,
           "token": user.token,
-          "role": user.role,
           "isAuth": true
         }));
   }

@@ -1,7 +1,7 @@
 
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
-import 'package:comcer_app/ui/shared/iconButton/custom_icon_button.dart';
+import 'package:comcer_app/views/shared/icon_button/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
