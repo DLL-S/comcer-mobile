@@ -2,6 +2,7 @@ import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class OrderPadScreen extends StatefulWidget {
@@ -60,21 +61,21 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   AlertDialog showCloseConfirmationDialog(
       BuildContext context, int orderPadNumber) {
     AlertDialog alerta = AlertDialog(
-      title: const Text("Confirmação"),
-      content: const Text("Deseja realmente fechar a comanda?"),
+      title:  const Text(Constant.confirmacao),
+      content: const Text(Constant.fecharComanda),
       actions: [
         TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text("Cancelar")),
+            child: const Text(Constant.cancelar)),
         TextButton(
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
                   context, '/base', (Route<dynamic> route) => false);
             },
             child: const Text(
-              "Sim",
+              Constant.sim,
               style: TextStyle(color: Colors.red),
             ))
       ],
@@ -119,7 +120,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: Text("Comanda da Mesa " + widget.tableNumber.toString()),
+        title: Text(Constant.comandaDaMesa + widget.tableNumber.toString()),
         centerTitle: true,
         actions: [
           IconButton(
@@ -129,15 +130,15 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Confirmação"),
+                          title: const Text(Constant.confirmacao),
                           content:
-                              const Text("Deseja realmente fechar a comanda?"),
+                              const Text(Constant.fecharComanda),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text("Cancelar")),
+                                child: const Text(Constant.cancelar)),
                             TextButton(
                                 onPressed: () {
                                   orderPadController
@@ -146,7 +147,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                       '/base', (Route<dynamic> route) => false);
                                 },
                                 child: const Text(
-                                  "Sim",
+                                  Constant.sim,
                                   style: TextStyle(color: Colors.red),
                                 ))
                           ],
@@ -156,15 +157,15 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Atenção"),
+                          title: const Text(Constant.atencao),
                           content: const Text(
-                              "A comanda não pode ser encerrada pois ainda existem pedidos que não foram finalizados."),
+                              Constant.naoPodeSerEncerrada),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text("Fechar"))
+                                child: const Text(Constant.fechar))
                           ],
                         );
                       });
@@ -185,13 +186,13 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             Visibility(
                 visible: _isLoading ? false : true,
                 child: Text(
-                  'Pedidos',
+                  Constant.pedidos,
                   style: AppStyles.size18DarkRedBold,
                   textAlign: TextAlign.left,
                 )),
             Visibility(
                 visible: _isLoading ? false : true,
-                child: Divider(
+                child: const Divider(
                   color: AppColors.darkRed,
                   height: 2,
                 )),
@@ -210,7 +211,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 if (_apiResponse.error!) {
                   return Center(
                       child: Text(
-                    "Houve um problema ao carregar os dados do serviço.\n " +
+                    Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
                     style: AppStyles.size14BlackBold,
                     textAlign: TextAlign.center,
@@ -234,7 +235,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           textColor: AppColors.darkRed,
                           collapsedTextColor: AppColors.darkRed,
                           iconColor: AppColors.darkRed,
-                          title: Text('Pedido n.' + increment().toString()),
+                          title: Text(Constant.pedidoNumero + increment().toString()),
                           children: comandas[0]
                               .listaPedidos[index]
                               .pedidosDoProduto
@@ -245,11 +246,11 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Produto: " + e.produto.nome,
+                                          Constant.produto + e.produto.nome,
                                           style: AppStyles.size14BlackBold,
                                         ),
                                         Text(
-                                          'Quantidade: ' +
+                                          Constant.quantidade +
                                               e.quantidade.toString(),
                                           style: AppStyles.size14BlackBold,
                                         ),
@@ -276,7 +277,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Valor Total:',
+                        Constant.valorTotalComDoisPontos,
                         style: AppStyles.size22WhiteBold,
                       ),
                       Text(

@@ -2,6 +2,7 @@
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:comcer_app/views/shared/icon_button/custom_icon_button.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,16 +31,16 @@ class OrderProductCard extends StatelessWidget {
                       orderProduct.produto.nome,
                       style: AppStyles.size14BlackBold,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Row(
                       children: [
                         Text(
-                          'Valor unitário:',
+                          Constant.valorUnitario,
                           style: AppStyles.size14DarkRedBold,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(

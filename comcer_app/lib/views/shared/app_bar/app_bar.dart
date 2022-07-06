@@ -1,6 +1,6 @@
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/service/prefs_service.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class AppBarCustom extends PreferredSize {
@@ -8,14 +8,14 @@ class AppBarCustom extends PreferredSize {
 
   AlertDialog showDialogLogOut(BuildContext context) {
     AlertDialog alerta = AlertDialog(
-      title: const Text("Sair"),
-      content: const Text("Você deseja realmente sair?"),
+      title: const Text(Constant.sair),
+      content: const Text(Constant.confirmacaoSaida),
       actions: [
         TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text("Cancelar")),
+            child: const Text(Constant.cancelar)),
         TextButton(
             onPressed: () {
               PrefsService.logout();
@@ -23,7 +23,7 @@ class AppBarCustom extends PreferredSize {
                   context, '/login', (Route<dynamic> route) => false);
             },
             child: const Text(
-              "Sair",
+              Constant.sair,
               style: TextStyle(color: Colors.red),
             ))
       ],
@@ -31,9 +31,9 @@ class AppBarCustom extends PreferredSize {
     return alerta;
   }
 
-  AppBarCustom({required this.titulo})
-      : super(
-          preferredSize: Size.fromHeight(200),
+  AppBarCustom({Key? key, required this.titulo})
+      : super(key: key,
+          preferredSize: const Size.fromHeight(200),
           child: AppBar(
             title: Text(titulo),
             centerTitle: true,

@@ -4,8 +4,9 @@ import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_view.dart';
-import 'package:comcer_app/views/components/card/order_in_progress_card/OrderCard.dart';
+import 'package:comcer_app/views/components/card/order_in_progress_card/order_card.dart';
 import 'package:comcer_app/views/products_of_order_screen.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -68,9 +69,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: Column(
             children: [
               Text(
-                'Última atualização em ' +
+                Constant.ultimaAtualizacao +
                     DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) +
-                    'hrs',
+                    Constant.horas,
                 style: const TextStyle(color: AppColors.darkRed),
               ),
               const SizedBox(
@@ -87,7 +88,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   if (_apiResponse.error!) {
                     return Center(
                         child: Text(
-                      "Houve um problema ao carregar os dados do serviço.\n " +
+                      Constant.houveUmProblema +
                           _apiResponse.errorMessage.toString(),
                       style: AppStyles.size14BlackBold,
                       textAlign: TextAlign.center,
@@ -105,7 +106,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       shrinkWrap: true,
                       children: [
                         Text(
-                          "Nenhum pedido a ser finalizado!",
+                          Constant.nenhumPedidoASerFinalizado,
                           style: AppStyles.size18DarkRedBold,
                           textAlign: TextAlign.center,
                         )

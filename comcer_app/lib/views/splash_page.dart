@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:comcer_app/core/app_imagens.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);

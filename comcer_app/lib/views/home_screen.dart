@@ -3,9 +3,10 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/table_model.dart';
-import 'package:comcer_app/views/components/card/table_card/table_Card.dart';
+import 'package:comcer_app/views/components/card/table_card/table_card.dart';
 import 'package:comcer_app/views/do_request_screen.dart';
 import 'package:comcer_app/views/order_pad_screen.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -21,9 +22,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   APIResponse<Mesa> _apiResponse = APIResponse<Mesa>();
   List<Mesa> tables = <Mesa>[];
   bool _isLoading = false;
-
-  static const String fazerPedido = "Fazer Pedido";
-  static const String verComanda = "Ver Comanda";
 
   void showLoading() {
     if (mounted){
@@ -89,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   height: 24,
                 ),
                 GestureDetector(
-                  child: bottomSheetItem(Icons.edit, fazerPedido),
+                  child: bottomSheetItem(Icons.edit, Constant.fazerPedido),
                   onTap: () {
                     pushNewScreen(context,
                         screen: DoRequestScreen(tableNumber: mesa),
@@ -112,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         ),
                         GestureDetector(
                           child: bottomSheetItem(
-                              Icons.article_outlined, verComanda),
+                              Icons.article_outlined, Constant.verComanda),
                           onTap: () {
                             pushNewScreen(context,
                                 screen: OrderPadScreen(tableNumber: mesa),

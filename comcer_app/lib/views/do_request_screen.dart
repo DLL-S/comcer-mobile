@@ -63,7 +63,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: Text("Mesa " + widget.tableNumber.toString()),
+        title: Text(Constant.mesa + widget.tableNumber.toString()),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -97,8 +97,8 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           children: [
-                            Center(
-                                child: Text("Filtros:",
+                            const Center(
+                                child: Text(Constant.filtros,
                                     style: TextStyle(
                                       color: AppColors.darkRed,
                                       fontSize: 14,
@@ -148,7 +148,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                 if (_apiResponse.error!) {
                   return Center(
                       child: Text(
-                    "Houve um problema ao carregar os dados do serviço.\n " +
+                     Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
                     style: AppStyles.size14BlackBold,
                     textAlign: TextAlign.center,

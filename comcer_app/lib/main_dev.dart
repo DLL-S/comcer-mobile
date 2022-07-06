@@ -10,7 +10,7 @@ import 'dominio/models/my_http_overrides.dart';
 
 void main() {
   EnvironmentConfig.environmentBuild = Environments.DESENVOLVIMENTO;
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   HttpOverrides.global = MyHttpOverrides();
   runApp(AppWidget());
 }

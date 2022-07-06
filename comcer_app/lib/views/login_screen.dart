@@ -6,8 +6,11 @@ import 'package:comcer_app/core/app_imagens.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/user.dart';
+import 'package:comcer_app/dominio/enum/environment.dart';
+import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constants.dart';
+import 'package:comcer_app/util/validator.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Icon(
-              Icons.close,
+              Icons.error_outline,
               color: Colors.white,
-              size: 10,
+              size: 20,
             ),
             const SizedBox(
               width: 8,
@@ -107,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusedBorder: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.black)),
-                                errorBorder: OutlineInputBorder(
+                                errorBorder: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: AppColors.red)),
                                 labelStyle: TextStyle(
@@ -117,7 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: const TextStyle(fontSize: 20),
                             validator: (email) {
                               if (email!.isEmpty) {
-                                return "O E-mail deve ser informado";
+                                return Constant.emailVazio;
+                              } else if (EnvironmentConfig.environmentBuild ==
+                                      Environments.PRODUCAO &&
+                                  !isEmailValid(email)) {
+                                return Constant.emailInvalido;
                               } else {
                                 return null;
                               }
@@ -149,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusedBorder: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.black)),
-                                errorBorder: OutlineInputBorder(
+                                errorBorder: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: AppColors.red)),
                                 labelStyle: TextStyle(
@@ -159,9 +166,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: const TextStyle(fontSize: 20),
                             validator: (senha) {
                               if (senha!.isEmpty) {
-                                return "A senha deve ser informada";
+                                return Constant.senhaVazia;
                               } else if (senha.length < 8) {
-                                return "A senha deve possuir no mínimo 8 caracteres.";
+                                return Constant.senhaInvalida;
                               } else {
                                 return null;
                               }
@@ -173,11 +180,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             height: 56,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: AppColors.green,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(Constant
-                                        .ROUNDING_EDGE_CONTAINER_VALUE))),
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    Constant.ROUNDING_EDGE_CONTAINER_VALUE))),
                             child: SizedBox.expand(
                               child: TextButton(
                                 style: ButtonStyle(
@@ -221,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: AppColors.white,
                                       )
                                     : const Text(
-                                        "Entrar",
+                                        Constant.entrar,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,

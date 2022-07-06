@@ -14,9 +14,9 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            border: Border.fromBorderSide(
+            border: const Border.fromBorderSide(
               BorderSide(color: AppColors.darkRed),
             ),
             color: Colors.white,
@@ -24,7 +24,7 @@ class ProductCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            SizedBox(
               height: 60,
               width: 90,
               child: Image.memory(

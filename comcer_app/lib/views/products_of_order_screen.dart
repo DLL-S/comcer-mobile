@@ -51,6 +51,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
   @override
   void initState() {
+    super.initState();
     listarProdutosDoPedido();
   }
 
@@ -101,7 +102,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: const Text('Produtos do Pedido'),
+        title: const Text(Constant.produtosDoPedido),
         centerTitle: true,
       ),
       body: Container(
@@ -119,7 +120,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                 if (_apiResponse.error!) {
                   return Center(
                       child: Text(
-                    "Houve um problema ao carregar os dados do serviço.\n " +
+                    Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
                     style: AppStyles.size14BlackBold,
                     textAlign: TextAlign.center,
@@ -144,7 +145,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                             width: 110,
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
+                                border: const Border.fromBorderSide(
                                   BorderSide(color: AppColors.darkRed),
                                 ),
                                 color: Colors.white,
@@ -163,7 +164,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Status: ',
+                                      Constant.status,
                                       style: AppStyles.size14BlackBold,
                                     ),
                                     statusPedido(productsOfOrder[index].status),
