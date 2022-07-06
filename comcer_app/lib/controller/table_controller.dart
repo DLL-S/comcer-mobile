@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/mesa.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +30,11 @@ class TableController {
           } else if (data.statusCode == 204) {
             return APIResponse<Mesa>(
                 error: false,
-                errorMessage: 'Não há nenhuma mesa a ser exibida.');
+                errorMessage: Constant.mesaVazia);
+          } else if (data.statusCode == 401) {
+            return APIResponse<Mesa>(
+                error: true,
+                errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<Mesa>(
                 error: true,

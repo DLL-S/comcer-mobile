@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/Product.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/product.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,7 +31,11 @@ class ProductController {
           } else if (data.statusCode == 204) {
             return APIResponse<Product>(
                 error: false,
-                errorMessage: 'Não há nenhum produto a ser exibido.');
+                errorMessage: Constant.produtosVazio);
+          } else if (data.statusCode == 401){
+            return APIResponse<Product>(
+                error: true,
+                errorMessage: Constant.tokenExpirado);
           } else {
             return APIResponse<Product>(
                 error: true,

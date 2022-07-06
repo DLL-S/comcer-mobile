@@ -1,6 +1,6 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/core.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
@@ -87,20 +87,20 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     bool validation = false;
     int lengthProduct = 0;
     int lengthOrder = 0;
-    orderPad.listaPedidos.forEach((pedido) {
-      pedido.pedidosDoProduto.forEach((produto) {
+    for (var pedido in orderPad.listaPedidos) {
+      for (var produto in pedido.pedidosDoProduto) {
         if (produto.status == 3) {
           lengthProduct = lengthProduct;
         } else {
           lengthProduct++;
         }
-      });
+      }
       if (lengthProduct == 0) {
         lengthOrder = lengthOrder;
       } else {
         lengthOrder++;
       }
-    });
+    }
     if (lengthOrder == 0) {
       validation = true;
     } else {
@@ -111,6 +111,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
   @override
   void initState() {
+    super.initState();
     listarComanda();
   }
 

@@ -1,6 +1,6 @@
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+import 'package:comcer_app/dominio/models/base_api_response.dart';
 
-import 'inconsistencia_validacao.dart';
+import 'inconsistencies.dart';
 import 'order.dart';
 
 class OrderPad extends BaseAPIResponse {
@@ -64,7 +64,7 @@ class OrderPad extends BaseAPIResponse {
         _listaPedidos.add(Order.fromJson(order));
       });
     }
-    _valor = json['valor'];
+    _valor = json['valor'].toDouble();
     _status = json['status'];
   }
 

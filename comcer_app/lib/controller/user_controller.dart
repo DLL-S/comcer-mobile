@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/User.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/user.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:http/http.dart' as http;
 
 import '../environment_config.dart';

@@ -1,9 +1,9 @@
 import 'package:comcer_app/controller/product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/service/prefs_service.dart';
-import 'package:comcer_app/ui/home_screen.dart';
-import 'package:comcer_app/ui/orders_screen.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/views/home_screen.dart';
+import 'package:comcer_app/views/orders_screen.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 

@@ -4,13 +4,13 @@ import 'package:comcer_app/controller/user_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_imagens.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/user.dart';
 import 'package:comcer_app/dominio/enum/environment.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/User.dart';
 import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/service/prefs_service.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/Validador.dart';
-import 'package:comcer_app/util/constant.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -196,8 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: loading
                                     ? null
                                     : () async {
+                                        isLoading();
                                         if (formKey.currentState!.validate()) {
-                                          isLoading();
                                           user.usuario = emailController.text;
                                           user.senha = sha256
                                               .convert(utf8.encode(

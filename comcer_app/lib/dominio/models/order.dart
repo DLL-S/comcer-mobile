@@ -1,7 +1,7 @@
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+import 'package:comcer_app/dominio/models/base_api_response.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 
-import 'inconsistencia_validacao.dart';
+import 'inconsistencies.dart';
 
 class Order extends BaseAPIResponse {
   int? _id;

@@ -2,10 +2,9 @@ import 'package:comcer_app/controller/order_product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_product_response.dart';
-import 'package:comcer_app/util/constant.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProducstOfOrderScreen extends StatefulWidget {

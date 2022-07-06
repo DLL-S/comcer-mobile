@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 
-import 'package:comcer_app/dominio/models/BaseAPIResponse.dart';
+import 'package:comcer_app/dominio/models/base_api_response.dart';
 
-import 'inconsistencia_validacao.dart';
+import 'inconsistencies.dart';
 
 class Product extends BaseAPIResponse {
   late int _id;

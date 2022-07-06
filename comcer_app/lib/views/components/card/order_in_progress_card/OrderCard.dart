@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/dominio/models/order_view.dart';
 import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/dominio/models/OrderView.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

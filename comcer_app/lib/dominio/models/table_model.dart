@@ -1,5 +1,5 @@
-import 'BaseAPIResponse.dart';
-import 'inconsistencia_validacao.dart';
+import 'base_api_response.dart';
+import 'inconsistencies.dart';
 import 'order_pad.dart';
 
 class Mesa extends BaseAPIResponse {

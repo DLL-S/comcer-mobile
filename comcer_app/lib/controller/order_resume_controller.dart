@@ -1,4 +1,4 @@
-import 'package:comcer_app/dominio/models/Product.dart';
+import 'package:comcer_app/dominio/models/product.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:flutter/cupertino.dart';
 

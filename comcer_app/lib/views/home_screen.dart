@@ -1,11 +1,11 @@
 import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/ApiResponse.dart';
-import 'package:comcer_app/dominio/models/mesa.dart';
-import 'package:comcer_app/ui/components/card/table_card/table_Card.dart';
-import 'package:comcer_app/ui/do_request_screen.dart';
-import 'package:comcer_app/ui/order_pad_screen.dart';
+import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
+import 'package:comcer_app/views/components/card/table_card/table_Card.dart';
+import 'package:comcer_app/views/do_request_screen.dart';
+import 'package:comcer_app/views/order_pad_screen.dart';
 import 'package:comcer_app/util/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         child: FutureBuilder(
           future: listarMesas(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && _apiResponse.error == false) {
               return Container(
                 color: AppColors.lightRed,
                 child: RefreshIndicator(
@@ -198,6 +198,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     ),
                   ),
                 ),
+              );
+            } else if(_apiResponse.error == true){
+              return Container(
+                color: AppColors.lightRed,
+                child: Center(
+                    child: Text(
+                      "Houve um problema ao carregar os dados do serviço.\n " +
+                          _apiResponse.errorMessage.toString(),
+                      style: AppStyles.size14BlackBold,
+                      textAlign: TextAlign.center,
+                    )),
               );
             } else {
               return Container(

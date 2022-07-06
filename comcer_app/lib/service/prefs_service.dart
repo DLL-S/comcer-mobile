@@ -1,21 +1,28 @@
 import 'dart:convert';
 
-import 'package:comcer_app/dominio/models/User.dart';
+import 'package:comcer_app/dominio/models/user.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsService extends ChangeNotifier {
+  bool loading = false;
+
   static const String _key = 'user_credential';
 
+  void setLoading(bool value) {
+    loading = value;
+    notifyListeners();
+  }
+
   Future<void> saveLogIn(User user) async {
+    setLoading(true);
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(
         _key,
         jsonEncode({
           "user": user.usuario,
           "token": user.token,
-          "role": user.role,
           "isAuth": true
         }));
   }
@@ -28,8 +35,9 @@ class PrefsService extends ChangeNotifier {
     if (jsonResult != null) {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['isAuth'];
+    } else {
+      return false;
     }
-    return false;
   }
 
   static Future<String> getToken() async {
@@ -41,7 +49,7 @@ class PrefsService extends ChangeNotifier {
       var mapUser = jsonDecode(jsonResult as String);
       return mapUser['token'];
     } else {
-      return 'AAAAAAA';
+      return 'Token inexistente.';
     }
   }
 
