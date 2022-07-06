@@ -1,6 +1,6 @@
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/service/prefs_service.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class AppBarCustom extends PreferredSize {

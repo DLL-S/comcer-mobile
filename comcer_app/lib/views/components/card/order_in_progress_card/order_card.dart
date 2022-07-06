@@ -3,7 +3,7 @@
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/dominio/models/order_view.dart';
 import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -12,7 +12,7 @@ class OrderController {
   //Listar Pedidos
   Future<APIResponse<OrderView>> listarPedidos() {
     return http
-        .get(Uri.https(EnvironmentConfig.urlsConfig(), "api/pedidos/views"),
+        .get(Uri.https(EnvironmentConfig.urlsConfig(), "api/pedidos/view"),
             headers: {
               HttpHeaders.contentTypeHeader: "application/json",
               HttpHeaders.authorizationHeader: "Bearer ${Util.token}"

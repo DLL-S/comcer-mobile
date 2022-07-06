@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class TableCard extends StatelessWidget {

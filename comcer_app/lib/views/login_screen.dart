@@ -10,7 +10,7 @@ import 'package:comcer_app/dominio/enum/environment.dart';
 import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constants.dart';
-import 'package:comcer_app/util/Validador.dart';
+import 'package:comcer_app/util/validator.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';

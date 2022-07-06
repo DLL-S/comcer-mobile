@@ -2,7 +2,7 @@ import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
-import 'package:comcer_app/util/constant.dart';
+import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class OrderPadScreen extends StatefulWidget {
