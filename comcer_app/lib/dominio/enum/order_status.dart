@@ -1,4 +1,4 @@
-enum OrderStatus { PENDENTE, COZINHANDO, PRONTO, ENTREGUE }
+enum OrderStatus { PENDENTE, COZINHANDO, PRONTO, ENTREGUE, CANCELADO }
 
 extension OrderStatusExtension on OrderStatus {
   int get value {
@@ -11,6 +11,8 @@ extension OrderStatusExtension on OrderStatus {
         return 2;
       case OrderStatus.ENTREGUE:
         return 3;
+      case OrderStatus.CANCELADO:
+        return 4;
     }
   }
 }

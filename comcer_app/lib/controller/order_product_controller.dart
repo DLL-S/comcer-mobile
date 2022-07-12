@@ -16,7 +16,7 @@ class OrderProductController {
     return http
         .get(
             Uri.https(EnvironmentConfig.urlsConfig(),
-                "api/produtosDoPedido/views/$idPedido"),
+                "api/produtosDoPedido/view/$idPedido"),
             headers: {
               HttpHeaders.contentTypeHeader: "application/json",
               HttpHeaders.authorizationHeader: "Bearer ${Util.token}"
@@ -52,7 +52,7 @@ class OrderProductController {
     return http
         .put(
             Uri.https(EnvironmentConfig.urlsConfig(),
-                "api/produtosDoPedido/$idProdutoPedido", {'status': '3'}),
+                "api/produtosDoPedido/$idProdutoPedido", {'status': '4'}),
             headers: {
               HttpHeaders.contentTypeHeader: "application/json",
               HttpHeaders.authorizationHeader: "Bearer ${Util.token}"

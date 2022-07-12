@@ -61,7 +61,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   AlertDialog showCloseConfirmationDialog(
       BuildContext context, int orderPadNumber) {
     AlertDialog alerta = AlertDialog(
-      title:  const Text(Constant.confirmacao),
+      title: const Text(Constant.confirmacao),
       content: const Text(Constant.fecharComanda),
       actions: [
         TextButton(
@@ -109,6 +109,32 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return validation;
   }
 
+  bool orderWasCancelled(OrderPad orderPad) {
+    bool validation = false;
+    int lengthProduct = 0;
+    int lengthOrder = 0;
+    for (var pedido in orderPad.listaPedidos) {
+      for (var produto in pedido.pedidosDoProduto) {
+        if (produto.status == 4) {
+          lengthProduct = lengthProduct;
+        } else {
+          lengthProduct++;
+        }
+      }
+      if (lengthProduct == 0) {
+        lengthOrder = lengthOrder;
+      } else {
+        lengthOrder++;
+      }
+    }
+    if (lengthOrder == 0) {
+      validation = true;
+    } else {
+      validation = false;
+    }
+    return validation;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -131,8 +157,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text(Constant.confirmacao),
-                          content:
-                              const Text(Constant.fecharComanda),
+                          content: const Text(Constant.fecharComanda),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -158,8 +183,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text(Constant.atencao),
-                          content: const Text(
-                              Constant.naoPodeSerEncerrada),
+                          content: const Text(Constant.naoPodeSerEncerrada),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -235,7 +259,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           textColor: AppColors.darkRed,
                           collapsedTextColor: AppColors.darkRed,
                           iconColor: AppColors.darkRed,
-                          title: Text(Constant.pedidoNumero + increment().toString()),
+                          title: Text(
+                              Constant.pedidoNumero + increment().toString()),
                           children: comandas[0]
                               .listaPedidos[index]
                               .pedidosDoProduto
