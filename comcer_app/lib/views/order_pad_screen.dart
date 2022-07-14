@@ -1,14 +1,17 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/core.dart';
+import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
+import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class OrderPadScreen extends StatefulWidget {
-  final int tableNumber;
+  final Mesa table;
 
-  const OrderPadScreen({Key? key, required this.tableNumber}) : super(key: key);
+  const OrderPadScreen({Key? key, required this.table}) : super(key: key);
 
   @override
   _OrderPadScreenState createState() => _OrderPadScreenState();
@@ -39,8 +42,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
   void listarComanda() async {
     showLoading();
-    _apiResponse =
-        await orderPadController.buscaComadaPorMesa(widget.tableNumber);
+    _apiResponse = await orderPadController.buscaComadaPorMesa(widget.table.id);
     if (_apiResponse.data != null) {
       comandas = _apiResponse.data!.resultados as List<OrderPad>;
     } else if (_apiResponse.error!) {
@@ -61,7 +63,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   AlertDialog showCloseConfirmationDialog(
       BuildContext context, int orderPadNumber) {
     AlertDialog alerta = AlertDialog(
-      title:  const Text(Constant.confirmacao),
+      title: const Text(Constant.confirmacao),
       content: const Text(Constant.fecharComanda),
       actions: [
         TextButton(
@@ -89,7 +91,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     int lengthOrder = 0;
     for (var pedido in orderPad.listaPedidos) {
       for (var produto in pedido.pedidosDoProduto) {
-        if (produto.status == 3) {
+        if (produto.status == OrderStatus.ENTREGUE.value ||
+            produto.status == OrderStatus.CANCELADO.value) {
           lengthProduct = lengthProduct;
         } else {
           lengthProduct++;
@@ -109,6 +112,24 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return validation;
   }
 
+  bool orderWasCancelled(Order order) {
+    bool validation = false;
+    int lengthProduct = 0;
+    for (var produto in order.pedidosDoProduto) {
+      if (produto.status == OrderStatus.CANCELADO.value) {
+        lengthProduct = lengthProduct;
+      } else {
+        lengthProduct++;
+      }
+    }
+    if (lengthProduct == 0) {
+      validation = true;
+    } else {
+      validation = false;
+    }
+    return validation;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -120,7 +141,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: Text(Constant.comandaDaMesa + widget.tableNumber.toString()),
+        title: Text(Constant.comandaDaMesa + widget.table.numero.toString()),
         centerTitle: true,
         actions: [
           IconButton(
@@ -131,8 +152,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text(Constant.confirmacao),
-                          content:
-                              const Text(Constant.fecharComanda),
+                          content: const Text(Constant.fecharComanda),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -158,8 +178,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text(Constant.atencao),
-                          content: const Text(
-                              Constant.naoPodeSerEncerrada),
+                          content: const Text(Constant.naoPodeSerEncerrada),
                           actions: [
                             TextButton(
                                 onPressed: () {
@@ -235,7 +254,12 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           textColor: AppColors.darkRed,
                           collapsedTextColor: AppColors.darkRed,
                           iconColor: AppColors.darkRed,
-                          title: Text(Constant.pedidoNumero + increment().toString()),
+                          title: Text(Constant.pedidoNumero +
+                              increment().toString() +
+                              (orderWasCancelled(
+                                      comandas[0].listaPedidos[index])
+                                  ? " Cancelado"
+                                  : "")),
                           children: comandas[0]
                               .listaPedidos[index]
                               .pedidosDoProduto
@@ -247,13 +271,53 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                       children: [
                                         Text(
                                           Constant.produto + e.produto.nome,
-                                          style: AppStyles.size14BlackBold,
+                                          style: e.status ==
+                                                  OrderStatus.CANCELADO.value
+                                              ? AppStyles.size14DarkRedRegular
+                                                  .copyWith(
+                                                      decoration: e.status ==
+                                                              OrderStatus
+                                                                  .CANCELADO
+                                                                  .value
+                                                          ? TextDecoration
+                                                              .lineThrough
+                                                          : TextDecoration.none)
+                                              : AppStyles.size14BlackBold
+                                                  .copyWith(
+                                                      decoration: e.status ==
+                                                              OrderStatus
+                                                                  .CANCELADO
+                                                                  .value
+                                                          ? TextDecoration
+                                                              .lineThrough
+                                                          : TextDecoration
+                                                              .none),
                                         ),
                                         Text(
                                           Constant.quantidade +
                                               e.quantidade.toString(),
-                                          style: AppStyles.size14BlackBold,
-                                        ),
+                                          style: e.status ==
+                                                  OrderStatus.CANCELADO.value
+                                              ? AppStyles.size14DarkRedRegular
+                                                  .copyWith(
+                                                      decoration: e.status ==
+                                                              OrderStatus
+                                                                  .CANCELADO
+                                                                  .value
+                                                          ? TextDecoration
+                                                              .lineThrough
+                                                          : TextDecoration.none)
+                                              : AppStyles.size14BlackBold
+                                                  .copyWith(
+                                                      decoration: e.status ==
+                                                              OrderStatus
+                                                                  .CANCELADO
+                                                                  .value
+                                                          ? TextDecoration
+                                                              .lineThrough
+                                                          : TextDecoration
+                                                              .none),
+                                        )
                                       ],
                                     ),
                                   ))

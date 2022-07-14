@@ -8,6 +8,7 @@ class OrderProductResponse extends BaseAPIResponse {
   late final int _numeroDoPedido;
   late final int _idProdutoPedido;
   late final String _produtoPedido;
+  late final int _quantidadeProduto;
   late final String _dataHoraPedido;
   late final int _status;
 
@@ -18,6 +19,7 @@ class OrderProductResponse extends BaseAPIResponse {
     this._numeroDoPedido,
     this._idProdutoPedido,
     this._produtoPedido,
+    this._quantidadeProduto,
     this._dataHoraPedido,
     this._status,
   );
@@ -47,6 +49,12 @@ class OrderProductResponse extends BaseAPIResponse {
     _produtoPedido = value;
   }
 
+  int get quantidadeProduto => _quantidadeProduto;
+
+  set quantidadeProduto(int value) {
+    _quantidadeProduto = value;
+  }
+
   String get dataHoraPedido => _dataHoraPedido;
 
   set dataHoraPedido(String value) {
@@ -65,6 +73,7 @@ class OrderProductResponse extends BaseAPIResponse {
     _numeroDoPedido = json["numeroPedido"].toInt();
     _idProdutoPedido = json["idProdutoPedido"].toInt();
     _produtoPedido = json["produtoPedido"].toString();
+    _quantidadeProduto = json["quantidade"].toInt();
     _dataHoraPedido = json["dataHoraPedido"].toString();
     _status = json["statusPedido"].toInt();
   }
@@ -75,6 +84,7 @@ class OrderProductResponse extends BaseAPIResponse {
     data["numeroMesa"] = _numeroMesa;
     data["numeroPedido"] = _numeroDoPedido;
     data["idProdutoPedido"] = _idProdutoPedido;
+    data["quantidade"] = _quantidadeProduto;
     data["produtoPedido"] = _produtoPedido;
     data["status"] = _status;
     return data;

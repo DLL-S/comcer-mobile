@@ -90,6 +90,12 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
+      } else if (status == OrderStatus.CANCELADO.value) {
+        return const Text(
+          Constant.statusCancelado,
+          style: TextStyle(
+              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14),
+        );
       } else {
         return const Text(
           Constant.statusDesconhecido,
@@ -164,6 +170,20 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 Row(
                                   children: [
                                     Text(
+                                      Constant.quantidade,
+                                      style: AppStyles.size14BlackBold,
+                                    ),
+                                    Text(
+                                      productsOfOrder[index]
+                                          .quantidadeProduto
+                                          .toString(),
+                                      style: AppStyles.size14BlackBold,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
                                       Constant.status,
                                       style: AppStyles.size14BlackBold,
                                     ),
@@ -171,7 +191,10 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                   ],
                                 ),
                                 Visibility(
-                                  visible: productsOfOrder[index].status == 2
+                                  visible: productsOfOrder[index].status ==
+                                              OrderStatus.PRONTO.value ||
+                                          productsOfOrder[index].status ==
+                                              OrderStatus.PENDENTE.value
                                       ? true
                                       : false,
                                   child: const SizedBox(
@@ -179,7 +202,8 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: productsOfOrder[index].status == 2
+                                  visible: productsOfOrder[index].status ==
+                                          OrderStatus.PRONTO.value
                                       ? true
                                       : false,
                                   child: Padding(
@@ -189,7 +213,8 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                         await orderProductController
                                             .alterarStatusDoProduto(
                                                 productsOfOrder[index]
-                                                    .idProdutoPedido);
+                                                    .idProdutoPedido,
+                                                OrderStatus.ENTREGUE.value);
                                         listarProdutosDoPedido();
                                       },
                                       child: Container(
@@ -202,9 +227,45 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                           color: AppColors.darkRed,
                                         ),
                                         child: _isLoading
-                                            ? CircularProgressIndicator()
+                                            ? const CircularProgressIndicator()
                                             : Text(
                                                 "Marcar como entregue",
+                                                style:
+                                                    AppStyles.size14WhiteBold,
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: productsOfOrder[index].status ==
+                                          OrderStatus.PENDENTE.value
+                                      ? true
+                                      : false,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        await orderProductController
+                                            .alterarStatusDoProduto(
+                                                productsOfOrder[index]
+                                                    .idProdutoPedido,
+                                                OrderStatus.CANCELADO.value);
+                                        listarProdutosDoPedido();
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 400,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: AppColors.darkRed,
+                                        ),
+                                        child: _isLoading
+                                            ? const CircularProgressIndicator()
+                                            : Text(
+                                                "Cancelar",
                                                 style:
                                                     AppStyles.size14WhiteBold,
                                               ),

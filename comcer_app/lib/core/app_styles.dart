@@ -10,6 +10,12 @@ class AppStyles {
     color: AppColors.darkRed,
   );
 
+  static final TextStyle size14DarkRedRegular = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.darkRed,
+  );
+
   static final TextStyle size18DarkRedBold = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,

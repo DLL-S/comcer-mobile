@@ -5,15 +5,16 @@ import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/product.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/views/components/card/filter_card/fiter_card.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DoRequestScreen extends StatefulWidget {
-  final int tableNumber;
+  final Mesa table;
 
-  const DoRequestScreen({Key? key, required this.tableNumber})
+  const DoRequestScreen({Key? key, required this.table})
       : super(key: key);
 
   @override
@@ -63,13 +64,13 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: Text(Constant.mesa + widget.tableNumber.toString()),
+        title: Text(Constant.mesa + widget.table.numero.toString()),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .pushNamed('/resumo', arguments: widget.tableNumber);
+              .pushNamed('/resumo', arguments: widget.table.id);
         },
         child: const Icon(
           Icons.article_outlined,
@@ -173,7 +174,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 .read<OrderResumeController>()
                                 .addToOrder(_products[index]);
                             Navigator.of(context).pushNamed('/resumo',
-                                arguments: widget.tableNumber);
+                                arguments: widget.table.id);
                           },
                           child: Container(
                             height: 100,

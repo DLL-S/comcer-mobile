@@ -79,6 +79,7 @@ class Constant {
   static const String statusCozinhando = 'Em preparo';
   static const String statusPronto = 'Pronto';
   static const String statusEntregue = 'Entregue';
+  static const String statusCancelado = 'Cancelado';
   static const String statusDesconhecido = 'Status Desconhecido';
 
   //Order Resume Screen
