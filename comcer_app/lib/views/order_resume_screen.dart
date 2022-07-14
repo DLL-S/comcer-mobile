@@ -13,7 +13,6 @@ class OrderResumeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int tableNumber = ModalRoute.of(context)!.settings.arguments as int;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constant.itensDoPedido),

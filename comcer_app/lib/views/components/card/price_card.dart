@@ -99,7 +99,7 @@ class _PriceCardState extends State<PriceCard> {
 
                   if (hasOrderPad.data!.resultados!.isEmpty) {
                     OrderPad orderPad = OrderPad(
-                        nome: '${Constant.mesa} + ${widget.tableNumber}', listaPedidos: []);
+                        nome: '${Constant.mesa} ${widget.tableNumber}', listaPedidos: []);
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
@@ -117,11 +117,11 @@ class _PriceCardState extends State<PriceCard> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(Constant.pedidoRealizadoComSucesso),
                       backgroundColor: AppColors.darkGreen,
+                      duration: Duration(seconds: 2),
                     ));
                     orderResumeController.items.clear();
-                    Future.delayed(const Duration(seconds: 2)).then((value) =>
                         Navigator.restorablePushNamedAndRemoveUntil(
-                            context, '/base', (route) => false));
+                            context, '/base', (route) => false);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(isRegisteredOrder.errorMessage.toString()),

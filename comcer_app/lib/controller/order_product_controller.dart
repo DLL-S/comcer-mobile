@@ -48,11 +48,11 @@ class OrderProductController {
   }
 
   //Alterar status do produto
-  Future<APIResponse<bool>> alterarStatusDoProduto(int idProdutoPedido) {
+  Future<APIResponse<bool>> alterarStatusDoProduto(int idProdutoPedido, int status) {
     return http
         .put(
             Uri.https(EnvironmentConfig.urlsConfig(),
-                "api/produtosDoPedido/$idProdutoPedido", {'status': '4'}),
+                "api/produtosDoPedido/$idProdutoPedido", {'status': status.toString()}),
             headers: {
               HttpHeaders.contentTypeHeader: "application/json",
               HttpHeaders.authorizationHeader: "Bearer ${Util.token}"

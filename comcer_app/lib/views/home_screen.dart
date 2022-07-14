@@ -68,12 +68,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
-  void showModalBottomSheetOptions(int mesa, bool disponivel) {
+  void showModalBottomSheetOptions(Mesa mesa) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return Container(
-            height: disponivel ? 80 : 140,
+            height: mesa.disponivel ? 80 : 140,
             color: AppColors.lightRed,
             padding: const EdgeInsets.all(8),
             child: Column(
@@ -90,12 +90,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   child: bottomSheetItem(Icons.edit, Constant.fazerPedido),
                   onTap: () {
                     pushNewScreen(context,
-                        screen: DoRequestScreen(tableNumber: mesa),
+                        screen: DoRequestScreen(table: mesa),
                         withNavBar: false);
                   },
                 ),
                 Visibility(
-                    visible: disponivel ? false : true,
+                    visible: mesa.disponivel ? false : true,
                     child: Column(
                       children: [
                         const SizedBox(
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                               Icons.article_outlined, Constant.verComanda),
                           onTap: () {
                             pushNewScreen(context,
-                                screen: OrderPadScreen(tableNumber: mesa),
+                                screen: OrderPadScreen(table: mesa),
                                 withNavBar: false);
                           },
                         ),
@@ -188,8 +188,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                     number: mesa.numero,
                                     status: mesa.disponivel,
                                     onTap: () {
-                                      showModalBottomSheetOptions(
-                                          mesa.numero, mesa.disponivel);
+                                      showModalBottomSheetOptions(mesa);
                                     }))
                                 .toList(),
                           ),

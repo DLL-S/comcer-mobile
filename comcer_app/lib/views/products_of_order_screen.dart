@@ -94,9 +94,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         return const Text(
           Constant.statusCancelado,
           style: TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.bold,
-              fontSize: 14),
+              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14),
         );
       } else {
         return const Text(
@@ -215,7 +213,8 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                         await orderProductController
                                             .alterarStatusDoProduto(
                                                 productsOfOrder[index]
-                                                    .idProdutoPedido);
+                                                    .idProdutoPedido,
+                                                OrderStatus.ENTREGUE.value);
                                         listarProdutosDoPedido();
                                       },
                                       child: Container(
@@ -228,7 +227,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                           color: AppColors.darkRed,
                                         ),
                                         child: _isLoading
-                                            ? CircularProgressIndicator()
+                                            ? const CircularProgressIndicator()
                                             : Text(
                                                 "Marcar como entregue",
                                                 style:
@@ -250,7 +249,8 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                         await orderProductController
                                             .alterarStatusDoProduto(
                                                 productsOfOrder[index]
-                                                    .idProdutoPedido);
+                                                    .idProdutoPedido,
+                                                OrderStatus.CANCELADO.value);
                                         listarProdutosDoPedido();
                                       },
                                       child: Container(
