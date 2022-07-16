@@ -6,6 +6,7 @@ import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/dominio/models/order_product.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/foundation.dart';
@@ -13,9 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PriceCard extends StatefulWidget {
-  final int tableNumber;
+  final Mesa table;
 
-  const PriceCard({Key? key, required this.tableNumber}) : super(key: key);
+  const PriceCard({Key? key, required this.table}) : super(key: key);
 
   @override
   State<PriceCard> createState() => _PriceCardState();
@@ -95,17 +96,17 @@ class _PriceCardState extends State<PriceCard> {
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
 
                   hasOrderPad = await orderPadController
-                      .buscaComadaPorMesa(widget.tableNumber);
+                      .buscaComadaPorMesa(widget.table.id);
 
                   if (hasOrderPad.data!.resultados!.isEmpty) {
                     OrderPad orderPad = OrderPad(
-                        nome: '${Constant.mesa} ${widget.tableNumber}', listaPedidos: []);
+                        nome: '${Constant.mesa} ${widget.table.numero}', listaPedidos: []);
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
                     orderPad.status = 0;
                     isRegisteredOrder = await orderPadController.addNewOrderPad(
-                        orderPad, widget.tableNumber);
+                        orderPad, widget.table.id);
                   } else {
                     OrderPad comanda =
                         hasOrderPad.data!.resultados!.first as OrderPad;

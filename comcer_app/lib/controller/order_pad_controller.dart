@@ -14,6 +14,7 @@ class OrderPadController {
   static const String comanda = 'api/comanda';
   static const String adicionarComandaNaMesa = 'api/mesa/';
   static const String fecharComanda = 'api/mesa/encerrarComanda/';
+  var paraPagamento = {'paraPagamento' : 'true'};
 
   //Buscar comanda referente a mesa selecionada
   Future<APIResponse<OrderPad>> buscaComadaPorMesa(int tableNumber) {
@@ -115,8 +116,8 @@ class OrderPadController {
   //Fechar Comanda
   Future<APIResponse<bool>> closeOrderPad(int numeroComanda) async {
     return await http.put(
-        Uri.https(
-            EnvironmentConfig.urlsConfig(), fecharComanda + "$numeroComanda"),
+        Uri.https(EnvironmentConfig.urlsConfig(),
+            fecharComanda + "$numeroComanda", paraPagamento),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
           HttpHeaders.authorizationHeader: "Bearer ${Util.getToken()}"
