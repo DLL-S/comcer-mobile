@@ -1,6 +1,7 @@
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/views/components/card/order_product_card.dart';
 import 'package:comcer_app/views/components/card/price_card.dart';
 import 'package:comcer_app/util/constants.dart';
@@ -12,7 +13,7 @@ class OrderResumeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int tableNumber = ModalRoute.of(context)!.settings.arguments as int;
+    final Mesa table = ModalRoute.of(context)!.settings.arguments as Mesa;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constant.itensDoPedido),
@@ -44,7 +45,7 @@ class OrderResumeScreen extends StatelessWidget {
                           visible: orderResumeController.items.isEmpty
                               ? false
                               : true,
-                          child: PriceCard(tableNumber: tableNumber),
+                          child: PriceCard(table: table),
                         ),
                       ],
                     ));

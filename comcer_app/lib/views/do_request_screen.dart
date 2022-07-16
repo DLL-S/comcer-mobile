@@ -70,7 +70,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .pushNamed('/resumo', arguments: widget.table.id);
+              .pushNamed('/resumo', arguments: widget.table);
         },
         child: const Icon(
           Icons.article_outlined,
@@ -174,7 +174,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 .read<OrderResumeController>()
                                 .addToOrder(_products[index]);
                             Navigator.of(context).pushNamed('/resumo',
-                                arguments: widget.table.id);
+                                arguments: widget.table);
                           },
                           child: Container(
                             height: 100,
