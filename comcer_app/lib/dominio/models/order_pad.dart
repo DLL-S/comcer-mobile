@@ -9,6 +9,8 @@ class OrderPad extends BaseAPIResponse {
   late final List<Order> _listaPedidos;
   double? _valor;
   int? _status;
+  String? _aberturComanda;
+  String? _encerramentoComanda;
 
   OrderPad.empty();
 
@@ -17,7 +19,9 @@ class OrderPad extends BaseAPIResponse {
       required String nome,
       required List<Order> listaPedidos,
       double? valor,
-      int? status}) {
+      int? status,
+      String? aberturaComanda,
+      String? encerrarComanda}) {
     if (id != null) {
       _id = id;
     }
@@ -32,6 +36,12 @@ class OrderPad extends BaseAPIResponse {
     }
     if (status != null) {
       _status = status;
+    }
+    if (aberturaComanda != null) {
+      _aberturComanda = aberturaComanda;
+    }
+    if (encerrarComanda != null) {
+      _encerramentoComanda = encerrarComanda;
     }
   }
 
@@ -55,6 +65,16 @@ class OrderPad extends BaseAPIResponse {
 
   set status(int? status) => _status = status;
 
+  String? get aberturaComanda => _aberturComanda;
+
+  set aberturaComanda(String? aberturaComanda) =>
+      _aberturComanda = aberturaComanda;
+
+  String? get encerramentoComanda => _encerramentoComanda;
+
+  set encerramentoComanda(String? encerramentoComanda) =>
+      _encerramentoComanda = encerramentoComanda;
+
   OrderPad.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _nome = json['nome'];
@@ -66,10 +86,12 @@ class OrderPad extends BaseAPIResponse {
     }
     _valor = json['valor'].toDouble();
     _status = json['status'];
+    _aberturComanda = json['aberturaComanda'];
+    _encerramentoComanda = json['encerramentoComanda'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = _id;
     data['nome'] = _nome;
     if (_listaPedidos != null) {
@@ -77,6 +99,8 @@ class OrderPad extends BaseAPIResponse {
     }
     data['valor'] = _valor;
     data['status'] = _status;
+    data['aberturaComanda'] = '0001-01-01T00:00:00.0Z';
+    data['encerramentoComanda'] = null;
     return data;
   }
 
