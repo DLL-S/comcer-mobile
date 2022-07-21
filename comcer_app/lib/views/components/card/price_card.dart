@@ -2,6 +2,7 @@ import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/dominio/enum/order_pad_status.dart';
 import 'package:comcer_app/dominio/models/api_response.dart';
 import 'package:comcer_app/dominio/models/order.dart';
 import 'package:comcer_app/dominio/models/order_pad.dart';
@@ -104,7 +105,7 @@ class _PriceCardState extends State<PriceCard> {
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
-                    orderPad.status = 0;
+                    orderPad.status = OrderPadStatus.ABERTA.value;
                     isRegisteredOrder = await orderPadController.addNewOrderPad(
                         orderPad, widget.table.id);
                   } else {
