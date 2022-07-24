@@ -25,14 +25,18 @@ class UserController {
 
             return APIResponse<User>(data: apiResponse);
           } else if (data.statusCode == 400) {
+            final jsonData =
+            jsonDecode(const Utf8Decoder().convert(data.bodyBytes));
             return APIResponse<User>(
                 error: true,
                 errorMessage:
-                    'E-mail ou senha incorretos, por favor verifique os dados.');
+                    jsonData['message'].toString());
           } else {
+            final jsonData =
+            jsonDecode(const Utf8Decoder().convert(data.bodyBytes));
             return APIResponse<User>(
                 error: true,
-                errorMessage: 'Erro: ' + data.statusCode.toString());
+                errorMessage: 'Erro: ' + jsonData['message'].toString());
           }
         })
         .catchError((_) =>
