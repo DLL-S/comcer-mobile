@@ -85,6 +85,11 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     return alerta;
   }
 
+  String valorTotalDoProduto(int quantidade, double valorUnitario) {
+    final valorTotal = valorUnitario * quantidade;
+    return ("Valor: R\$ ${valorTotal.toStringAsFixed(2).replaceAll('.', ',')}");
+  }
+
   bool orderPadCanBeClose(OrderPad orderPad) {
     bool validation = false;
     int lengthProduct = 0;
@@ -265,59 +270,91 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                               .pedidosDoProduto
                               .map((e) => Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          Constant.produto + e.produto.nome,
-                                          style: e.status ==
-                                                  OrderStatus.CANCELADO.value
-                                              ? AppStyles.size14DarkRedRegular
-                                                  .copyWith(
-                                                      decoration: e.status ==
-                                                              OrderStatus
-                                                                  .CANCELADO
-                                                                  .value
-                                                          ? TextDecoration
-                                                              .lineThrough
-                                                          : TextDecoration.none)
-                                              : AppStyles.size14BlackBold
-                                                  .copyWith(
-                                                      decoration: e.status ==
-                                                              OrderStatus
-                                                                  .CANCELADO
-                                                                  .value
-                                                          ? TextDecoration
-                                                              .lineThrough
-                                                          : TextDecoration
-                                                              .none),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                Constant.produto + e.produto.nome,
+                                                style: e.status ==
+                                                        OrderStatus.CANCELADO.value
+                                                    ? AppStyles.size14DarkRedRegular
+                                                        .copyWith(
+                                                            decoration: e.status ==
+                                                                    OrderStatus
+                                                                        .CANCELADO
+                                                                        .value
+                                                                ? TextDecoration
+                                                                    .lineThrough
+                                                                : TextDecoration.none)
+                                                    : AppStyles.size14BlackBold
+                                                        .copyWith(
+                                                            decoration: e.status ==
+                                                                    OrderStatus
+                                                                        .CANCELADO
+                                                                        .value
+                                                                ? TextDecoration
+                                                                    .lineThrough
+                                                                : TextDecoration
+                                                                    .none),
+                                              ),
+                                            ),
+                                            Text(
+                                              Constant.quantidade +
+                                                  e.quantidade.toString(),
+                                              style: e.status ==
+                                                      OrderStatus.CANCELADO.value
+                                                  ? AppStyles.size14DarkRedRegular
+                                                      .copyWith(
+                                                          decoration: e.status ==
+                                                                  OrderStatus
+                                                                      .CANCELADO
+                                                                      .value
+                                                              ? TextDecoration
+                                                                  .lineThrough
+                                                              : TextDecoration.none)
+                                                  : AppStyles.size14BlackBold
+                                                      .copyWith(
+                                                          decoration: e.status ==
+                                                                  OrderStatus
+                                                                      .CANCELADO
+                                                                      .value
+                                                              ? TextDecoration
+                                                                  .lineThrough
+                                                              : TextDecoration
+                                                                  .none),
+                                            )
+                                          ],
                                         ),
-                                        Text(
-                                          Constant.quantidade +
-                                              e.quantidade.toString(),
-                                          style: e.status ==
-                                                  OrderStatus.CANCELADO.value
-                                              ? AppStyles.size14DarkRedRegular
-                                                  .copyWith(
-                                                      decoration: e.status ==
-                                                              OrderStatus
-                                                                  .CANCELADO
-                                                                  .value
-                                                          ? TextDecoration
-                                                              .lineThrough
-                                                          : TextDecoration.none)
-                                              : AppStyles.size14BlackBold
-                                                  .copyWith(
-                                                      decoration: e.status ==
-                                                              OrderStatus
-                                                                  .CANCELADO
-                                                                  .value
-                                                          ? TextDecoration
-                                                              .lineThrough
-                                                          : TextDecoration
-                                                              .none),
-                                        )
+                                        Text(valorTotalDoProduto(e.quantidade, e.valorUnitario), style: e.status ==
+                                        OrderStatus.CANCELADO.value
+                                        ? AppStyles.size14DarkRedRegular
+                                            .copyWith(
+                                        decoration: e.status ==
+                                        OrderStatus
+                                            .CANCELADO
+                                            .value
+                                        ? TextDecoration
+                                            .lineThrough
+                                            : TextDecoration.none)
+                                  : AppStyles.size14BlackBold
+                              .copyWith(
+                          decoration: e.status ==
+                          OrderStatus
+                              .CANCELADO
+                              .value
+                          ? TextDecoration
+                              .lineThrough
+                              : TextDecoration
+                              .none),),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        const Divider(height: 2,)
                                       ],
                                     ),
                                   ))

@@ -207,18 +207,28 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      _products[index].nome,
-                                      style: AppStyles.size14DarkRedBold,
-                                    ),
-                                    SizedBox(
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: SizedBox(
                                         width: 230,
                                         child: Text(
-                                          _products[index].descricao,
-                                          style: AppStyles.size10BlackRegular,
+                                          _products[index].nome,
                                           maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        )),
+                                          style: AppStyles.size14DarkRedBold,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: SizedBox(
+                                          width: 230,
+                                          child: Text(
+                                            _products[index].descricao,
+                                            style: AppStyles.size10BlackRegular,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          )),
+                                    ),
                                     const SizedBox(
                                       height: 8,
                                     ),
