@@ -196,8 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: loading
                                     ? null
                                     : () async {
-                                        isLoading();
                                         if (formKey.currentState!.validate()) {
+                                          isLoading();
                                           user.usuario = emailController.text;
                                           user.senha = sha256
                                               .convert(utf8.encode(
