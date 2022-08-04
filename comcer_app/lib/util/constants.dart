@@ -22,6 +22,7 @@ class Constant {
   static const String email = "Email";
   static const String senha = "Senha";
   static const String sair = "Sair";
+  static const String observacao = "Observação";
   static const String emailVazio = "O E-mail deve ser informado.";
   static const String senhaVazia = "A senha deve ser informada.";
   static const String emailInvalido = "O E-mail inserido é inválido.";

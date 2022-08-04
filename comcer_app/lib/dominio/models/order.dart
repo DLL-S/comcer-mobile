@@ -7,19 +7,23 @@ class Order extends BaseAPIResponse {
   int? _id;
   late final List<OrderProduct> _produtosDoPedido;
   String? _dataHoraPedido;
+  String? _observacao;
 
   Order.empty();
 
   Order(
       {int? id,
       required List<OrderProduct> pedidosDoProduto,
-      String? dataHoraPedido}) {
+      String? dataHoraPedido, String? observacao}) {
     if (id != null) {
       _id = id;
     }
     _produtosDoPedido = pedidosDoProduto;
     if (dataHoraPedido != null) {
       _dataHoraPedido = dataHoraPedido;
+    }
+    if (observacao != null) {
+      _observacao = observacao;
     }
   }
 
@@ -37,6 +41,10 @@ class Order extends BaseAPIResponse {
   set dataHoraPedido(String? dataHoraPedido) =>
       _dataHoraPedido = dataHoraPedido;
 
+  String? get observacao => _observacao;
+
+  set observacao(String? observacao) => _observacao = observacao;
+
   Order.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     if (json['produtosDoPedido'] != null) {
@@ -46,6 +54,7 @@ class Order extends BaseAPIResponse {
       });
     }
     _dataHoraPedido = json['dataHoraPedido'];
+    _observacao = json['observacao'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +63,7 @@ class Order extends BaseAPIResponse {
     data['produtosDoPedido'] =
         _produtosDoPedido.map((v) => v.toJson()).toList();
     data['dataHoraPedido'] = _dataHoraPedido;
+    data['observacao'] = _observacao;
     return data;
   }
 
