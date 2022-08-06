@@ -47,6 +47,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     _apiResponse = await productController.listarProdutos();
     if (_apiResponse.data != null) {
       _products = _apiResponse.data!.resultados as List<Product>;
+      _products.sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
     } else if (_apiResponse.error!) {
       hideLoading();
     }
@@ -177,7 +178,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 arguments: widget.table);
                           },
                           child: Container(
-                            height: 100,
+                            height: 110,
                             width: 110,
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
@@ -192,7 +193,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                               children: [
                                 Container(
                                   width: 110,
-                                  height: 60,
+                                  height: 70,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -233,7 +234,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                       height: 8,
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -244,7 +245,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                                 .preco
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
-                                        style: AppStyles.size12WhiteBold,
+                                        style: AppStyles.size14WhiteBold,
                                       ),
                                     ),
                                   ],
