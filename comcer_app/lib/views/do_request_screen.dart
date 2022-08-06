@@ -25,10 +25,13 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
   late int quantity = 0;
 
   ProductController productController = ProductController();
+  TextEditingController searchController = TextEditingController();
   APIResponse<Product> _apiResponse = APIResponse<Product>();
   List<Product> _products = <Product>[];
+  List<Product> _allProducts = <Product>[];
 
   bool _isLoading = false;
+  bool _isSearching = false;
 
   void showLoading() {
     setState(() {
@@ -47,6 +50,8 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     _apiResponse = await productController.listarProdutos();
     if (_apiResponse.data != null) {
       _products = _apiResponse.data!.resultados as List<Product>;
+      _products.sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
+      _allProducts = _products;
     } else if (_apiResponse.error!) {
       hideLoading();
     }
@@ -64,8 +69,53 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.darkRed,
-        title: Text(Constant.mesa + widget.table.numero.toString()),
+        title: _isSearching ? Container(
+          height: 35,
+          padding: const EdgeInsets.all(4),
+          decoration:const  BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5))
+          ),
+          child: TextField(
+            controller: searchController,
+            cursorColor: Colors.black,
+            autofocus: true,
+            decoration: const InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black)
+              ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                )
+            ),
+            onChanged: (string){
+              setState(() {
+                _products = _products.where((element) => element.nome.toLowerCase().contains(string.toLowerCase())).toList();
+                if (string.isEmpty){
+                  _products = _allProducts;
+                }
+              });
+            },
+          ),
+        ) : Text(Constant.mesa + widget.table.numero.toString()),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: IconButton(
+              icon: _isSearching ? const Icon(Icons.close, color: AppColors.white,) : const Icon(Icons.search, color: AppColors.white,),
+              onPressed: () {
+                setState(() {
+                  _isSearching = !_isSearching;
+                  if (!_isSearching){
+                    _products = _allProducts;
+                    searchController.text = "";
+                  }
+                });
+              },
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -157,7 +207,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                 } else if (!_apiResponse.error! && _products.isEmpty) {
                   return Center(
                       child: Text(
-                    _apiResponse.errorMessage.toString(),
+                    "Nenhum produto encontrado...",
                     style: AppStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
@@ -177,7 +227,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                 arguments: widget.table);
                           },
                           child: Container(
-                            height: 100,
+                            height: 110,
                             width: 110,
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
@@ -192,7 +242,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                               children: [
                                 Container(
                                   width: 110,
-                                  height: 60,
+                                  height: 70,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -233,7 +283,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                       height: 8,
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -244,7 +294,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                                 .preco
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
-                                        style: AppStyles.size12WhiteBold,
+                                        style: AppStyles.size14WhiteBold,
                                       ),
                                     ),
                                   ],
