@@ -29,6 +29,7 @@ class _PriceCardState extends State<PriceCard> {
   @override
   Widget build(BuildContext context) {
     final orderResumeController = context.watch<OrderResumeController>();
+    TextEditingController observacaoController = TextEditingController();
     final productsPrice = orderResumeController.productsPrice;
     final OrderPadController orderPadController = OrderPadController();
     APIResponse<OrderPad> hasOrderPad = APIResponse<OrderPad>();
@@ -64,6 +65,26 @@ class _PriceCardState extends State<PriceCard> {
             const SizedBox(
               height: 12,
             ),
+            TextField(
+              controller: observacaoController,
+              keyboardType: TextInputType.multiline,
+              enabled: !_isLoading,
+              maxLines: null,
+              maxLength: 140,
+              decoration: const InputDecoration(
+                  labelText: Constant.observacao,
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                      BorderSide(color: AppColors.darkRed)),
+                  labelStyle: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black)),
+              style: const TextStyle(fontSize: 14),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -95,6 +116,7 @@ class _PriceCardState extends State<PriceCard> {
                   Order order = Order(pedidosDoProduto: orderProduct);
                   order.id = 0;
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
+                  order.observacao = observacaoController.text;
 
                   hasOrderPad = await orderPadController
                       .buscaComadaPorMesa(widget.table.id);
