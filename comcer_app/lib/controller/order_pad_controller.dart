@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-import '../environment_config.dart';
-import '../model/api_response.dart';
-import '../model/order.dart';
-import '../model/order_pad.dart';
+import 'package:comcer_app/environment_config.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order.dart';
+import 'package:comcer_app/model/order_pad.dart';
 
 class OrderPadController {
   static const String comanda = 'api/comanda';

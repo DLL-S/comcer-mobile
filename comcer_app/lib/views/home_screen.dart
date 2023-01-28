@@ -1,14 +1,13 @@
 import 'package:comcer_app/controller/table_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/views/components/card/table_card/table_card.dart';
 import 'package:comcer_app/views/do_request_screen.dart';
 import 'package:comcer_app/views/order_pad_screen.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import '../model/api_response.dart';
-import '../model/table.dart';
+import 'package:comcer_app/design/core.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/table.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -52,14 +51,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       children: [
         Icon(
           icon,
-          color: AppColors.darkRed,
+          color: CCColors.darkRed,
         ),
         const SizedBox(
           width: 16,
         ),
         Text(
           text,
-          style: AppStyles.size22DarkRedBold,
+          style: CCStyles.size22DarkRedBold,
         ),
       ],
     );
@@ -71,14 +70,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         builder: (BuildContext context) {
           return Container(
             height: mesa.disponivel ? 80 : 140,
-            color: AppColors.lightRed,
+            color: CCColors.lightRed,
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
                 Container(
                   height: 3,
                   width: 80,
-                  color: AppColors.darkRed,
+                  color: CCColors.darkRed,
                 ),
                 const SizedBox(
                   height: 24,
@@ -99,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           height: 16,
                         ),
                         const Divider(
-                          color: AppColors.darkRed,
+                          color: CCColors.darkRed,
                           height: 1,
                         ),
                         const SizedBox(
@@ -166,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData && _apiResponse.error == false) {
               return Container(
-                color: AppColors.lightRed,
+                color: CCColors.lightRed,
                 child: RefreshIndicator(
                   onRefresh: () async {
                     listarMesas();
@@ -197,21 +196,21 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               );
             } else if(_apiResponse.error == true){
               return Container(
-                color: AppColors.lightRed,
+                color: CCColors.lightRed,
                 child: Center(
                     child: Text(
                       "Houve um problema ao carregar os dados do serviço.\n " +
                           _apiResponse.errorMessage.toString(),
-                      style: AppStyles.size14BlackBold,
+                      style: CCStyles.size14BlackBold,
                       textAlign: TextAlign.center,
                     )),
               );
             } else {
               return Container(
-                color: AppColors.lightRed,
+                color: CCColors.lightRed,
                 child: const Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                   ),
                 ),
               );

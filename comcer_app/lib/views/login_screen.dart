@@ -1,9 +1,5 @@
 import 'dart:convert';
-
 import 'package:comcer_app/controller/user_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_imagens.dart';
-import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constants.dart';
@@ -12,10 +8,10 @@ import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../enum/environment.dart';
-import '../model/api_response.dart';
-import '../model/user.dart';
+import 'package:comcer_app/design/core.dart';
+import 'package:comcer_app/enum/environment.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -37,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SnackBar showSnackBar(String message) {
     return SnackBar(
-      backgroundColor: AppColors.darkRed,
+      backgroundColor: CCColors.darkRed,
       content: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -57,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               message,
               maxLines: 2,
-              style: AppStyles.size12WhiteBold,
+              style: CCStyles.size12WhiteBold,
             )
           ],
         ),
@@ -77,10 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.lightRed,
+      backgroundColor: CCColors.lightRed,
       body: SingleChildScrollView(
         child: Container(
-          color: AppColors.lightRed,
+          color: CCColors.lightRed,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -92,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 275,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(AppImages.darkRedLogo))),
+                          image: AssetImage(CCImages.darkRedLogo))),
                 ),
                 Form(
                   key: formKey,
@@ -113,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         BorderSide(color: Colors.black)),
                                 errorBorder: const OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColors.red)),
+                                        BorderSide(color: CCColors.red)),
                                 labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: Constant.FONT_LABEL_TEXT_SIZE,
@@ -159,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         BorderSide(color: Colors.black)),
                                 errorBorder: const OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: AppColors.red)),
+                                        BorderSide(color: CCColors.red)),
                                 labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: Constant.FONT_LABEL_TEXT_SIZE,
@@ -182,18 +178,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 56,
                             alignment: Alignment.center,
                             decoration: const BoxDecoration(
-                                color: AppColors.green,
+                                color: CCColors.green,
                                 borderRadius: BorderRadius.all(Radius.circular(
                                     Constant.ROUNDING_EDGE_CONTAINER_VALUE))),
                             child: SizedBox.expand(
                               child: TextButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                        AppColors.green),
+                                        CCColors.green),
                                     overlayColor: MaterialStateProperty.all(
-                                        AppColors.darkGreen),
+                                        CCColors.darkGreen),
                                     foregroundColor: MaterialStateProperty.all(
-                                        AppColors.green.withAlpha(100))),
+                                        CCColors.green.withAlpha(100))),
                                 onPressed: loading
                                     ? null
                                     : () async {
@@ -225,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       },
                                 child: loading
                                     ? const CircularProgressIndicator(
-                                        color: AppColors.white,
+                                        color: CCColors.white,
                                       )
                                     : const Text(
                                         Constant.entrar,

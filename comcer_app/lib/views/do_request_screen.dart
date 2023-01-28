@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/controller/product_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/views/components/card/filter_card/fiter_card.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/api_response.dart';
-import '../model/product.dart';
-import '../model/table.dart';
+import 'package:comcer_app/design/core.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/product.dart';
+import 'package:comcer_app/model/table.dart';
 
 class DoRequestScreen extends StatefulWidget {
   final Mesa table;
@@ -68,12 +67,12 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.darkRed,
+        backgroundColor: CCColors.darkRed,
         title: _isSearching ? Container(
           height: 35,
           padding: const EdgeInsets.all(4),
           decoration:const  BoxDecoration(
-            color: AppColors.white,
+            color: CCColors.white,
             borderRadius: BorderRadius.all(Radius.circular(5))
           ),
           child: TextField(
@@ -103,7 +102,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
           Padding(
             padding: const EdgeInsets.all(8),
             child: IconButton(
-              icon: _isSearching ? const Icon(Icons.close, color: AppColors.white,) : const Icon(Icons.search, color: AppColors.white,),
+              icon: _isSearching ? const Icon(Icons.close, color: CCColors.white,) : const Icon(Icons.search, color: CCColors.white,),
               onPressed: () {
                 setState(() {
                   _isSearching = !_isSearching;
@@ -129,7 +128,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(
-        color: AppColors.lightRed,
+        color: CCColors.lightRed,
         child: Column(
           children: [
             Visibility(
@@ -151,7 +150,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                             const Center(
                                 child: Text(Constant.filtros,
                                     style: TextStyle(
-                                      color: AppColors.darkRed,
+                                      color: CCColors.darkRed,
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ))),
@@ -192,7 +191,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
               if (_isLoading) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                   ),
                 );
               } else {
@@ -201,14 +200,14 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                       child: Text(
                      Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else if (!_apiResponse.error! && _products.isEmpty) {
-                  return Center(
+                  return const Center(
                       child: Text(
                     "Nenhum produto encontrado...",
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else {
@@ -232,7 +231,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                                 border: const Border.fromBorderSide(
-                                  BorderSide(color: AppColors.darkRed),
+                                  BorderSide(color: CCColors.darkRed),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
@@ -264,7 +263,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                         child: Text(
                                           _products[index].nome,
                                           maxLines: 2,
-                                          style: AppStyles.size14DarkRedBold,
+                                          style: CCStyles.size14DarkRedBold,
                                         ),
                                       ),
                                     ),
@@ -274,7 +273,7 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                           width: 230,
                                           child: Text(
                                             _products[index].descricao,
-                                            style: AppStyles.size10BlackRegular,
+                                            style: CCStyles.size10BlackRegular,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           )),
@@ -287,14 +286,14 @@ class _DoRequestScreenState extends State<DoRequestScreen> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: AppColors.darkRed),
+                                          color: CCColors.darkRed),
                                       child: Text(
                                         "R\$" +
                                             _products[index]
                                                 .preco
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
-                                        style: AppStyles.size14WhiteBold,
+                                        style: CCStyles.size14WhiteBold,
                                       ),
                                     ),
                                   ],

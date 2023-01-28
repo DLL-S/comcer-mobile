@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
-
-import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +22,7 @@ class TableCard extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 16, top: 8, right: 8, left: 8),
         decoration: BoxDecoration(
             border: const Border.fromBorderSide(
-              BorderSide(color: AppColors.darkRed),
+              BorderSide(color: CCColors.darkRed),
             ),
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)),
@@ -37,7 +35,7 @@ class TableCard extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                    color: status ? AppColors.green : AppColors.red,
+                    color: status ? CCColors.green : CCColors.red,
                     shape: BoxShape.circle),
               ),
             ),
@@ -58,7 +56,7 @@ class TableCard extends StatelessWidget {
                 Text(
                   number.toString(),
                   style: const TextStyle(
-                      color: AppColors.darkRed,
+                      color: CCColors.darkRed,
                       fontWeight: FontWeight.bold,
                       fontSize: 35),
                 ),

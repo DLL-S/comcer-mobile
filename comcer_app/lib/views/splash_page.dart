@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:comcer_app/core/app_imagens.dart';
+import 'package:comcer_app/design/cc_images.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class SplashPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(AppImages.background),
+                    image: AssetImage(CCImages.background),
                     fit: BoxFit.cover)),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
@@ -35,7 +35,7 @@ class SplashPage extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage(AppImages.whiteLogo))),
+                image: DecorationImage(image: AssetImage(CCImages.whiteLogo))),
           ),
         ],
       ),

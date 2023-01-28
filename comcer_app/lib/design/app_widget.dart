@@ -1,5 +1,5 @@
 import 'package:comcer_app/controller/order_resume_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/views/base_screen.dart';
 import 'package:comcer_app/views/home_screen.dart';
@@ -32,7 +32,7 @@ class AppWidget extends StatelessWidget {
         title: Constant.title,
         theme: ThemeData(
           fontFamily: 'Roboto',
-          primaryColor: AppColors.darkRed,
+          primaryColor: CCColors.darkRed,
         ),
         debugShowCheckedModeBanner: false,
         routes: {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class AppColors {
+class CCColors {
   static const Color darkRed = Color(0xFF710502);
   static const Color red = Color(0xFFD9200D);
   static const Color orange = Color(0xFFF17B15);

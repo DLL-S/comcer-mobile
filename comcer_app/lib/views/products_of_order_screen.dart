@@ -1,12 +1,10 @@
 import 'package:comcer_app/controller/order_product_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
-
-import '../enum/order_status.dart';
-import '../model/api_response.dart';
-import '../model/order_product_response.dart';
+import 'package:comcer_app/enum/order_status.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order_product_response.dart';
 
 class ProducstOfOrderScreen extends StatefulWidget {
   final int? idPedido;
@@ -63,7 +61,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         return const Text(
           Constant.statusPendente,
           style: TextStyle(
-              color: AppColors.yellow,
+              color: CCColors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
@@ -71,7 +69,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         return const Text(
           Constant.statusCozinhando,
           style: TextStyle(
-              color: AppColors.orange,
+              color: CCColors.orange,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
@@ -79,7 +77,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         return const Text(
           Constant.statusPronto,
           style: TextStyle(
-              color: AppColors.green,
+              color: CCColors.green,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
@@ -87,7 +85,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
         return const Text(
           Constant.statusEntregue,
           style: TextStyle(
-              color: AppColors.darkGreen,
+              color: CCColors.darkGreen,
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
@@ -108,19 +106,19 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.darkRed,
+        backgroundColor: CCColors.darkRed,
         title: const Text(Constant.produtosDoPedido),
         centerTitle: true,
       ),
       body: Container(
-        color: AppColors.lightRed,
+        color: CCColors.lightRed,
         child: Column(
           children: [
             Expanded(child: Builder(builder: (_) {
               if (_isLoading) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                   ),
                 );
               } else {
@@ -129,14 +127,14 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                       child: Text(
                     Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else if (!_apiResponse.error! && productsOfOrder.isEmpty) {
                   return Center(
                       child: Text(
                     _apiResponse.errorMessage.toString(),
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else {
@@ -153,7 +151,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                                 border: const Border.fromBorderSide(
-                                  BorderSide(color: AppColors.darkRed),
+                                  BorderSide(color: CCColors.darkRed),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
@@ -164,7 +162,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                   children: [
                                     Text(
                                       productsOfOrder[index].produtoPedido,
-                                      style: AppStyles.size14DarkRedBold,
+                                      style: CCStyles.size14DarkRedBold,
                                     ),
                                   ],
                                 ),
@@ -172,13 +170,13 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                   children: [
                                     Text(
                                       Constant.quantidade,
-                                      style: AppStyles.size14BlackBold,
+                                      style: CCStyles.size14BlackBold,
                                     ),
                                     Text(
                                       productsOfOrder[index]
                                           .quantidadeProduto
                                           .toString(),
-                                      style: AppStyles.size14BlackBold,
+                                      style: CCStyles.size14BlackBold,
                                     ),
                                   ],
                                 ),
@@ -186,7 +184,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                   children: [
                                     Text(
                                       Constant.status,
-                                      style: AppStyles.size14BlackBold,
+                                      style: CCStyles.size14BlackBold,
                                     ),
                                     statusPedido(productsOfOrder[index].status),
                                   ],
@@ -225,14 +223,14 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: AppColors.darkRed,
+                                          color: CCColors.darkRed,
                                         ),
                                         child: _isLoading
                                             ? const CircularProgressIndicator()
                                             : Text(
                                                 "Marcar como entregue",
                                                 style:
-                                                    AppStyles.size14WhiteBold,
+                                                    CCStyles.size14WhiteBold,
                                               ),
                                       ),
                                     ),
@@ -261,14 +259,14 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: AppColors.darkRed,
+                                          color: CCColors.darkRed,
                                         ),
                                         child: _isLoading
                                             ? const CircularProgressIndicator()
                                             : Text(
                                                 "Cancelar",
                                                 style:
-                                                    AppStyles.size14WhiteBold,
+                                                    CCStyles.size14WhiteBold,
                                               ),
                                       ),
                                     ),

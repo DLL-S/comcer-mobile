@@ -1,17 +1,16 @@
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/controller/order_resume_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../enum/order_pad_status.dart';
-import '../../../model/api_response.dart';
-import '../../../model/order.dart';
-import '../../../model/order_pad.dart';
-import '../../../model/order_product.dart';
-import '../../../model/table.dart';
+import 'package:comcer_app/enum/order_pad_status.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order.dart';
+import 'package:comcer_app/model/order_pad.dart';
+import 'package:comcer_app/model/order_product.dart';
+import 'package:comcer_app/model/table.dart';
 
 class PriceCard extends StatefulWidget {
   final Mesa table;
@@ -57,9 +56,9 @@ class _PriceCardState extends State<PriceCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               Constant.resumoDoPedido,
-              style: AppStyles.size14BlackBold,
+              style: CCStyles.size14BlackBold,
             ),
             const SizedBox(
               height: 12,
@@ -75,7 +74,7 @@ class _PriceCardState extends State<PriceCard> {
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                       borderSide:
-                      BorderSide(color: AppColors.darkRed)),
+                      BorderSide(color: CCColors.darkRed)),
                   labelStyle: TextStyle(
                       fontSize: 14,
                       color: Colors.black)),
@@ -87,13 +86,13 @@ class _PriceCardState extends State<PriceCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   Constant.valorTotal,
-                  style: AppStyles.size14BlackRegular,
+                  style: CCStyles.size14BlackRegular,
                 ),
                 Text(
                   'R\$ ${productsPrice.toStringAsFixed(2)}',
-                  style: AppStyles.size14BlackRegular,
+                  style: CCStyles.size14BlackRegular,
                 ),
               ],
             ),
@@ -139,7 +138,7 @@ class _PriceCardState extends State<PriceCard> {
                   if (isRegisteredOrder.data!) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(Constant.pedidoRealizadoComSucesso),
-                      backgroundColor: AppColors.darkGreen,
+                      backgroundColor: CCColors.darkGreen,
                       duration: Duration(seconds: 2),
                     ));
                     orderResumeController.items.clear();
@@ -148,7 +147,7 @@ class _PriceCardState extends State<PriceCard> {
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(isRegisteredOrder.errorMessage.toString()),
-                      backgroundColor: AppColors.red,
+                      backgroundColor: CCColors.red,
                     ));
                   }
                 },
@@ -159,15 +158,15 @@ class _PriceCardState extends State<PriceCard> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                   ),
                   child: _isLoading
                       ? const CircularProgressIndicator(
-                    color: AppColors.lightRed,
+                    color: CCColors.lightRed,
                   )
-                      : Text(
+                      : const Text(
                           Constant.finalizarPedido,
-                          style: AppStyles.size18WhiteBold,
+                          style: CCStyles.size18WhiteBold,
                         ),
                 ),
               ),

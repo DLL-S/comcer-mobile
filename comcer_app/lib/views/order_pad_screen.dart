@@ -1,13 +1,12 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
-import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
-
-import '../enum/order_status.dart';
-import '../model/api_response.dart';
-import '../model/order.dart';
-import '../model/order_pad.dart';
-import '../model/table.dart';
+import 'package:comcer_app/design/core.dart';
+import 'package:comcer_app/enum/order_status.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order.dart';
+import 'package:comcer_app/model/order_pad.dart';
+import 'package:comcer_app/model/table.dart';
 
 class OrderPadScreen extends StatefulWidget {
   final Mesa table;
@@ -146,7 +145,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.darkRed,
+        backgroundColor: CCColors.darkRed,
         title: Text(Constant.comandaDaMesa + widget.table.numero.toString()),
         centerTitle: true,
         actions: [
@@ -203,22 +202,22 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
         ],
       ),
       body: Container(
-        color: AppColors.lightRed,
+        color: CCColors.lightRed,
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Visibility(
                 visible: _isLoading ? false : true,
-                child: Text(
+                child: const Text(
                   Constant.pedidos,
-                  style: AppStyles.size18DarkRedBold,
+                  style: CCStyles.size18DarkRedBold,
                   textAlign: TextAlign.left,
                 )),
             Visibility(
                 visible: _isLoading ? false : true,
                 child: const Divider(
-                  color: AppColors.darkRed,
+                  color: CCColors.darkRed,
                   height: 2,
                 )),
             const SizedBox(
@@ -229,7 +228,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
               if (_isLoading) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                   ),
                 );
               } else {
@@ -238,7 +237,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       child: Text(
                     Constant.houveUmProblema +
                         _apiResponse.errorMessage.toString(),
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else if (!_apiResponse.error! &&
@@ -246,7 +245,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                   return Center(
                       child: Text(
                     _apiResponse.errorMessage.toString(),
-                    style: AppStyles.size14BlackBold,
+                    style: CCStyles.size14BlackBold,
                     textAlign: TextAlign.center,
                   ));
                 } else {
@@ -256,10 +255,10 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                       itemBuilder: (BuildContext _, int index) {
                         return Card(
                             child: ExpansionTile(
-                          collapsedIconColor: AppColors.darkRed,
-                          textColor: AppColors.darkRed,
-                          collapsedTextColor: AppColors.darkRed,
-                          iconColor: AppColors.darkRed,
+                          collapsedIconColor: CCColors.darkRed,
+                          textColor: CCColors.darkRed,
+                          collapsedTextColor: CCColors.darkRed,
+                          iconColor: CCColors.darkRed,
                           title: Text(Constant.pedidoNumero +
                               increment().toString() +
                               (orderWasCancelled(
@@ -283,7 +282,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                 Constant.produto + e.product.nome,
                                                 style: e.status ==
                                                         OrderStatus.cancelado.value
-                                                    ? AppStyles.size14DarkRedRegular
+                                                    ? CCStyles.size14DarkRedRegular
                                                         .copyWith(
                                                             decoration: e.status ==
                                                                     OrderStatus
@@ -292,7 +291,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                                 ? TextDecoration
                                                                     .lineThrough
                                                                 : TextDecoration.none)
-                                                    : AppStyles.size14BlackBold
+                                                    : CCStyles.size14BlackBold
                                                         .copyWith(
                                                             decoration: e.status ==
                                                                     OrderStatus
@@ -309,7 +308,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                   e.quantidade.toString(),
                                               style: e.status ==
                                                       OrderStatus.cancelado.value
-                                                  ? AppStyles.size14DarkRedRegular
+                                                  ? CCStyles.size14DarkRedRegular
                                                       .copyWith(
                                                           decoration: e.status ==
                                                                   OrderStatus
@@ -318,7 +317,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                               ? TextDecoration
                                                                   .lineThrough
                                                               : TextDecoration.none)
-                                                  : AppStyles.size14BlackBold
+                                                  : CCStyles.size14BlackBold
                                                       .copyWith(
                                                           decoration: e.status ==
                                                                   OrderStatus
@@ -333,7 +332,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                         ),
                                         Text(valorTotalDoProduto(e.quantidade, e.valorUnitario), style: e.status ==
                                         OrderStatus.cancelado.value
-                                        ? AppStyles.size14DarkRedRegular
+                                        ? CCStyles.size14DarkRedRegular
                                             .copyWith(
                                         decoration: e.status ==
                                         OrderStatus
@@ -342,7 +341,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                         ? TextDecoration
                                             .lineThrough
                                             : TextDecoration.none)
-                                  : AppStyles.size14BlackBold
+                                  : CCStyles.size14BlackBold
                               .copyWith(
                           decoration: e.status ==
                           OrderStatus
@@ -371,21 +370,21 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: AppColors.darkRed,
+                  color: CCColors.darkRed,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         Constant.valorTotalComDoisPontos,
-                        style: AppStyles.size22WhiteBold,
+                        style: CCStyles.size22WhiteBold,
                       ),
                       Text(
                         'R\$ ' +
                             totalValue.toStringAsFixed(2).replaceAll('.', ','),
-                        style: AppStyles.size22WhiteBold,
+                        style: CCStyles.size22WhiteBold,
                       ),
                     ],
                   ),

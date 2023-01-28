@@ -1,7 +1,8 @@
-import 'package:comcer_app/core/core.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:comcer_app/design/core.dart';
+
 
 class AppBarCustom extends PreferredSize {
   final String titulo;
@@ -37,7 +38,7 @@ class AppBarCustom extends PreferredSize {
           child: AppBar(
             title: Text(titulo),
             centerTitle: true,
-            backgroundColor: AppColors.darkRed,
+            backgroundColor: CCColors.darkRed,
           ),
         );
 }

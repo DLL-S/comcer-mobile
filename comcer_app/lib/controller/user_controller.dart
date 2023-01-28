@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:comcer_app/util/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../environment_config.dart';
-import '../model/api_response.dart';
-import '../model/user.dart';
+import 'package:comcer_app/environment_config.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/user.dart';
 
 class UserController {
   static String login = 'Api/login';

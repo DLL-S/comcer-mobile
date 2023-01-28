@@ -1,4 +1,4 @@
-class AppImages {
+class CCImages {
   static String get background => "assets/imagens/background.jpg";
 
   static String get whiteLogo => "assets/imagens/logo_branco.png";

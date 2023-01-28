@@ -1,15 +1,14 @@
 import 'package:comcer_app/controller/order_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/core/app_styles.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/views/components/card/order_in_progress_card/order_card.dart';
 import 'package:comcer_app/views/products_of_order_screen.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import '../enum/order_status.dart';
-import '../model/api_response.dart';
-import '../model/order_view.dart';
+import 'package:comcer_app/enum/order_status.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order_view.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.lightRed,
+      color: CCColors.lightRed,
       child: RefreshIndicator(
         onRefresh: () async {
           listarPedidos();
@@ -72,7 +71,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 Constant.ultimaAtualizacao +
                     DateFormat('dd/MM/yyyy | HH:mm:ss').format(dataHora) +
                     Constant.horas,
-                style: const TextStyle(color: AppColors.darkRed),
+                style: const TextStyle(color: CCColors.darkRed),
               ),
               const SizedBox(
                 height: 8,
@@ -81,7 +80,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 if (_isLoading) {
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.darkRed,
+                      color: CCColors.darkRed,
                     ),
                   );
                 } else {
@@ -90,7 +89,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         child: Text(
                       Constant.houveUmProblema +
                           _apiResponse.errorMessage.toString(),
-                      style: AppStyles.size14BlackBold,
+                      style: CCStyles.size14BlackBold,
                       textAlign: TextAlign.center,
                     ));
                   } else if (!_apiResponse.error! &&
@@ -98,16 +97,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     return Center(
                         child: Text(
                       _apiResponse.errorMessage.toString(),
-                      style: AppStyles.size14BlackBold,
+                      style: CCStyles.size14BlackBold,
                       textAlign: TextAlign.center,
                     ));
                   } else if (orders.isEmpty) {
                     return ListView(
                       shrinkWrap: true,
-                      children: [
+                      children: const [
                         Text(
                           Constant.nenhumPedidoASerFinalizado,
-                          style: AppStyles.size18DarkRedBold,
+                          style: CCStyles.size18DarkRedBold,
                           textAlign: TextAlign.center,
                         )
                       ],

@@ -1,11 +1,11 @@
 import 'package:comcer_app/controller/product_controller.dart';
-import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/views/home_screen.dart';
 import 'package:comcer_app/views/orders_screen.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:comcer_app/design/core.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({Key? key}) : super(key: key);
@@ -56,21 +56,21 @@ class _BasePageState extends State<BasePage> {
       PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreens() {
-    return [HomeScreen(), OrdersScreen()];
+    return [const HomeScreen(), const OrdersScreen()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: (Constant.home),
-        activeColorPrimary: AppColors.yellow,
+        activeColorPrimary: CCColors.yellow,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.article),
+        icon: const Icon(Icons.article),
         title: (Constant.pedidos),
-        activeColorPrimary: AppColors.yellow,
+        activeColorPrimary: CCColors.yellow,
         inactiveColorPrimary: Colors.white,
       ),
     ];
@@ -82,7 +82,7 @@ class _BasePageState extends State<BasePage> {
       appBar: AppBar(
         title: Text(_title),
         centerTitle: true,
-        backgroundColor: AppColors.darkRed,
+        backgroundColor: CCColors.darkRed,
         actions: [
           IconButton(
             onPressed: () {},

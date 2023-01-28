@@ -4,8 +4,8 @@ import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-import '../model/api_response.dart';
-import '../model/order_view.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/order_view.dart';
 
 
 class OrderController {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:comcer_app/core/core.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:flutter/material.dart';
-import '../../../../model/product.dart';
+import 'package:comcer_app/model/product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product produto;
@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             border: const Border.fromBorderSide(
-              BorderSide(color: AppColors.darkRed),
+              BorderSide(color: CCColors.darkRed),
             ),
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)),

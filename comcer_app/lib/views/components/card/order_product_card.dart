@@ -1,10 +1,9 @@
-import 'package:comcer_app/core/core.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/views/shared/icon_button/custom_icon_button.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../model/order_product.dart';
+import 'package:comcer_app/model/order_product.dart';
 
 class OrderProductCard extends StatelessWidget {
   const OrderProductCard({Key? key, required this.orderProduct})
@@ -29,23 +28,23 @@ class OrderProductCard extends StatelessWidget {
                   children: [
                     Text(
                       orderProduct.product.nome,
-                      style: AppStyles.size14BlackBold,
+                      style: CCStyles.size14BlackBold,
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           Constant.valorUnitario,
-                          style: AppStyles.size14DarkRedBold,
+                          style: CCStyles.size14DarkRedBold,
                         ),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(
                           'R\$${orderProduct.product.preco.toStringAsFixed(2).replaceAll(".", ",")}',
-                          style: AppStyles.size14BlackBold,
+                          style: CCStyles.size14BlackBold,
                         ),
                       ],
                     ),
@@ -58,15 +57,15 @@ class OrderProductCard extends StatelessWidget {
                     children: [
                       CustomIconButton(
                           iconData: Icons.add,
-                          color: AppColors.darkRed,
+                          color: CCColors.darkRed,
                           onTap: orderProduct.increment),
                       Text(
                         '${orderProduct.quantidade}',
-                        style: AppStyles.size14BlackBold,
+                        style: CCStyles.size14BlackBold,
                       ),
                       CustomIconButton(
                           iconData: Icons.remove,
-                          color: AppColors.darkRed,
+                          color: CCColors.darkRed,
                           onTap: orderProduct.decrement),
                     ],
                   );

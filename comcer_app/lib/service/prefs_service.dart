@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:comcer_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../model/user.dart';
+import 'package:comcer_app/model/user.dart';
 
 class PrefsService extends ChangeNotifier {
   bool loading = false;

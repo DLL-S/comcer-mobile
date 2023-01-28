@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-import '../environment_config.dart';
-import '../model/api_response.dart';
-import '../model/table.dart';
+import 'package:comcer_app/environment_config.dart';
+import 'package:comcer_app/model/api_response.dart';
+import 'package:comcer_app/model/table.dart';
 
 class TableController {
   static const String defaultUrl = "api/mesa";

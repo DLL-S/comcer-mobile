@@ -1,8 +1,8 @@
-import 'package:comcer_app/core/app_colors.dart';
+import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
-import '../../../../enum/order_status.dart';
-import '../../../../model/order_view.dart';
+import 'package:comcer_app/enum/order_status.dart';
+import 'package:comcer_app/model/order_view.dart';
 
 class OrderCard extends StatelessWidget {
   final OrderView order;
@@ -18,7 +18,7 @@ class OrderCard extends StatelessWidget {
         return const Text(
           Constant.statusPendente,
           style: TextStyle(
-              color: AppColors.yellow,
+              color: CCColors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
@@ -26,7 +26,7 @@ class OrderCard extends StatelessWidget {
         return const Text(
           Constant.statusPronto,
           style: TextStyle(
-              color: AppColors.green,
+              color: CCColors.green,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
@@ -34,7 +34,7 @@ class OrderCard extends StatelessWidget {
         return const Text(
           Constant.statusEntregue,
           style: TextStyle(
-              color: AppColors.darkGreen,
+              color: CCColors.darkGreen,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
@@ -52,7 +52,7 @@ class OrderCard extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           border: const Border.fromBorderSide(
-            BorderSide(color: AppColors.darkRed),
+            BorderSide(color: CCColors.darkRed),
           ),
           color: Colors.white,
           borderRadius: BorderRadius.circular(10)),
@@ -71,7 +71,7 @@ class OrderCard extends StatelessWidget {
               Text(
                 order.numeroDaMesa.toString(),
                 style: const TextStyle(
-                    color: AppColors.darkRed,
+                    color: CCColors.darkRed,
                     fontWeight: FontWeight.bold,
                     fontSize: 45),
               ),
@@ -96,7 +96,7 @@ class OrderCard extends StatelessWidget {
                   Text(
                     Constant.tresZeros + order.numeroDoPedido.toString(),
                     style: const TextStyle(
-                        color: AppColors.darkRed,
+                        color: CCColors.darkRed,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
@@ -130,7 +130,7 @@ class OrderCard extends StatelessWidget {
                   child: Text(
                     Constant.verProdutos,
                     style: TextStyle(
-                        color: AppColors.blue, fontWeight: FontWeight.bold),
+                        color: CCColors.blue, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../model/order_product.dart';
-import '../model/product.dart';
+import 'package:comcer_app/model/order_product.dart';
+import 'package:comcer_app/model/product.dart';
 
 class OrderResumeController extends ChangeNotifier {
   List<OrderProduct> items = [];
