@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/product.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-
 import '../environment_config.dart';
+import '../model/api_response.dart';
+import '../model/product.dart';
 
 class ProductController {
   // static const String urlBase = Constant.localBaseUrl + "Produtos";
@@ -25,7 +23,7 @@ class ProductController {
             final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
             var apiResponse = Product.empty();
 
-            apiResponse = Product.fromJsonResponse(jsonData);
+            apiResponse = Product.fromJson(jsonData);
 
             return APIResponse<Product>(data: apiResponse);
           } else if (data.statusCode == 204) {

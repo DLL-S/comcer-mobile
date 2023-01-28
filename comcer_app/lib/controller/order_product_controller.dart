@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order_product_response.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-
 import '../environment_config.dart';
+import '../model/api_response.dart';
+import '../model/order_product_response.dart';
 
 class OrderProductController {
   //Listar produtos do pedido
@@ -26,7 +24,7 @@ class OrderProductController {
             final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
             var apiResponse = OrderProductResponse.empty();
 
-            apiResponse = OrderProductResponse.fromJsonResponse(jsonData);
+            apiResponse = OrderProductResponse.fromJson(jsonData);
 
             return APIResponse<OrderProductResponse>(data: apiResponse);
           } else if (data.statusCode == 204) {

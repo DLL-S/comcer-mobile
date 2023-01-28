@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 class APIResponse<T> {
   T? data;
   bool? error;

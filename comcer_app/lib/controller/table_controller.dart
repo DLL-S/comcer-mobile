@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-
 import '../environment_config.dart';
+import '../model/api_response.dart';
+import '../model/table.dart';
 
 class TableController {
   static const String defaultUrl = "api/mesa";
@@ -24,7 +22,7 @@ class TableController {
             final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
             var tablesResponse = Mesa.empty();
 
-            tablesResponse = Mesa.fromJsonResponse(jsonData);
+            tablesResponse = Mesa.fromJson(jsonData);
 
             return APIResponse<Mesa>(data: tablesResponse);
           } else if (data.statusCode == 204) {

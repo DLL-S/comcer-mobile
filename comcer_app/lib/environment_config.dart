@@ -1,14 +1,14 @@
-import 'package:comcer_app/dominio/enum/environment.dart';
 import 'package:comcer_app/util/constants.dart';
+import 'enum/environment.dart';
 
 class EnvironmentConfig {
   static Environments? environmentBuild;
 
   static String urlsConfig() {
     switch (environmentBuild) {
-      case Environments.DESENVOLVIMENTO:
+      case Environments.desenvolvimento:
         return Constant.localBaseUrlDev;
-      case Environments.PRODUCAO:
+      case Environments.producao:
         return Constant.localBaseUrlProd;
       default:
         return Constant.localBaseUrlProd;

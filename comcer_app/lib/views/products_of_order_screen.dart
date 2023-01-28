@@ -1,11 +1,12 @@
 import 'package:comcer_app/controller/order_product_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order_product_response.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../enum/order_status.dart';
+import '../model/api_response.dart';
+import '../model/order_product_response.dart';
 
 class ProducstOfOrderScreen extends StatefulWidget {
   final int? idPedido;
@@ -58,7 +59,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
   @override
   Widget build(BuildContext context) {
     Widget statusPedido(int status) {
-      if (status == OrderStatus.PENDENTE.value) {
+      if (status == OrderStatus.pendente.value) {
         return const Text(
           Constant.statusPendente,
           style: TextStyle(
@@ -66,7 +67,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == OrderStatus.COZINHANDO.value) {
+      } else if (status == OrderStatus.cozinhando.value) {
         return const Text(
           Constant.statusCozinhando,
           style: TextStyle(
@@ -74,7 +75,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == OrderStatus.PRONTO.value) {
+      } else if (status == OrderStatus.pronto.value) {
         return const Text(
           Constant.statusPronto,
           style: TextStyle(
@@ -82,7 +83,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == OrderStatus.ENTREGUE.value) {
+      } else if (status == OrderStatus.entregue.value) {
         return const Text(
           Constant.statusEntregue,
           style: TextStyle(
@@ -90,7 +91,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         );
-      } else if (status == OrderStatus.CANCELADO.value) {
+      } else if (status == OrderStatus.cancelado.value) {
         return const Text(
           Constant.statusCancelado,
           style: TextStyle(
@@ -192,9 +193,9 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 ),
                                 Visibility(
                                   visible: productsOfOrder[index].status ==
-                                              OrderStatus.PRONTO.value ||
+                                              OrderStatus.pronto.value ||
                                           productsOfOrder[index].status ==
-                                              OrderStatus.PENDENTE.value
+                                              OrderStatus.pendente.value
                                       ? true
                                       : false,
                                   child: const SizedBox(
@@ -203,7 +204,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 ),
                                 Visibility(
                                   visible: productsOfOrder[index].status ==
-                                          OrderStatus.PRONTO.value
+                                          OrderStatus.pronto.value
                                       ? true
                                       : false,
                                   child: Padding(
@@ -214,7 +215,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                             .alterarStatusDoProduto(
                                                 productsOfOrder[index]
                                                     .idProdutoPedido,
-                                                OrderStatus.ENTREGUE.value);
+                                                OrderStatus.entregue.value);
                                         listarProdutosDoPedido();
                                       },
                                       child: Container(
@@ -239,7 +240,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                 ),
                                 Visibility(
                                   visible: productsOfOrder[index].status ==
-                                          OrderStatus.PENDENTE.value
+                                          OrderStatus.pendente.value
                                       ? true
                                       : false,
                                   child: Padding(
@@ -250,7 +251,7 @@ class _ProducstOfOrderScreenState extends State<ProducstOfOrderScreen> {
                                             .alterarStatusDoProduto(
                                                 productsOfOrder[index]
                                                     .idProdutoPedido,
-                                                OrderStatus.CANCELADO.value);
+                                                OrderStatus.cancelado.value);
                                         listarProdutosDoPedido();
                                       },
                                       child: Container(

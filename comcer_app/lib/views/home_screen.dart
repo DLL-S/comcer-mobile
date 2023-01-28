@@ -1,14 +1,14 @@
 import 'package:comcer_app/controller/table_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/views/components/card/table_card/table_card.dart';
 import 'package:comcer_app/views/do_request_screen.dart';
 import 'package:comcer_app/views/order_pad_screen.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import '../model/api_response.dart';
+import '../model/table.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,12 +21,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   final tableController = TableController();
   APIResponse<Mesa> _apiResponse = APIResponse<Mesa>();
   List<Mesa> tables = <Mesa>[];
-  bool _isLoading = false;
 
   void showLoading() {
     if (mounted){
       setState(() {
-        _isLoading = true;
       });
     }
   }
@@ -34,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void hideLoading() {
     if(mounted) {
       setState(() {
-        _isLoading = false;
       });
     }
   }
@@ -128,15 +125,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       listarMesas();
     });
   }
 
   @override
   void deactivate() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       listarMesas();
     });
     super.deactivate();
@@ -145,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -153,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       setState(() {
-        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           listarMesas();
         });
       });

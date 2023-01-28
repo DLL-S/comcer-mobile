@@ -1,0 +1,1 @@
+enum Situation { ativo, inativo }

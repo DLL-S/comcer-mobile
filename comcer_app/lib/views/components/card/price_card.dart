@@ -2,17 +2,16 @@ import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/enum/order_pad_status.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order.dart';
-import 'package:comcer_app/dominio/models/order_pad.dart';
-import 'package:comcer_app/dominio/models/order_product.dart';
-import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../enum/order_pad_status.dart';
+import '../../../model/api_response.dart';
+import '../../../model/order.dart';
+import '../../../model/order_pad.dart';
+import '../../../model/order_product.dart';
+import '../../../model/table.dart';
 
 class PriceCard extends StatefulWidget {
   final Mesa table;
@@ -113,7 +112,7 @@ class _PriceCardState extends State<PriceCard> {
                         Util.formatarDataHora(DateTime.now());
                     orderProduct.add(product);
                   }
-                  Order order = Order(pedidosDoProduto: orderProduct);
+                  Order order = Order(produtosDoPedido: orderProduct);
                   order.id = 0;
                   order.dataHoraPedido = Util.formatarDataHora(DateTime.now());
                   order.observacao = observacaoController.text;
@@ -127,7 +126,7 @@ class _PriceCardState extends State<PriceCard> {
                     orderPad.listaPedidos.add(order);
                     orderPad.id = 0;
                     orderPad.valor = 0;
-                    orderPad.status = OrderPadStatus.ABERTA.value;
+                    orderPad.status = OrderPadStatus.aberta.value;
                     isRegisteredOrder = await orderPadController.addNewOrderPad(
                         orderPad, widget.table.id);
                   } else {

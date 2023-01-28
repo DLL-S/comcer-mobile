@@ -1,6 +1,7 @@
-import 'package:comcer_app/dominio/models/product.dart';
-import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../model/order_product.dart';
+import '../model/product.dart';
 
 class OrderResumeController extends ChangeNotifier {
   List<OrderProduct> items = [];
@@ -22,7 +23,7 @@ class OrderResumeController extends ChangeNotifier {
   }
 
   void removeOfOrder(OrderProduct orderProduct) {
-    items.removeWhere((p) => p.produto == orderProduct.produto);
+    items.removeWhere((p) => p.product == orderProduct.product);
     orderProduct.removeListener(_onProductUpdate);
     notifyListeners();
   }

@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order.dart';
-import 'package:comcer_app/dominio/models/order_pad.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
-
 import '../environment_config.dart';
+import '../model/api_response.dart';
+import '../model/order.dart';
+import '../model/order_pad.dart';
 
 class OrderPadController {
   static const String comanda = 'api/comanda';
@@ -31,7 +29,7 @@ class OrderPadController {
             final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
             var apiResponse = OrderPad.empty();
 
-            apiResponse = OrderPad.fromJsonResponse(jsonData);
+            apiResponse = OrderPad.fromJson(jsonData);
 
             return APIResponse<OrderPad>(data: apiResponse);
           } else if (data.statusCode == 204) {

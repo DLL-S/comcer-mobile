@@ -1,11 +1,8 @@
-// ignore_for_file: file_names
-
 import 'package:comcer_app/core/app_colors.dart';
-import 'package:comcer_app/dominio/models/order_view.dart';
-import 'package:comcer_app/dominio/enum/order_status.dart';
 import 'package:comcer_app/util/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../enum/order_status.dart';
+import '../../../../model/order_view.dart';
 
 class OrderCard extends StatelessWidget {
   final OrderView order;
@@ -17,7 +14,7 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget statusPedido(int status) {
-      if (status == OrderStatus.PENDENTE.value) {
+      if (status == OrderStatus.pendente.value) {
         return const Text(
           Constant.statusPendente,
           style: TextStyle(
@@ -25,7 +22,7 @@ class OrderCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
-      } else if (status == OrderStatus.PRONTO.value) {
+      } else if (status == OrderStatus.pronto.value) {
         return const Text(
           Constant.statusPronto,
           style: TextStyle(
@@ -33,7 +30,7 @@ class OrderCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 18),
         );
-      } else if (status == OrderStatus.ENTREGUE.value) {
+      } else if (status == OrderStatus.entregue.value) {
         return const Text(
           Constant.statusEntregue,
           style: TextStyle(

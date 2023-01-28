@@ -1,12 +1,13 @@
 import 'package:comcer_app/controller/order_pad_controller.dart';
 import 'package:comcer_app/core/core.dart';
-import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order.dart';
-import 'package:comcer_app/dominio/models/order_pad.dart';
-import 'package:comcer_app/dominio/models/table_model.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../enum/order_status.dart';
+import '../model/api_response.dart';
+import '../model/order.dart';
+import '../model/order_pad.dart';
+import '../model/table.dart';
 
 class OrderPadScreen extends StatefulWidget {
   final Mesa table;
@@ -95,9 +96,9 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     int lengthProduct = 0;
     int lengthOrder = 0;
     for (var pedido in orderPad.listaPedidos) {
-      for (var produto in pedido.pedidosDoProduto) {
-        if (produto.status == OrderStatus.ENTREGUE.value ||
-            produto.status == OrderStatus.CANCELADO.value) {
+      for (var produto in pedido.produtosDoPedido) {
+        if (produto.status == OrderStatus.entregue.value ||
+            produto.status == OrderStatus.cancelado.value) {
           lengthProduct = lengthProduct;
         } else {
           lengthProduct++;
@@ -120,8 +121,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   bool orderWasCancelled(Order order) {
     bool validation = false;
     int lengthProduct = 0;
-    for (var produto in order.pedidosDoProduto) {
-      if (produto.status == OrderStatus.CANCELADO.value) {
+    for (var produto in order.produtosDoPedido) {
+      if (produto.status == OrderStatus.cancelado.value) {
         lengthProduct = lengthProduct;
       } else {
         lengthProduct++;
@@ -267,7 +268,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                   : "")),
                           children: comandas[0]
                               .listaPedidos[index]
-                              .pedidosDoProduto
+                              .produtosDoPedido
                               .map((e) => Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -279,14 +280,14 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                Constant.produto + e.produto.nome,
+                                                Constant.produto + e.product.nome,
                                                 style: e.status ==
-                                                        OrderStatus.CANCELADO.value
+                                                        OrderStatus.cancelado.value
                                                     ? AppStyles.size14DarkRedRegular
                                                         .copyWith(
                                                             decoration: e.status ==
                                                                     OrderStatus
-                                                                        .CANCELADO
+                                                                        .cancelado
                                                                         .value
                                                                 ? TextDecoration
                                                                     .lineThrough
@@ -295,7 +296,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                         .copyWith(
                                                             decoration: e.status ==
                                                                     OrderStatus
-                                                                        .CANCELADO
+                                                                        .cancelado
                                                                         .value
                                                                 ? TextDecoration
                                                                     .lineThrough
@@ -307,12 +308,12 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                               Constant.quantidade +
                                                   e.quantidade.toString(),
                                               style: e.status ==
-                                                      OrderStatus.CANCELADO.value
+                                                      OrderStatus.cancelado.value
                                                   ? AppStyles.size14DarkRedRegular
                                                       .copyWith(
                                                           decoration: e.status ==
                                                                   OrderStatus
-                                                                      .CANCELADO
+                                                                      .cancelado
                                                                       .value
                                                               ? TextDecoration
                                                                   .lineThrough
@@ -321,7 +322,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                                       .copyWith(
                                                           decoration: e.status ==
                                                                   OrderStatus
-                                                                      .CANCELADO
+                                                                      .cancelado
                                                                       .value
                                                               ? TextDecoration
                                                                   .lineThrough
@@ -331,12 +332,12 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                                           ],
                                         ),
                                         Text(valorTotalDoProduto(e.quantidade, e.valorUnitario), style: e.status ==
-                                        OrderStatus.CANCELADO.value
+                                        OrderStatus.cancelado.value
                                         ? AppStyles.size14DarkRedRegular
                                             .copyWith(
                                         decoration: e.status ==
                                         OrderStatus
-                                            .CANCELADO
+                                            .cancelado
                                             .value
                                         ? TextDecoration
                                             .lineThrough
@@ -345,7 +346,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                               .copyWith(
                           decoration: e.status ==
                           OrderStatus
-                              .CANCELADO
+                              .cancelado
                               .value
                           ? TextDecoration
                               .lineThrough

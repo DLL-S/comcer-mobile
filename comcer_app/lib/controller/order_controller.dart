@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:comcer_app/environment_config.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order_view.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:comcer_app/util/util.dart';
 import 'package:http/http.dart' as http;
+import '../model/api_response.dart';
+import '../model/order_view.dart';
+
 
 class OrderController {
   //Listar Pedidos
@@ -22,7 +22,7 @@ class OrderController {
             final jsonData = jsonDecode(Utf8Decoder().convert(data.bodyBytes));
             var apiResponse = OrderView.empty();
 
-            apiResponse = OrderView.fromJsonResponse(jsonData);
+            apiResponse = OrderView.fromJson(jsonData);
 
             return APIResponse<OrderView>(data: apiResponse);
           } else if (data.statusCode == 204) {

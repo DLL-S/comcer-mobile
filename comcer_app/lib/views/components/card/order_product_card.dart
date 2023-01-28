@@ -1,10 +1,10 @@
-
 import 'package:comcer_app/core/core.dart';
-import 'package:comcer_app/dominio/models/order_product.dart';
 import 'package:comcer_app/views/shared/icon_button/custom_icon_button.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../model/order_product.dart';
 
 class OrderProductCard extends StatelessWidget {
   const OrderProductCard({Key? key, required this.orderProduct})
@@ -23,12 +23,12 @@ class OrderProductCard extends StatelessWidget {
             children: [
               Expanded(
                   child: Padding(
-                padding: EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(left: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      orderProduct.produto.nome,
+                      orderProduct.product.nome,
                       style: AppStyles.size14BlackBold,
                     ),
                     const SizedBox(
@@ -44,7 +44,7 @@ class OrderProductCard extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'R\$${orderProduct.produto.preco.toStringAsFixed(2).replaceAll(".", ",")}',
+                          'R\$${orderProduct.product.preco.toStringAsFixed(2).replaceAll(".", ",")}',
                           style: AppStyles.size14BlackBold,
                         ),
                       ],

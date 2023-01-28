@@ -4,9 +4,6 @@ import 'package:comcer_app/controller/user_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_imagens.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/user.dart';
-import 'package:comcer_app/dominio/enum/environment.dart';
 import 'package:comcer_app/environment_config.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:comcer_app/util/constants.dart';
@@ -15,6 +12,10 @@ import 'package:comcer_app/util/util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../enum/environment.dart';
+import '../model/api_response.dart';
+import '../model/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -122,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (email!.isEmpty) {
                                 return Constant.emailVazio;
                               } else if (EnvironmentConfig.environmentBuild ==
-                                      Environments.PRODUCAO &&
+                                      Environments.producao &&
                                   !isEmailValid(email)) {
                                 return Constant.emailInvalido;
                               } else {

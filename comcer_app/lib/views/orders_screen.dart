@@ -1,15 +1,15 @@
 import 'package:comcer_app/controller/order_controller.dart';
 import 'package:comcer_app/core/app_colors.dart';
 import 'package:comcer_app/core/app_styles.dart';
-import 'package:comcer_app/dominio/enum/order_status.dart';
-import 'package:comcer_app/dominio/models/api_response.dart';
-import 'package:comcer_app/dominio/models/order_view.dart';
 import 'package:comcer_app/views/components/card/order_in_progress_card/order_card.dart';
 import 'package:comcer_app/views/products_of_order_screen.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import '../enum/order_status.dart';
+import '../model/api_response.dart';
+import '../model/order_view.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     _apiResponse = await orderController.listarPedidos();
     if (_apiResponse.data != null) {
       orders = _apiResponse.data!.resultados as List<OrderView>;
-      orders = orders.where((element) => element.statusDoPedido != OrderStatus.ENTREGUE.value).toList();
+      orders = orders.where((element) => element.statusDoPedido != OrderStatus.entregue.value).toList();
     } else if (_apiResponse.error!) {
       hideLoading();
     }
