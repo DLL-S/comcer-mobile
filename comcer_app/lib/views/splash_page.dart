@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:comcer_app/design/cc_images.dart';
 import 'package:comcer_app/service/prefs_service.dart';
 import 'package:flutter/material.dart';

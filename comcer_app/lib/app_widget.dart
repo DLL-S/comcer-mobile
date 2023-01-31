@@ -1,12 +1,12 @@
 import 'package:comcer_app/controller/order_resume_controller.dart';
 import 'package:comcer_app/design/core.dart';
 import 'package:comcer_app/service/prefs_service.dart';
+import 'package:comcer_app/splash/view/splash_view.dart';
 import 'package:comcer_app/views/base_screen.dart';
 import 'package:comcer_app/views/home_screen.dart';
 import 'package:comcer_app/views/login_screen.dart';
 import 'package:comcer_app/views/order_resume_screen.dart';
 import 'package:comcer_app/views/orders_screen.dart';
-import 'package:comcer_app/views/splash_page.dart';
 import 'package:comcer_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class AppWidget extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: const SplashPage(),
+        home: const SplashView(),
         title: Constant.title,
         theme: ThemeData(
           fontFamily: 'Roboto',
